@@ -1,0 +1,23 @@
+### Redis keys available on the system at time of read operation ###
+I polled our current active keys on our Redis server in the morning. We had approximately 5000 keys. 
+The patterns of all keys can be summarized by the following list:
+
+{STR_ID}_{GUID}_{GUID} **
+{GUID}_{GUID}_{GUID} **
+{GUID} **
+IsFeatureActive#ad_emit_events#{INT_ID}
+IsFeatureActive#autoschedule#{INT_ID}
+IsFeatureActive#dealassetstatus#{INT_ID}
+IsFeatureActive#deliverymodule#{INT_ID}
+IsFeatureActive#enabletags#{INT_ID}
+IsFeatureActive#enforceassetavailability#{INT_ID}
+IsFeatureActive#eventsmodule#{INT_ID}
+IsFeatureActive#extendedseason#{INT_ID}
+KonnectOrganization#{STR_ID}
+KonnectOrganization#{GUID}
+KonnectOrganizationData#{INT_ID}
+KoreSetting#UnallocatedRevenueProperty#{GUID}
+tableauconfig#{INT_ID}
+UsersCommentsOrganization#{STR_ID}
+
+** These three patterns made for approximately 4800 of the key's on the list. 
