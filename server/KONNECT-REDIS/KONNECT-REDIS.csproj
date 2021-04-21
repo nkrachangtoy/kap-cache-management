@@ -5,5 +5,13 @@
     <RootNamespace>KONNECT_REDIS</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StackExchange.Redis" Version="2.2.4" />
+  </ItemGroup>
+
 
 </Project>
