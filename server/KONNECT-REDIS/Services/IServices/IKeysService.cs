@@ -7,6 +7,6 @@ namespace KONNECT_REDIS.Services.IServices
 {
     public interface IKeysService
     {
-        string Test();
+        ICollection<string> GetAllKeys();
     }
 }

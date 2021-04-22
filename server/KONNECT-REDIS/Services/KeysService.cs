@@ -18,9 +18,10 @@ namespace KONNECT_REDIS.Services
             _db = _multiplexer.GetDatabase();
         }
 
-        public string Test()
+        public ICollection<string> GetAllKeys()
         {
-            return "Success";
+            throw new NotImplementedException();
         }
+
     }
 }

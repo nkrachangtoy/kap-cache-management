@@ -20,14 +20,13 @@ namespace KONNECT_REDIS.Controllers
         }
 
         /// <summary>
-        /// This is a sample documentation
+        /// Retrieve list of all keys in db
         /// </summary>
-        ///  <param name="id"> The id of something </param>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult GetAllKeys()
         {
-            var res = _keysService.Test();
+            var res = _keysService.GetAllKeys();
 
             return Ok(res); 
         }
