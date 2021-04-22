@@ -4,11 +4,10 @@
         <name>KONNECT-REDIS</name>
     </assembly>
     <members>
-        <member name="M:KONNECT_REDIS.Controllers.KeysController.Index">
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.GetAllKeys">
             <summary>
-            This is a sample documentation
+            Retrieve list of all keys in db
             </summary>
-             <param name="id"> The id of something </param>
             <returns></returns>
         </member>
     </members>

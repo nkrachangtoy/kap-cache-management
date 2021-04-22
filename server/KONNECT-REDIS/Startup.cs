@@ -37,6 +37,8 @@ namespace KONNECT_REDIS
             // Register KeyService
             services.AddScoped<IKeysService, KeysService>();
 
+            services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
             // Configure Swagger
             services.AddSwaggerGen(options => {
                 options.SwaggerDoc("KonnectAPI",

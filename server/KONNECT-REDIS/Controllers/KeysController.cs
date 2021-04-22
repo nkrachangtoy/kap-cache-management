@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KONNECT_REDIS.Models;
 using KONNECT_REDIS.Services.IServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,16 +21,28 @@ namespace KONNECT_REDIS.Controllers
         }
 
         /// <summary>
-        /// This is a sample documentation
+        /// Retrieve list of all keys in db
         /// </summary>
-        ///  <param name="id"> The id of something </param>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Index()
+        [ProducesResponseType(200, Type = typeof(ICollection<Key>))]
+        public IActionResult GetAllKeys()
         {
-            var res = _keysService.Test();
+            try
+            {
+                var res = _keysService.GetAllKeys();
 
-            return Ok(res); 
+                if (res == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(res);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }     
         }
     }
 }
