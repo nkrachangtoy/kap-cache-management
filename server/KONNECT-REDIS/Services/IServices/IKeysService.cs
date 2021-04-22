@@ -9,5 +9,7 @@ namespace KONNECT_REDIS.Services.IServices
     public interface IKeysService
     {
         ICollection<Key> GetAllKeys();
+
+        ICollection<Key> GetKeyByQuery(string);
     }
 }

@@ -47,5 +47,10 @@ namespace KONNECT_REDIS.Services
                     .OrderBy(k => k.Field1)
                     .ToList();
         }
+
+        public ICollection<Key> GetKeyByQuery(string)
+        {
+
+        }
     }
 }

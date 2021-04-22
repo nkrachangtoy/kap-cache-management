@@ -44,5 +44,26 @@ namespace KONNECT_REDIS.Controllers
                 return BadRequest(e);
             }     
         }
+
+        [HttpGet]
+        [ProducesResponseType(200, Type = typeof(ICollection<Key>))]
+        public IActionResult GetKeyByQuery(string)
+        {
+            try
+            {
+                var res = _keysService.GetKeyByQuery(: String);
+
+                if (res == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(res);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
     }
 }
