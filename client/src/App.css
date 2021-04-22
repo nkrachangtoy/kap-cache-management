@@ -1,14 +1,45 @@
-#sidenav {
+.App {
+  display: flex;
+}
+
+.sidenav {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   height: 100vh;
-  width: 75px;
+  width: 70px;
   background-color: #0484d3;
 }
 
 .sidenav__icon {
   margin: 20% 0 20% 0;
   color: white;
+}
+
+.toolbar {
+  width: 100%;
+  /* background-color: blueviolet; */
+  padding: 1%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  padding: 0 3%;
+}
+
+.search__input {
+  /* margin: 0 1%; */
+}
+
+.main {
+  width: 100%;
+}
+
+.main__grid {
+  margin: 2%;
+  /* height: 100%; m */
 }

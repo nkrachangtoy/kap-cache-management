@@ -4,7 +4,7 @@ import PersonIcon from '@material-ui/icons/Person';
 
 const SideNav = () => {
   return (
-    <div id='sidenav'>
+    <div className='sidenav'>
       <MenuIcon className='sidenav__icon' />
       <PersonIcon className='sidenav__icon' />
     </div>
