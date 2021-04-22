@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KONNECT_REDIS.Services;
+using KONNECT_REDIS.Services.IServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +33,9 @@ namespace KONNECT_REDIS
             // Configure Redis Connection
             services.AddSingleton<IConnectionMultiplexer>(
                ConnectionMultiplexer.Connect("localhost:6379,allowAdmin=true"));
+
+            // Register KeyService
+            services.AddScoped<IKeysService, KeysService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
