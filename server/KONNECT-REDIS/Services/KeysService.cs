@@ -1,4 +1,5 @@
-﻿using KONNECT_REDIS.Services.IServices;
+﻿using KONNECT_REDIS.Models;
+using KONNECT_REDIS.Services.IServices;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
@@ -18,13 +19,26 @@ namespace KONNECT_REDIS.Services
             _db = _multiplexer.GetDatabase();
         }
 
-        public ICollection<string> GetAllKeys()
+        public ICollection<Key> GetAllKeys()
         {
             var keys = _multiplexer.GetServer("localhost", 6379).Keys();
 
-            string[] keysArr = keys.Select(key => (string)key).ToArray();
+            var keyList = new List<Key>();
 
-            return keysArr;
+            foreach (var key in keys)
+            {
+                var keyObj = new Key { Text = key };
+
+                keyList.Add(keyObj);
+            }
+
+            //string[] keysArr = keys
+            //                    .Select(key => (string)key)
+            //                    .ToArray();
+
+            return keyList
+                .OrderBy(k => k.Text)
+                .ToList();
         }
 
     }
