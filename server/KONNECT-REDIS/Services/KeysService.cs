@@ -36,7 +36,7 @@ namespace KONNECT_REDIS.Services
 
                 var f1 = keyString.Split("#")[0];
                 var f2 = keyString.Split("#")[1];
-                var f3 = keyString.Split("#")[2] != null ? keyString.Split("#")[2] : "";
+                var f3 = keyString.Split("#").Length == 3 ? keyString.Split("#")[2] : "";
 
                 var keyObj = new Key { Field1 = f1, Field2 = f2, Field3 = f3};
 
