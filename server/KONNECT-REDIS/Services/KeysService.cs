@@ -20,7 +20,11 @@ namespace KONNECT_REDIS.Services
 
         public ICollection<string> GetAllKeys()
         {
-            throw new NotImplementedException();
+            var keys = _multiplexer.GetServer("localhost", 6379).Keys();
+
+            string[] keysArr = keys.Select(key => (string)key).ToArray();
+
+            return keysArr;
         }
 
     }
