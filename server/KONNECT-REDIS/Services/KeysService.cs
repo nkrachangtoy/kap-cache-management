@@ -27,17 +27,23 @@ namespace KONNECT_REDIS.Services
 
             foreach (var key in keys)
             {
-                var keyObj = new Key { field1 = key, field2 };
+
+                // ex key: IsFeatureActive#ad_emit_events#1
+                // f1 === IsFeatureActive
+                // f2 === ad_emit_event
+                // f3 === 1
+
+                var f1 = "fdsf";
+                var f2 = "fdsfsdf";
+                var f3 = "fsdfsdf";
+
+                var keyObj = new Key { Field1 = f1, Field2 = f2, Field3 = f3};
 
                 keyList.Add(keyObj);
             }
 
-            //string[] keysArr = keys
-            //                    .Select(key => (string)key)
-            //                    .ToArray();
-
             return keyList
-                .OrderBy(k => k.field1)
+                .OrderBy(k => k.Field1)
                 .ToList();
         }
 
