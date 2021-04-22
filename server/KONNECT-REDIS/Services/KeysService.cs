@@ -27,7 +27,7 @@ namespace KONNECT_REDIS.Services
 
             foreach (var key in keys)
             {
-                var keyObj = new Key { Text = key };
+                var keyObj = new Key { field1 = key, field2 };
 
                 keyList.Add(keyObj);
             }
@@ -37,7 +37,7 @@ namespace KONNECT_REDIS.Services
             //                    .ToArray();
 
             return keyList
-                .OrderBy(k => k.Text)
+                .OrderBy(k => k.field1)
                 .ToList();
         }
 
