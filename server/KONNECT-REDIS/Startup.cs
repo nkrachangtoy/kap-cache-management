@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using StackExchange.Redis;
 
 namespace KONNECT_REDIS
 {
@@ -26,6 +27,10 @@ namespace KONNECT_REDIS
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            // Configure Redis Connection
+            services.AddSingleton<IConnectionMultiplexer>(
+               ConnectionMultiplexer.Connect("localhost:6379,allowAdmin=true"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
