@@ -19,6 +19,11 @@ namespace KONNECT_REDIS.Controllers
             _keysService = keysService;
         }
 
+        /// <summary>
+        /// This is a sample documentation
+        /// </summary>
+        ///  <param name="id"> The id of something </param>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Index()
         {
