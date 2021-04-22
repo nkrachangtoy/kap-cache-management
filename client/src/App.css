@@ -31,10 +31,6 @@
   padding: 0 3%;
 }
 
-.search__input {
-  /* margin: 0 1%; */
-}
-
 .main {
   width: 100%;
 }
@@ -42,4 +38,10 @@
 .main__grid {
   margin: 2%;
   /* height: 100%; m */
+}
+
+.grid {
+  width: 600px;
+  height: 400px;
+  margin: 0 2%;
 }

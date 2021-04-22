@@ -1,14 +1,13 @@
 import React from 'react';
 import { Paper } from '@material-ui/core';
 import Toolbar from './Toolbar';
+import Grid from './Grid';
 
 const Main = () => {
   return (
     <div className='main'>
       <Toolbar />
-      <Paper className='main__grid'>
-        <h1>hello</h1>
-      </Paper>
+      <Grid />
     </div>
   );
 };
