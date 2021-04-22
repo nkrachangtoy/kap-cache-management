@@ -41,7 +41,8 @@
 }
 
 .grid {
-  width: 600px;
-  height: 400px;
+  /* this needs to be updated to be responsive */
+  /* width: calc(100% - 70px); */
+  height: calc(100% - 120px);
   margin: 0 2%;
 }
