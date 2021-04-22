@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>KONNECT-REDIS</name>
+    </assembly>
+    <members>
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.Index">
+            <summary>
+            This is a sample documentation
+            </summary>
+             <param name="id"> The id of something </param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
