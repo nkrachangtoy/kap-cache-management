@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KONNECT_REDIS.Models;
 using KONNECT_REDIS.Services.IServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,7 @@ namespace KONNECT_REDIS.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(200, Type = typeof(ICollection<string>))]
+        [ProducesResponseType(200, Type = typeof(ICollection<Key>))]
         public IActionResult GetAllKeys()
         {
             try
