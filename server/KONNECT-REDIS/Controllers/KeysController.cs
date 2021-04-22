@@ -24,11 +24,24 @@ namespace KONNECT_REDIS.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(200, Type = typeof(ICollection<string>))]
         public IActionResult GetAllKeys()
         {
-            var res = _keysService.GetAllKeys();
+            try
+            {
+                var res = _keysService.GetAllKeys();
 
-            return Ok(res); 
+                if (res == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(res);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }     
         }
     }
 }
