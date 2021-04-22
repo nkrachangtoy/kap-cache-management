@@ -1,34 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import { getAllKeys } from '../network/network';
+import { Button } from '@material-ui/core';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
-import { Button } from '@material-ui/core';
+
+interface IColumnDef {
+  headerName: string;
+  field: string;
+  sortable?: boolean;
+  filter?: boolean;
+}
+
+interface IRowData {
+  //field1: string etc.
+}
 
 const Grid = () => {
-  const [gridApi, setGridApi] = useState(null);
-  const [gridColumnApi, setGridColumnApi] = useState(null);
-  const [rowData, setRowData] = useState([]);
-  const [columnDefs, setColumnDefs] = useState([
-    { headerName: 'ID', field: 'id', sortable: true, filter: true },
+  const [gridApi, setGridApi] = useState<null | {}>(null);
+  // const [gridColumnApi, setGridColumnApi] = useState(null);
+  const [rowData, setRowData] = useState<Array<IRowData>>([]);
+  const [columnDefs] = useState<Array<IColumnDef>>([
     {
-      headerName: 'First Name',
-      field: 'first_name',
+      headerName: 'Field 1',
+      field: 'field1',
       sortable: true,
       filter: true,
     },
     {
-      headerName: 'Last Name',
-      field: 'last_name',
+      headerName: 'Field 2',
+      field: 'field2',
       sortable: true,
       filter: true,
     },
-    { headerName: 'Email', field: 'email', sortable: true, filter: true },
+    { headerName: 'Field 3', field: 'field3', sortable: true, filter: true },
   ]);
 
-  const handleGetSelectedRows = () => {
-    console.log();
-  };
+  // const handleGetSelectedRows = () => {
+  //   const selectedNodes = gridApi.getSelectedNodes();
+  //   const selectedData = selectedNodes.map((node) => node.data);
+  //   const selectedDataStringPresentation = selectData
+  //     .map((node) => node.first_name + ' ' + node.last_name)
+  //     .join(', ');
+  //   alert(`You selected the following rows: ${selectedDataStringPresentation}`);
+  //   // console.log();
+  // };
 
   useEffect(() => {
     (async () => {
@@ -39,11 +55,15 @@ const Grid = () => {
 
   return (
     <div className='ag-theme-balham grid'>
-      <Button onClick={handleGetSelectedRows}>Get selected rows</Button>
+      {/* <Button onClick={handleGetSelectedRows}>Get selected rows</Button> */}
       <AgGridReact
         columnDefs={columnDefs}
         rowData={rowData}
         rowSelection='multiple'
+        onGridReady={(params) => {
+          setGridApi(params.api);
+          console.log('PARAMS', params.api);
+        }}
       />
     </div>
   );

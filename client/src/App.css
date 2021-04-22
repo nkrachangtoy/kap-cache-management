@@ -20,7 +20,7 @@
 .toolbar {
   width: 100%;
   /* background-color: blueviolet; */
-  padding: 1%;
+  padding: 10px;
   display: flex;
   justify-content: flex-end;
 }
@@ -43,6 +43,6 @@
 .grid {
   /* this needs to be updated to be responsive */
   /* width: calc(100% - 70px); */
-  height: calc(100% - 120px);
+  height: calc(100% - 68px);
   margin: 0 2%;
 }
