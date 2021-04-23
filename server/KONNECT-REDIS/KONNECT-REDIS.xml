@@ -8,7 +8,17 @@
             <summary>
             Retrieve list of all keys in db
             </summary>
+            <param name="pageNumber">Page number</param>
             <returns></returns>
+        </member>
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.DeleteKey(System.String,System.String,System.String)">
+            <summary>
+            Delete a key
+            </summary>
+            <param name="keyName"></param>
+            <param name="orgId"></param>
+            <param name="subset">(optional)</param>
+            <returns>True/False if key delete was success</returns>
         </member>
         <member name="M:KONNECT_REDIS.Services.KeysService.GetAllKeys(System.Nullable{System.Int32})">
             <summary>
