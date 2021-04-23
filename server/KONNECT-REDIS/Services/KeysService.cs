@@ -76,7 +76,7 @@ namespace KONNECT_REDIS.Services
         /// <returns>True/False if key delete was success</returns>
         public bool DeleteKey(string keyName, string orgId, string subset = "")
         {
-            if (subset == "")
+            if (subset.Equals(""))
             {
                 return _db.KeyDelete($"{keyName}#{orgId}");
             }
