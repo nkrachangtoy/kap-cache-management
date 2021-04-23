@@ -29,6 +29,7 @@ namespace KONNECT_REDIS
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddCors();
 
             // Configure Redis Connection
             services.AddSingleton<IConnectionMultiplexer>(
@@ -70,6 +71,9 @@ namespace KONNECT_REDIS
             });
 
             app.UseRouting();
+
+            // Configure Cors, Authentication and Authorization            
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseAuthorization();
 
