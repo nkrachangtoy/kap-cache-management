@@ -1,20 +1,18 @@
 import React from 'react';
 import SearchIcon from '@material-ui/icons/Search';
-import FilterListIcon from '@material-ui/icons/FilterList';
 import { Button, InputAdornment, TextField } from '@material-ui/core';
 import SideDrawer from './SideDrawer';
+import Pagination from './Pagination';
 
 const Toolbar = () => {
   return (
     <div className='toolbar'>
-      <SideDrawer />
-      <Button variant='outlined'>
-        <FilterListIcon />
-      </Button>
+      <Pagination />
+      {/* <SideDrawer /> */}
       <div className='search'>
         <TextField
           variant='filled'
-          placeholder='search'
+          placeholder='search with Redis query'
           size='small'
           InputProps={{
             endAdornment: (
