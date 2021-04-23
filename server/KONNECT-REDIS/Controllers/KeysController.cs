@@ -52,7 +52,7 @@ namespace KONNECT_REDIS.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("[controller]/Query")]
+        [Route("Query")]
         [ProducesResponseType(200, Type = typeof(ICollection<Key>))]
         public IActionResult GetKeyByQuery(string pattern)
         {
