@@ -12,5 +12,6 @@ namespace KONNECT_REDIS.Services.IServices
         ICollection<Key> GetKeyByQuery(string pattern, int? pageNumber);
 
         bool BatchDeleteKeysByQuery(string pattern);
+        bool DeleteKey(string keyName, string orgId, string subset = "");
     }
 }
