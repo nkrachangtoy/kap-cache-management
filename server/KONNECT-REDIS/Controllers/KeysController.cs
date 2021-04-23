@@ -26,11 +26,11 @@ namespace KONNECT_REDIS.Controllers
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(ICollection<Key>))]
-        public IActionResult GetAllKeys()
+        public IActionResult GetAllKeys(int pageNumber)
         {
             try
             {
-                var res = _keysService.GetAllKeys();
+                var res = _keysService.GetAllKeys(pageNumber);
 
                 if (res == null)
                 {
