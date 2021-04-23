@@ -22,18 +22,18 @@ const Grid = () => {
   const [rowData, setRowData] = useState<Array<IRowData>>([]);
   const [columnDefs] = useState<Array<IColumnDef>>([
     {
-      headerName: 'Field 1',
-      field: 'field1',
+      headerName: 'Key Name',
+      field: 'keyName',
       sortable: true,
       filter: true,
     },
     {
-      headerName: 'Field 2',
-      field: 'field2',
+      headerName: 'Subset',
+      field: 'subset',
       sortable: true,
       filter: true,
     },
-    { headerName: 'Field 3', field: 'field3', sortable: true, filter: true },
+    { headerName: 'OrgId', field: 'orgId', sortable: true, filter: true },
   ]);
 
   // const handleGetSelectedRows = () => {
