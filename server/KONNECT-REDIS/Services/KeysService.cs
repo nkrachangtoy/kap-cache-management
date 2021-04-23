@@ -104,5 +104,15 @@ namespace KONNECT_REDIS.Services
                 .OrderBy(k => k.KeyName)
                 .ToList();
         }
+
+        public bool BatchDeleteKeysByQuery(string pattern)
+        {
+            foreach (var key in _db)
+            {
+                var server = _muxer.GetServer(ep);
+                var keys = server.Keys(database: _redisDatabase, pattern: pattern + "*").ToArray();
+                _db.KeyDeleteAsync(keys);
+            }
+        }
     }
 }
