@@ -10,5 +10,20 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:KONNECT_REDIS.Services.KeysService.GetAllKeys">
+            <summary>
+            Retrieve All keys
+            </summary>
+            <returns>List of Keys</returns>
+        </member>
+        <member name="M:KONNECT_REDIS.Services.KeysService.DeleteKey(System.String,System.String,System.String)">
+            <summary>
+            Delete key
+            </summary>
+            <param name="keyName"></param>
+            <param name="orgId"></param>
+            <param name="subset">(optional)</param>
+            <returns>True/False if key delete was success</returns>
+        </member>
     </members>
 </doc>
