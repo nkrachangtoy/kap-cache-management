@@ -1,5 +1,6 @@
 ﻿using KONNECT_REDIS.Models;
 using KONNECT_REDIS.Services.IServices;
+using KONNECT_REDIS.utils;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
@@ -22,8 +23,8 @@ namespace KONNECT_REDIS.Services
         /// <summary>
         /// Retrieve All keys
         /// </summary>
-        /// <returns>List of Keys</returns>
-        public ICollection<Key> GetAllKeys()
+       /// <returns>List of Keys</returns>
+       public ICollection<Key> GetAllKeys(int? pageNumber)
         {
             var keys = _multiplexer.GetServer("localhost", 6379).Keys();
             
@@ -57,6 +58,9 @@ namespace KONNECT_REDIS.Services
                     keyList.Add(keyObj);
                 }
             }
+
+            int pageSize = 15;
+            keyList = Paginate<Key>.Create(keyList.AsQueryable(), pageNumber ?? 1, pageSize);
 
             return keyList
                     .OrderBy(k => k.KeyName)

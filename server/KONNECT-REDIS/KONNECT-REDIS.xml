@@ -4,13 +4,13 @@
         <name>KONNECT-REDIS</name>
     </assembly>
     <members>
-        <member name="M:KONNECT_REDIS.Controllers.KeysController.GetAllKeys">
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.GetAllKeys(System.Int32)">
             <summary>
             Retrieve list of all keys in db
             </summary>
             <returns></returns>
         </member>
-        <member name="M:KONNECT_REDIS.Services.KeysService.GetAllKeys">
+        <member name="M:KONNECT_REDIS.Services.KeysService.GetAllKeys(System.Nullable{System.Int32})">
             <summary>
             Retrieve All keys
             </summary>
