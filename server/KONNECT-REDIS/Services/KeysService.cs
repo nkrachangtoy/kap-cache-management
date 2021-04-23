@@ -64,7 +64,7 @@ namespace KONNECT_REDIS.Services
                     .ToList();
         }
 
-        public ICollection<Key> GetKeyByQuery(string pattern)
+        public ICollection<Key> GetKeyByQuery(string pattern, int? pageNumber)
         {
             var server = _multiplexer.GetServer("localhost", 6379);
 
@@ -95,6 +95,11 @@ namespace KONNECT_REDIS.Services
                 }
             }
 
+            // Paginate
+
+            int pageSize = 15;
+            keyList = Paginate<Key>.Create(keyList.AsQueryable(), pageNumber ?? 1, pageSize);
+            
             return keyList
                 .OrderBy(k => k.KeyName)
                 .ToList();
