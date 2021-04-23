@@ -39,7 +39,7 @@ namespace KONNECT_REDIS.Services
                     var f2 = keyString.Split("#")[1];
                     var f3 = keyString.Split("#")[2];
 
-                    var keyObj = new Key { Field1 = f1, Field2 = f2, Field3 = f3 };
+                    var keyObj = new Key { KeyName = f1, Subset = f2, OrgId = f3 };
 
                     keyList.Add(keyObj);
                 }
@@ -48,13 +48,13 @@ namespace KONNECT_REDIS.Services
                     var f1 = keyString.Split("#")[0];
                     var f3 = keyString.Split("#")[1];
                    
-                    var keyObj = new Key { Field1 = f1, Field2 = "", Field3 = f3 };
+                    var keyObj = new Key { KeyName = f1, Subset = "", OrgId = f3 };
 
                     keyList.Add(keyObj);
                 }
             }
             return keyList
-                    .OrderBy(k => k.Field1)
+                    .OrderBy(k => k.KeyName)
                     .ToList();
         }
     }

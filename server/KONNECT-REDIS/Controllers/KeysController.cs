@@ -26,6 +26,7 @@ namespace KONNECT_REDIS.Controllers
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(ICollection<Key>))]
+        [ProducesResponseType(404)]
         public IActionResult GetAllKeys()
         {
             try
