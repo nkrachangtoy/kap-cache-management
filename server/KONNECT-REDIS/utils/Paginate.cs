@@ -36,5 +36,14 @@ namespace KONNECT_REDIS.utils
                 return PageIndex < TotalPages;
             }
         }
+
+        public static Paginate<T> Create(IQueryable<T> source, int pageIndex, int pageSize)
+        {
+            var count = source.Count();
+            // This statement will Skip the x amount of item in the current page when load the next page
+            var items = source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+
+            return new Paginate<T>(items, count, pageIndex, pageSize);
+        }
     }
 }
