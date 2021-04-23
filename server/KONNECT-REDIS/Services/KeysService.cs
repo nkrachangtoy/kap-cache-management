@@ -63,5 +63,41 @@ namespace KONNECT_REDIS.Services
                     .OrderBy(k => k.KeyName)
                     .ToList();
         }
+
+        public ICollection<Key> GetKeyByQuery(string pattern)
+        {
+            var server = _multiplexer.GetServer("localhost", 6379);
+
+            var keyList = new List<Key>();
+
+            foreach (var key in server.Keys(pattern: pattern))
+            {
+                var keyString = key.ToString();
+
+                if (keyString.Split("#").Length == 3)
+                {
+                    var f1 = keyString.Split("#")[0];
+                    var f2 = keyString.Split("#")[1];
+                    var f3 = keyString.Split("#")[2];
+
+                    var keyObj = new Key { KeyName = f1, Subset = f2, OrgId = f3 };
+
+                    keyList.Add(keyObj);
+                }
+                else
+                {
+                    var f1 = keyString.Split("#")[0];
+                    var f3 = keyString.Split("#")[1];
+
+                    var keyObj = new Key { KeyName = f1, Subset = "", OrgId = f3 };
+
+                    keyList.Add(keyObj);
+                }
+            }
+
+            return keyList
+                .OrderBy(k => k.KeyName)
+                .ToList();
+        }
     }
 }
