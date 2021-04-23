@@ -8,6 +8,6 @@ namespace KONNECT_REDIS.Services.IServices
 {
     public interface IKeysService
     {
-        ICollection<Key> GetAllKeys(int pageNumber);
+        ICollection<Key> GetAllKeys(int? pageNumber);
     }
 }
