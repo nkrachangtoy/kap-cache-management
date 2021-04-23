@@ -53,9 +53,23 @@ namespace KONNECT_REDIS.Services
                     keyList.Add(keyObj);
                 }
             }
+
             return keyList
                     .OrderBy(k => k.KeyName)
                     .ToList();
         }
+
+        public bool DeleteKey(string keyName, string orgId, string subset = "")
+        {
+            if (subset == "")
+            {
+                return _db.KeyDelete($"{keyName}#{orgId}");
+            }
+            else
+            {
+                return _db.KeyDelete($"{keyName}#{subset}#{orgId}");
+            }
+        }
+
     }
 }

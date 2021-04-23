@@ -9,5 +9,6 @@ namespace KONNECT_REDIS.Services.IServices
     public interface IKeysService
     {
         ICollection<Key> GetAllKeys();
+        bool DeleteKey(string keyName, string orgId, string subset = "");
     }
 }
