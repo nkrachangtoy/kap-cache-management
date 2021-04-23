@@ -10,6 +10,6 @@ namespace KONNECT_REDIS.Services.IServices
     {
         ICollection<Key> GetAllKeys();
 
-        ICollection<Key> GetKeyByQuery(string);
+        ICollection<Key> GetKeyByQuery();
     }
 }
