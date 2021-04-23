@@ -96,7 +96,7 @@ namespace KONNECT_REDIS.Services
             }
 
             return keyList
-                .OrderBy(k => k.OrgId)
+                .OrderBy(k => k.KeyName)
                 .ToList();
         }
     }

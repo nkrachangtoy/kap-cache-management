@@ -48,13 +48,14 @@ namespace KONNECT_REDIS.Controllers
         }
 
         /// <summary>
-        /// Retrieves a list of keys according to a pattern 
+        /// Retrieves a list of keys according to a Redis key pattern 
         /// </summary>
+        /// <param name="pattern">A Redis key pattern</param>
         /// <returns></returns>
         [HttpGet]
         [Route("Query")]
         [ProducesResponseType(200, Type = typeof(ICollection<Key>))]
-        public IActionResult GetKeyByQuery(string pattern)
+        public IActionResult GetKeyByQuery([FromQuery]string pattern)
         {
             try
             {
