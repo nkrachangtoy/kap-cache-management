@@ -10,7 +10,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:KONNECT_REDIS.Controllers.KeysController.GetKeyByQuery">
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.GetKeyByQuery(System.String)">
             <summary>
             Retrieves a list of keys according to a pattern 
             </summary>

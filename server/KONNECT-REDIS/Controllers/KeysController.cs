@@ -53,11 +53,11 @@ namespace KONNECT_REDIS.Controllers
         [HttpGet]
         [Route("[controller]/Query")]
         [ProducesResponseType(200, Type = typeof(ICollection<Key>))]
-        public IActionResult GetKeyByQuery()
+        public IActionResult GetKeyByQuery(string pattern)
         {
             try
             {
-                var res = _keysService.GetKeyByQuery();
+                var res = _keysService.GetKeyByQuery(pattern);
 
                 if (res == null)
                 {

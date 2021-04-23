@@ -86,13 +86,13 @@ namespace KONNECT_REDIS.Services
         //}
 
 
-        public ICollection<Key> GetKeyByQuery()
+        public ICollection<Key> GetKeyByQuery(string pattern)
         {
             var server = _multiplexer.GetServer("localhost", 6379);
 
             var keyList = new List<Key>();
 
-            foreach (var key in server.Keys(pattern: "IsFeatureActive*"))
+            foreach (var key in server.Keys(pattern: pattern))
             {
                 var keyString = key.ToString();
 
@@ -100,13 +100,13 @@ namespace KONNECT_REDIS.Services
                 var f2 = keyString.Split("#")[1];
                 var f3 = keyString.Split("#").Length == 3 ? keyString.Split("#")[2] : "";
 
-                var keyObj = new Key { Field1 = f1, Field2 = f2, Field3 = f3 };
+                var keyObj = new Key { KeyName = f1, Subset = "", OrgId = f3 };
 
                 keyList.Add(keyObj);
             }
 
             return keyList
-                .OrderBy(k => k.Field1)
+                .OrderBy(k => k.OrgId)
                 .ToList();
         }
     }
