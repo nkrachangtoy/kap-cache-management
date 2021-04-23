@@ -19,6 +19,10 @@ namespace KONNECT_REDIS.Services
             _db = _multiplexer.GetDatabase();
         }
 
+        /// <summary>
+        /// Retrieve All keys
+        /// </summary>
+        /// <returns>List of Keys</returns>
         public ICollection<Key> GetAllKeys()
         {
             var keys = _multiplexer.GetServer("localhost", 6379).Keys();
@@ -59,6 +63,13 @@ namespace KONNECT_REDIS.Services
                     .ToList();
         }
 
+        /// <summary>
+        /// Delete key
+        /// </summary>
+        /// <param name="keyName"></param>
+        /// <param name="orgId"></param>
+        /// <param name="subset">(optional)</param>
+        /// <returns>True/False if key delete was success</returns>
         public bool DeleteKey(string keyName, string orgId, string subset = "")
         {
             if (subset == "")
