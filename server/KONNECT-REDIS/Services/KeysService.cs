@@ -27,24 +27,34 @@ namespace KONNECT_REDIS.Services
 
             foreach (var key in keys)
             {
-
                 // ex key: IsFeatureActive#ad_emit_events#1
                 // f1 === IsFeatureActive
                 // f2 === ad_emit_event
                 // f3? === 1
                 var keyString = key.ToString();
 
-                var f1 = keyString.Split("#")[0];
-                var f2 = keyString.Split("#")[1];
-                var f3 = keyString.Split("#").Length == 3 ? keyString.Split("#")[2] : "";
+                if (keyString.Split("#").Length == 3)
+                {
+                    var f1 = keyString.Split("#")[0];
+                    var f2 = keyString.Split("#")[1];
+                    var f3 = keyString.Split("#")[2];
 
-                var keyObj = new Key { Field1 = f1, Field2 = f2, Field3 = f3};
+                    var keyObj = new Key { KeyName = f1, Subset = f2, OrgId = f3 };
 
-                keyList.Add(keyObj);
+                    keyList.Add(keyObj);
+                }
+                else
+                {
+                    var f1 = keyString.Split("#")[0];
+                    var f3 = keyString.Split("#")[1];
+                   
+                    var keyObj = new Key { KeyName = f1, Subset = "", OrgId = f3 };
+
+                    keyList.Add(keyObj);
+                }
             }
-
             return keyList
-                    .OrderBy(k => k.Field1)
+                    .OrderBy(k => k.KeyName)
                     .ToList();
         }
 
