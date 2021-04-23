@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
+import { getPage } from '../network/network';
 
 
 const Pagination = () => {
     const [pageNum, setPageNum] = useState<number>(1);
 
-    const handlePageNext = () => {
+    const handlePageNext = async() => {
         setPageNum(pageNum + 1)
+        const data = await getPage(pageNum);
     }
 
     const handlePageBack = () => {

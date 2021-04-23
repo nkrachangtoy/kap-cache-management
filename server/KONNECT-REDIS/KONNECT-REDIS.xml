@@ -12,8 +12,9 @@
         </member>
         <member name="M:KONNECT_REDIS.Controllers.KeysController.GetKeyByQuery(System.String)">
             <summary>
-            Retrieves a list of keys according to a pattern 
+            Retrieves a list of keys according to a Redis key pattern 
             </summary>
+            <param name="pattern">A Redis key pattern</param>
             <returns></returns>
         </member>
     </members>
