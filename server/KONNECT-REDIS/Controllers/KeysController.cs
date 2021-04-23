@@ -51,15 +51,16 @@ namespace KONNECT_REDIS.Controllers
         /// Retrieves a list of keys according to a Redis key pattern 
         /// </summary>
         /// <param name="pattern">A Redis key pattern</param>
+        /// <param name="pageNumber">Paginates Search Query</param>
         /// <returns></returns>
         [HttpGet]
         [Route("Query")]
         [ProducesResponseType(200, Type = typeof(ICollection<Key>))]
-        public IActionResult GetKeyByQuery([FromQuery]string pattern)
+        public IActionResult GetKeyByQuery([FromQuery]string pattern, int pageNumber)
         {
             try
             {
-                var res = _keysService.GetKeyByQuery(pattern);
+                var res = _keysService.GetKeyByQuery(pattern, pageNumber);
 
                 if (res == null)
                 {
