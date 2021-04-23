@@ -1,39 +1,45 @@
 <?xml version="1.0"?>
 <doc>
-    <assembly>
-        <name>KONNECT-REDIS</name>
-    </assembly>
-    <members>
-        <member name="M:KONNECT_REDIS.Controllers.KeysController.GetAllKeys(System.Int32)">
-            <summary>
-            Retrieve list of all keys in db
-            </summary>
-            <param name="pageNumber">Page number</param>
-            <returns></returns>
-        </member>
-        <member name="M:KONNECT_REDIS.Controllers.KeysController.DeleteKey(System.String,System.String,System.String)">
-            <summary>
-            Delete a key
-            </summary>
-            <param name="keyName"></param>
-            <param name="orgId"></param>
-            <param name="subset">(optional)</param>
-            <returns>True/False if key delete was success</returns>
-        </member>
-        <member name="M:KONNECT_REDIS.Services.KeysService.GetAllKeys(System.Nullable{System.Int32})">
-            <summary>
-            Retrieve All keys
-            </summary>
-            <returns>List of Keys</returns>
-        </member>
-        <member name="M:KONNECT_REDIS.Services.KeysService.DeleteKey(System.String,System.String,System.String)">
-            <summary>
-            Delete key
-            </summary>
-            <param name="keyName"></param>
-            <param name="orgId"></param>
-            <param name="subset">(optional)</param>
-            <returns>True/False if key delete was success</returns>
-        </member>
-    </members>
+	<assembly>
+		<name>KONNECT-REDIS</name>
+	</assembly>
+	<members>
+		<member name="M:KONNECT_REDIS.Controllers.KeysController.GetAllKeys(System.Int32)">
+			<summary>
+			Retrieve list of all keys in db
+			</summary>
+			<param name="pageNumber">Page number</param>
+			<returns></returns>
+		</member>
+		<member name="M:KONNECT_REDIS.Controllers.KeysController.DeleteKey(System.String,System.String,System.String)">
+			<summary>
+			Delete a key
+			</summary>
+			<param name="keyName"></param>
+			<param name="orgId"></param>
+			<param name="subset">(optional)</param>
+			<returns>True/False if key delete was success</returns>
+		</member>
+		<member name="M:KONNECT_REDIS.Services.KeysService.GetAllKeys(System.Nullable{System.Int32})">
+			<summary>
+			Retrieve All keys
+			</summary>
+			<returns>List of Keys</returns>
+		</member>
+		<member name="M:KONNECT_REDIS.Services.KeysService.DeleteKey(System.String,System.String,System.String)">
+			<summary>
+			Delete key
+			</summary>
+			<param name="keyName"></param>
+			<param name="orgId"></param>
+			<param name="subset">(optional)</param>
+			<returns>True/False if key delete was success</returns>
+		</member>
+		<member name="M:KONNECT_REDIS.Controllers.KeysController.GetKeyByQuery(System.String)">
+			<summary>
+			Retrieves a list of keys according to a pattern 
+			</summary>
+			<returns></returns>
+		</member>
+	</members>
 </doc>
