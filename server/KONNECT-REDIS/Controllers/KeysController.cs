@@ -46,5 +46,32 @@ namespace KONNECT_REDIS.Controllers
                 return BadRequest(e);
             }     
         }
+
+        /// <summary>
+        /// Retrieves a list of keys according to a Redis key pattern 
+        /// </summary>
+        /// <param name="pattern">A Redis key pattern</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("Query")]
+        [ProducesResponseType(200, Type = typeof(ICollection<Key>))]
+        public IActionResult GetKeyByQuery([FromQuery]string pattern)
+        {
+            try
+            {
+                var res = _keysService.GetKeyByQuery(pattern);
+
+                if (res == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(res);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
     }
 }
