@@ -114,14 +114,11 @@ namespace KONNECT_REDIS.Services
                 .ToList();
         }
 
-        public bool BatchDeleteKeysByQuery(string pattern)
+        public long BatchDeleteKeysByQuery(string pattern)
         {
-            foreach (var key in _db)
-            {
-                var server = _muxer.GetServer(ep);
-                var keys = server.Keys(database: _redisDatabase, pattern: pattern + "*").ToArray();
-                _db.KeyDeleteAsync(keys);
-            }
+                var server = _multiplexer.GetServer("localhost", 6379);
+                var keys = server.Keys(pattern: pattern).ToArray();
+                return _db.KeyDelete(keys);
         }
 
         /// <summary>

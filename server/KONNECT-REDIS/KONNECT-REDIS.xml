@@ -28,6 +28,13 @@
             <param name="subset">(optional)</param>
             <returns>True/False if key delete was success</returns>
         </member>
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.BatchDeleteKeysByQuery(System.String)">
+            <summary>
+            Delete a multiple keys by Redis key pattern
+            </summary>
+            <param name="pattern">A Redis key pattern</param>
+            <returns></returns>
+        </member>
         <member name="M:KONNECT_REDIS.Services.KeysService.GetAllKeys(System.Nullable{System.Int32})">
             <summary>
             Retrieve All keys
