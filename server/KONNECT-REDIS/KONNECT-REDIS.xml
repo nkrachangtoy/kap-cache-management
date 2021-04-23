@@ -4,7 +4,7 @@
         <name>KONNECT-REDIS</name>
     </assembly>
     <members>
-        <member name="M:KONNECT_REDIS.Controllers.KeysController.GetAllKeys">
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.GetAllKeys(System.Int32)">
             <summary>
             Retrieve list of all keys in db
             </summary>
