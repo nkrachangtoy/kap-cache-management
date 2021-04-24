@@ -1,18 +1,13 @@
-import React, {useState} from 'react';
-import { getPage } from '../network/network';
+import React from 'react';
+
+interface PaginationProps{
+    pageNum: number, 
+    handlePageNext: () => void,
+    handlePageBack: () => void
+}
 
 
-const Pagination = () => {
-    const [pageNum, setPageNum] = useState<number>(1);
-
-    const handlePageNext = async() => {
-        setPageNum(pageNum + 1)
-        const data = await getPage(pageNum);
-    }
-
-    const handlePageBack = () => {
-        setPageNum(pageNum-1)
-    }
+const Pagination:React.FC<PaginationProps> = ({pageNum, handlePageNext, handlePageBack}) => {
 
   return (
     <div className='pagination'>

@@ -1,15 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import SearchIcon from '@material-ui/icons/Search';
-import { Button, InputAdornment, TextField } from '@material-ui/core';
-import SideDrawer from './SideDrawer';
-import Pagination from './Pagination';
+import { InputAdornment, TextField } from '@material-ui/core';
 
-const Toolbar = () => {
+
+
+const Search = () => {
+
+
   return (
-    <div className='toolbar'>
-      <Pagination />
-      {/* <SideDrawer /> */}
-      <div className='search'>
+<div className='search'>
         <TextField
           variant='filled'
           placeholder='search with Redis query'
@@ -22,9 +21,13 @@ const Toolbar = () => {
             ),
           }}
         />
-      </div>
-    </div>
+        </div>
   );
 };
 
-export default Toolbar;
+export default Search;
+
+
+
+
+

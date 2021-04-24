@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
-import { getAllKeys } from '../network/network';
-import { Button } from '@material-ui/core';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 
@@ -13,13 +11,18 @@ interface IColumnDef {
 }
 
 interface IRowData {
-  //field1: string etc.
+  keyName: string, 
+  subset: string, 
+  orgId: string
 }
 
-const Grid = () => {
+interface GridProps {
+  rowData: IRowData[];
+}
+
+const Grid:React.FC<GridProps> = ({rowData}) => {
   const [gridApi, setGridApi] = useState<null | {}>(null);
   // const [gridColumnApi, setGridColumnApi] = useState(null);
-  const [rowData, setRowData] = useState<Array<IRowData>>([]);
   const [columnDefs] = useState<Array<IColumnDef>>([
     {
       headerName: 'Key Name',
@@ -46,12 +49,7 @@ const Grid = () => {
   //   // console.log();
   // };
 
-  useEffect(() => {
-    (async () => {
-      const result = await getAllKeys();
-      setRowData(result);
-    })();
-  }, []);
+
 
   return (
     <div className='ag-theme-balham grid'>
