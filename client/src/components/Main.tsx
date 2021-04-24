@@ -15,7 +15,6 @@ interface IRowData {
 const Main = () => {
   const [rowData, setRowData] = useState<Array<IRowData>>([]);
   const [pageNum, setPageNum] = useState<number>(1);
-  const [refresh, setRefresh] = useState(false);
 
   const handlePageNext = async () => {
     const data = await getPage(pageNum + 1);
@@ -43,11 +42,6 @@ const Main = () => {
     })();
   }, []);
 
-  useEffect(() => {
-    setRefresh(!refresh);
-    console.log("refresh!!!", refresh);
-  }, [rowData]);
-
   return (
     <div className="main">
       <div className="toolbar">
@@ -55,6 +49,7 @@ const Main = () => {
           pageNum={pageNum}
           handlePageNext={handlePageNext}
           handlePageBack={handlePageBack}
+          rowData={rowData}
         />
         <Search handleSearch={handleSearch} />
       </div>

@@ -18,31 +18,32 @@
 }
 
 .toolbar {
-  width: 100%;
-  /* background-color: blueviolet; */
-  padding: 10px;
+  padding: 10px 0;
   display: flex;
   justify-content: flex-end;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0 10px 0 0;
 }
 
 .search {
   display: flex;
   align-items: center;
-  padding: 0 3%;
 }
 
 .main {
   width: 100%;
+  padding: 2%;
 }
 
 .main__grid {
   margin: 2%;
-  /* height: 100%; m */
 }
 
 .grid {
-  /* this needs to be updated to be responsive */
-  /* width: calc(100% - 70px); */
   height: calc(100% - 68px);
-  margin: 0 2%;
 }

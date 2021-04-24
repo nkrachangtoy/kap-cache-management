@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import SearchIcon from "@material-ui/icons/Search";
-import { InputAdornment, TextField } from "@material-ui/core";
 
 interface SearchProps {
   handleSearch: (query: string) => void;
@@ -16,18 +14,10 @@ const Search: React.FC<SearchProps> = ({ handleSearch }) => {
         handleSearch(query);
       }}
     >
-      <TextField
-        variant="filled"
-        placeholder="search with Redis query"
-        size="small"
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <SearchIcon />
-            </InputAdornment>
-          ),
-        }}
+      <input
+        placeholder="search with Redis Query"
         onChange={(e) => setQuery(e.target.value)}
+        type="text"
       />
       <button type="submit">Search</button>
     </form>
