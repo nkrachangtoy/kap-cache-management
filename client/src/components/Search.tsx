@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import { InputAdornment, TextField } from "@material-ui/core";
 
-const Search = () => {
+interface SearchProps {
+  handleSearch: (query: string) => void;
+}
+
+const Search: React.FC<SearchProps> = ({ handleSearch }) => {
+  const [query, setQuery] = useState("");
   return (
-    <div className="search">
+    <form
+      className="search"
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSearch(query);
+      }}
+    >
       <TextField
         variant="filled"
         placeholder="search with Redis query"
@@ -16,8 +27,10 @@ const Search = () => {
             </InputAdornment>
           ),
         }}
+        onChange={(e) => setQuery(e.target.value)}
       />
-    </div>
+      <button type="submit">Search</button>
+    </form>
   );
 };
 

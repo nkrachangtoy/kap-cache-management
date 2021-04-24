@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Grid from "./Grid";
 
 import Pagination from "./Pagination";
-import { getAllKeys } from "../network/network";
+import { getAllKeys, searchKeys } from "../network/network";
 import Search from "./Search";
 import { getPage } from "../network/network";
 
@@ -31,6 +31,11 @@ const Main = () => {
     }
   };
 
+  const handleSearch = async (query: string) => {
+    const data = await searchKeys(query);
+    setRowData(data);
+  };
+
   useEffect(() => {
     (async () => {
       const result = (await getAllKeys()) as Array<IRowData>;
@@ -51,7 +56,7 @@ const Main = () => {
           handlePageNext={handlePageNext}
           handlePageBack={handlePageBack}
         />
-        <Search />
+        <Search handleSearch={handleSearch} />
       </div>
       <Grid rowData={rowData} />
     </div>

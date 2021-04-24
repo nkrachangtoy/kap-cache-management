@@ -13,4 +13,10 @@ export const getPage = async (pageNum: number) => {
   return response.data;
 };
 
+export const searchKeys = async (query: string) => {
+  const response = await axios.get(`${BASE_URL}/Keys/Query?pattern=${query}`);
+  console.log(`search results from ${query}>>>`, response.data);
+  return response.data;
+};
+
 //'https://localhost:44371/api/Keys?pageNumber=2'
