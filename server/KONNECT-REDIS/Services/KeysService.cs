@@ -20,7 +20,11 @@ namespace KONNECT_REDIS.Services
             _db = _multiplexer.GetDatabase();
         }
 
-        public ICollection<Key> GetAllKeys(int? pageNumber)
+        /// <summary>
+        /// Retrieve All keys
+        /// </summary>
+       /// <returns>List of Keys</returns>
+       public ICollection<Key> GetAllKeys(int? pageNumber)
         {
             var keys = _multiplexer.GetServer("localhost", 6379).Keys();
             
@@ -55,7 +59,6 @@ namespace KONNECT_REDIS.Services
                 }
             }
 
-            // Paginate
             int pageSize = 15;
             keyList = Paginate<Key>.Create(keyList.AsQueryable(), pageNumber ?? 1, pageSize);
 
@@ -64,7 +67,13 @@ namespace KONNECT_REDIS.Services
                     .ToList();
         }
 
-        public ICollection<Key> GetKeyByQuery(string pattern)
+        /// <summary>
+        /// Retrieves a list of keys according to a Redis key pattern 
+        /// </summary>
+        /// <param name="pattern">A Redis key pattern</param>
+        /// <param name="pageNumber">Page number</param>
+        /// <returns></returns>
+        public ICollection<Key> GetKeyByQuery(string pattern, int? pageNumber)
         {
             var server = _multiplexer.GetServer("localhost", 6379);
 
@@ -95,9 +104,33 @@ namespace KONNECT_REDIS.Services
                 }
             }
 
+            // Paginate
+
+            int pageSize = 15;
+            keyList = Paginate<Key>.Create(keyList.AsQueryable(), pageNumber ?? 1, pageSize);
+            
             return keyList
                 .OrderBy(k => k.KeyName)
                 .ToList();
+        }
+
+        /// <summary>
+        /// Delete key
+        /// </summary>
+        /// <param name="keyName"></param>
+        /// <param name="orgId"></param>
+        /// <param name="subset">(optional)</param>
+        /// <returns>True/False if key delete was success</returns>
+        public bool DeleteKey(string keyName, string orgId, string subset = "")
+        {
+            if (subset.Equals(""))
+            {
+                return _db.KeyDelete($"{keyName}#{orgId}");
+            }
+            else
+            {
+                return _db.KeyDelete($"{keyName}#{subset}#{orgId}");
+            }
         }
     }
 }
