@@ -23,6 +23,17 @@
   justify-content: flex-end;
 }
 
+.redisData {
+  display: flex;
+  height: calc(100% - 44px - 10px);
+}
+
+.sideDrawer {
+  width: 30%;
+  height: 100%;
+  background-color: aqua;
+}
+
 .pagination {
   display: flex;
   justify-content: space-between;
@@ -37,7 +48,7 @@
 
 .main {
   width: 100%;
-  padding: 2%;
+  padding: 20px;
 }
 
 .main__grid {
@@ -45,5 +56,6 @@
 }
 
 .grid {
-  height: calc(100% - 68px);
+  height: 100%;
+  width: 70%;
 }

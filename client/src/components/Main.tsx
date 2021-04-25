@@ -5,6 +5,7 @@ import Pagination from "./Pagination";
 import { getAllKeys, searchKeys } from "../network/network";
 import Search from "./Search";
 import { getPage } from "../network/network";
+import SideDrawer from "./SideDrawer";
 
 interface IRowData {
   keyName: string;
@@ -53,7 +54,10 @@ const Main = () => {
         />
         <Search handleSearch={handleSearch} />
       </div>
-      <Grid rowData={rowData} />
+      <div className="redisData">
+        <Grid rowData={rowData} />
+        <SideDrawer />
+      </div>
     </div>
   );
 };
