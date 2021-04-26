@@ -62,7 +62,7 @@ namespace KONNECT_REDIS.Services
             }
 
             // Pagination
-            if (pageSize.Equals(null) || pageSize.Equals(0))
+            if(pageSize.Equals(null) || pageSize.Equals(0))
             {
                 pageSize = 25;
             }
