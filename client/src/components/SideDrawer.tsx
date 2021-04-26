@@ -35,7 +35,12 @@ const SideDrawer: React.FC<DrawerProps> = ({ selectedRows }) => {
           {selectedRows[0]?.orgId}
         </p>
         <p>
-          <strong>Value:</strong> {selectedRows[0]?.value}
+          <strong>Value:</strong>
+          <div className="sideDrawer_valueCodeBlock">
+            <pre>
+              <code>{selectedRows[0]?.value}</code>
+            </pre>
+          </div>
         </p>
         {selectedRows[0] && <button>Delete</button>}
       </div>
