@@ -83,7 +83,7 @@ namespace KONNECT_REDIS.Services
         /// <returns></returns>
         public ICollection<Key> GetKeyByQuery(string pattern, int? pageNumber, int pageSize)
         {
-            var server = _multiplexer.GetServer("redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com:12388", 12388);
+            var server = _multiplexer.GetServer("redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com", 12388);
 
             var keyList = new List<Key>();
 
@@ -123,19 +123,34 @@ namespace KONNECT_REDIS.Services
         /// <summary>
         /// Delete key
         /// </summary>
-        /// <param name="keyName"></param>
-        /// <param name="orgId"></param>
-        /// <param name="subset">(optional)</param>
+        /// <param name="key"></param>
         /// <returns>True/False if key delete was success</returns>
-        public bool DeleteKey(string keyName, string orgId, string subset = "")
+        public bool DeleteKey(Key key)
         {
-            if (subset.Equals(""))
+            if (key.Subset != null)
             {
-                return _db.KeyDelete($"{keyName}#{orgId}");
+                return _db.KeyDelete($"{key.KeyName}#{key.Subset}#{key.OrgId}");
             }
             else
             {
-                return _db.KeyDelete($"{keyName}#{subset}#{orgId}");
+                return _db.KeyDelete($"{key.KeyName}#{key.OrgId}");
+            }
+        }
+
+        /// <summary>
+        /// Get value of key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns>Value of key in string form</returns>
+        public string GetValue(Key key)
+        {
+            if(key.Subset != null)
+            {
+                return _db.StringGet($"{key.KeyName}#{key.Subset}#{key.OrgId}");
+            }
+            else
+            {
+                return _db.StringGet($"{key.KeyName}#{key.OrgId}");
             }
         }
     }
