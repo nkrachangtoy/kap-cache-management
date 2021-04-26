@@ -26,7 +26,7 @@ namespace KONNECT_REDIS.Services
         /// <returns>List of Keys</returns>
        public ICollection<Key> GetAllKeys(int? pageNumber)
         {
-            var keys = _multiplexer.GetServer("redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com:12388", 12388).Keys();
+            var keys = _multiplexer.GetServer("redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com", 12388).Keys();
             
             var keyList = new List<Key>();
 

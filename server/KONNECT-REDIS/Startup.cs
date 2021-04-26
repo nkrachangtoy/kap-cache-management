@@ -37,7 +37,7 @@ namespace KONNECT_REDIS
             var options = new ConfigurationOptions
             {
                 EndPoints = { "redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com:12388" },
-                Password = " KoreKonnect123!",
+                Password = "KoreKonnect123!",
                 AllowAdmin = true,
                 AbortOnConnectFail = false,
             };
