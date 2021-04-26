@@ -62,11 +62,6 @@ namespace KONNECT_REDIS.Services
                 }
             }
 
-            // Pagination
-            if(pageSize.Equals(null) || pageSize.Equals(0))
-            {
-                pageSize = 25;
-            }
             keyList = Paginate<Key>.Create(keyList.AsQueryable(), pageNumber ?? 1, pageSize);
 
             return keyList
