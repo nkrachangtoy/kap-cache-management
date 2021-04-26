@@ -142,20 +142,19 @@ namespace KONNECT_REDIS.Services
         /// <summary>
         /// Get value of key
         /// </summary>
-        /// <param name="keyName"></param>
-        /// <param name="orgId"></param>
-        /// <param name="subset"></param>
         /// <returns>Value of key in string form</returns>
-        public string GetValue(string keyName, string orgId, string subset = "")
+        public string GetValue(Key key)
         {
-            if (subset.Equals(""))
+            if(key.Subset != "")
             {
-                return _db.StringGet($"{keyName}#{orgId}");
+                var keyObj1 = new Key(key.KeyName, key.Subset, key.OrgId);
+
+                return _db.StringGet($"{keyObj1.KeyName}#{keyObj1.Subset}#{keyObj1.OrgId}");
             }
-            else
-            {
-                return _db.StringGet($"{keyName}#{subset}#{orgId}");
-            }
+
+            var keyObj2 = new Key(key.KeyName, key.OrgId);
+
+            return _db.StringGet($"{keyObj2.KeyName}#{keyObj2.OrgId}");
         }
     }
 }

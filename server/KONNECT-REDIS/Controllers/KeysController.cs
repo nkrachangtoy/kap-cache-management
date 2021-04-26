@@ -121,20 +121,18 @@ namespace KONNECT_REDIS.Controllers
         /// <summary>
         /// Get value of key
         /// </summary>
-        /// <param name="keyName"></param>
-        /// <param name="orgId"></param>
-        /// <param name="subset"></param>
+        /// <param name="key"></param>
         /// <returns>Value of key in string form</returns>
         [HttpGet("value")]
         [ProducesResponseType(200)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetValue([FromQuery] string keyName, string orgId, string subset = "")
+        public IActionResult GetValue([FromQuery] Key key)
         {
             try
             {
-                var res = _keysService.GetValue(keyName, orgId, subset);
+                var res = _keysService.GetValue(key);
 
                 if(res == null)
                 {
