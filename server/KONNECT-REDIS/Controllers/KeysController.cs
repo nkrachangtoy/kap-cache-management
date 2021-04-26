@@ -62,7 +62,7 @@ namespace KONNECT_REDIS.Controllers
         [HttpGet]
         [Route("Query")]
         [ProducesResponseType(200, Type = typeof(ICollection<Key>))]
-        public IActionResult GetKeyByQuery([FromQuery]string pattern, int pageNumber, int pageSize)
+        public IActionResult GetKeyByQuery([FromQuery]string pattern, int pageNumber, int pageSize = 25)
         {
             try
             {
