@@ -5,9 +5,11 @@ import "ag-grid-community/dist/styles/ag-theme-balham.css";
 
 interface IColumnDef {
   headerName: string;
-  field: string;
+  field?: string;
   sortable?: boolean;
   filter?: boolean;
+  checkboxSelection?: boolean;
+  flex: number;
 }
 
 interface IRowData {
@@ -30,14 +32,23 @@ const Grid: React.FC<GridProps> = ({ rowData, setSelectedRow }) => {
       field: "keyName",
       sortable: true,
       filter: true,
+      flex: 2,
     },
     {
       headerName: "Subset",
       field: "subset",
       sortable: true,
       filter: true,
+      flex: 2,
     },
-    { headerName: "OrgId", field: "orgId", sortable: true, filter: true },
+    {
+      headerName: "OrgId",
+      field: "orgId",
+      sortable: true,
+      filter: true,
+      flex: 2,
+    },
+    { headerName: "Select", checkboxSelection: true, flex: 1 },
   ]);
 
   // const handleGetSelectedRows = () => {

@@ -18,5 +18,3 @@ export const searchKeys = async (query: string) => {
   console.log(`search results from ${query}>>>`, response.data);
   return response.data;
 };
-
-//'https://localhost:44371/api/Keys?pageNumber=2'
