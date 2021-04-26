@@ -37,11 +37,8 @@ const Main = () => {
     setRowData(data);
   };
 
-  const handleGetSelectedRows = (row: IRowData) => {
-    //on click, if row is already selected, remove from selectedRows array
-
-    //if row is not already selected, push to selectedRows array
-    //setSelectedRows([...selectedRows, row]);
+  const handleGetSelectedRows = (row: Array<IRowData>) => {
+    setSelectedRows(row);
     console.log("selectedRows>>>", selectedRows);
   };
 

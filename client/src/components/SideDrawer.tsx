@@ -38,10 +38,35 @@ const SideDrawer: React.FC<DrawerProps> = ({ selectedRows }) => {
       </div>
     );
   } else if (selectedRows?.length > 1) {
-    return <div className="sideDrawer">More than one row selected</div>;
+    return (
+      <div className="sideDrawer">
+        <h3>Bulk Select:</h3>
+        <hr />
+        {selectedRows
+          .map(
+            (node: any) =>
+              `${node.keyName}` +
+              `${node.subset && `#${node.subset}`}` +
+              `#${node.orgId}`
+          )
+          .join(", ")}
+      </div>
+    );
   } else {
     return <div className="sideDrawer">No rows are selected</div>;
   }
 };
 
 export default SideDrawer;
+
+// const selectedDataStringPresentation = selectedData
+//   .map(
+//     (node: any) =>
+//       `${node.keyName}` +
+//       `${node.subset && `#${node.subset}`}` +
+//       `#${node.orgId}`
+//   )
+//   .join(", ");
+// console.log(
+//   `You selected the following rows: ${selectedDataStringPresentation}`
+// );

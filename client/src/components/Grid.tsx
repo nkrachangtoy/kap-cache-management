@@ -20,7 +20,7 @@ interface IRowData {
 
 interface GridProps {
   rowData: IRowData[];
-  handleGetSelectedRows: (row: IRowData) => void;
+  handleGetSelectedRows: (row: Array<IRowData>) => void;
 }
 
 const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
@@ -53,19 +53,9 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
 
   const handleSelected = () => {
     const selectedNodes = gridApi.getSelectedNodes();
+    console.log("selectedNodes >>", selectedNodes);
     const selectedData = selectedNodes.map((node: any) => node.data);
-    const selectedDataStringPresentation = selectedData
-      .map(
-        (node: any) =>
-          `${node.keyName}` +
-          `${node.subset && `#${node.subset}`}` +
-          `#${node.orgId}`
-      )
-      .join(", ");
-    console.log(
-      `You selected the following rows: ${selectedDataStringPresentation}`
-    );
-    // console.log();
+    handleGetSelectedRows(selectedData);
   };
 
   return (
