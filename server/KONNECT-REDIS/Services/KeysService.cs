@@ -148,7 +148,14 @@ namespace KONNECT_REDIS.Services
         /// <returns>Value of key in string form</returns>
         public string GetValue(string keyName, string orgId, string subset = "")
         {
-            throw new NotImplementedException();
+            if (subset.Equals(""))
+            {
+                return _db.StringGet($"{keyName}#{orgId}");
+            }
+            else
+            {
+                return _db.StringGet($"{keyName}#{subset}#{orgId}");
+            }
         }
     }
 }
