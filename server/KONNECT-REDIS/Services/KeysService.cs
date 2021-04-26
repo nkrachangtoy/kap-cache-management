@@ -138,5 +138,17 @@ namespace KONNECT_REDIS.Services
                 return _db.KeyDelete($"{keyName}#{subset}#{orgId}");
             }
         }
+
+        /// <summary>
+        /// Get value of key
+        /// </summary>
+        /// <param name="keyName"></param>
+        /// <param name="orgId"></param>
+        /// <param name="subset"></param>
+        /// <returns>Value of key in string form</returns>
+        public string GetValue(string keyName, string orgId, string subset = "")
+        {
+            throw new NotImplementedException();
+        }
     }
 }
