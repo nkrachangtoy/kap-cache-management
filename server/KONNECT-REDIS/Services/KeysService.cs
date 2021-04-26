@@ -23,10 +23,10 @@ namespace KONNECT_REDIS.Services
         /// <summary>
         /// Retrieve All keys
         /// </summary>
-       /// <returns>List of Keys</returns>
+        /// <returns>List of Keys</returns>
        public ICollection<Key> GetAllKeys(int? pageNumber)
         {
-            var keys = _multiplexer.GetServer("localhost", 6379).Keys();
+            var keys = _multiplexer.GetServer("redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com:12388", 12388).Keys();
             
             var keyList = new List<Key>();
 
@@ -75,7 +75,7 @@ namespace KONNECT_REDIS.Services
         /// <returns></returns>
         public ICollection<Key> GetKeyByQuery(string pattern, int? pageNumber)
         {
-            var server = _multiplexer.GetServer("localhost", 6379);
+            var server = _multiplexer.GetServer("redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com:12388", 12388);
 
             var keyList = new List<Key>();
 
