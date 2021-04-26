@@ -145,7 +145,7 @@ namespace KONNECT_REDIS.Services
         /// <returns>Value of key in string form</returns>
         public string GetValue(Key key)
         {
-            if(key.Subset != "")
+            if(key.Subset != null)
             {
                 var keyObj1 = new Key(key.KeyName, key.Subset, key.OrgId);
 
@@ -154,6 +154,7 @@ namespace KONNECT_REDIS.Services
 
             var keyObj2 = new Key(key.KeyName, key.OrgId);
 
+            
             return _db.StringGet($"{keyObj2.KeyName}#{keyObj2.OrgId}");
         }
     }
