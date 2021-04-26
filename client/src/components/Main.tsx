@@ -16,7 +16,7 @@ interface IRowData {
 const Main = () => {
   const [rowData, setRowData] = useState<Array<IRowData>>([]);
   const [pageNum, setPageNum] = useState<number>(1);
-  const [selectedRow, setSelectedRow] = useState<IRowData | null>(null);
+  const [selectedRows, setSelectedRows] = useState<Array<IRowData>>([]);
 
   const handlePageNext = async () => {
     const data = await getPage(pageNum + 1);
@@ -56,8 +56,8 @@ const Main = () => {
         <Search handleSearch={handleSearch} />
       </div>
       <div className="main__redisData">
-        <Grid rowData={rowData} setSelectedRow={setSelectedRow} />
-        <SideDrawer selectedRow={selectedRow} />
+        <Grid rowData={rowData} setSelectedRows={setSelectedRows} />
+        <SideDrawer selectedRows={selectedRows} />
       </div>
     </div>
   );
