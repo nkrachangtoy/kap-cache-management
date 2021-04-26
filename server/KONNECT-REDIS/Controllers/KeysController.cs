@@ -24,6 +24,7 @@ namespace KONNECT_REDIS.Controllers
         /// Retrieve list of all keys in db
         /// </summary>
         /// <param name="pageNumber">Page number</param>
+        /// <param name="pageSize">Page size</param>
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(ICollection<Key>))]
@@ -31,12 +32,12 @@ namespace KONNECT_REDIS.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetAllKeys(int pageNumber)
+        public IActionResult GetAllKeys(int pageNumber, int pageSize)
 
         {
             try
             {
-                var res = _keysService.GetAllKeys(pageNumber);
+                var res = _keysService.GetAllKeys(pageNumber, pageSize);
 
                 if (res == null)
                 {
@@ -56,15 +57,16 @@ namespace KONNECT_REDIS.Controllers
         /// </summary>
         /// <param name="pattern">A Redis key pattern</param>
         /// <param name="pageNumber">Paginates Search Query</param>
+        /// /// <param name="pageSize">Page size</param>
         /// <returns></returns>
         [HttpGet]
         [Route("Query")]
         [ProducesResponseType(200, Type = typeof(ICollection<Key>))]
-        public IActionResult GetKeyByQuery([FromQuery]string pattern, int pageNumber)
+        public IActionResult GetKeyByQuery([FromQuery]string pattern, int pageNumber, int pageSize)
         {
             try
             {
-                var res = _keysService.GetKeyByQuery(pattern, pageNumber);
+                var res = _keysService.GetKeyByQuery(pattern, pageNumber, pageSize);
 
                 if (res == null)
                 {
