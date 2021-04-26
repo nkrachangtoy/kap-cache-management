@@ -120,6 +120,13 @@ namespace KONNECT_REDIS.Services
                 .ToList();
         }
 
+        public long BatchDeleteKeysByQuery(string pattern)
+        {
+                var server = _multiplexer.GetServer("redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com", 12388);
+                var keys = server.Keys(pattern: pattern).ToArray();
+                return _db.KeyDelete(keys);
+        }
+
         /// <summary>
         /// Delete key
         /// </summary>

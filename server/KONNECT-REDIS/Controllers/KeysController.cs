@@ -146,6 +146,41 @@ namespace KONNECT_REDIS.Controllers
                 return BadRequest(e);
             }
         }
+
+        /// <summary>
+        /// Delete a multiple keys by Redis key pattern
+        /// </summary>
+        /// <param name="pattern">A Redis key pattern</param>
+        /// <returns>Number of deleted keys and pattern they followed, or throws an error</returns>
+        [HttpDelete("removeSubset")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult BatchDeleteKeysByQuery([FromQuery] string pattern)
+        {
+            try
+            {
+                var res = _keysService.BatchDeleteKeysByQuery(pattern);
+
+                if (res == 0)
+                {
+                    var errMessage = new { success = res, message = "Keys matching pattern do not exist" };
+
+                    return NotFound(errMessage);
+                }
+
+                var deletedKeys = $"{res}";
+
+                var message = new { success = res, message = $"Successfully deleted {pattern}" };
+
+                return Ok(message);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
     }
 }
         
