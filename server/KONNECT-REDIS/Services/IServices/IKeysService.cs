@@ -8,7 +8,7 @@ namespace KONNECT_REDIS.Services.IServices
 {
     public interface IKeysService
     {
-        ICollection<Key> GetAllKeys(int? pageNumber, int? pageSize);
+        ICollection<Key> GetAllKeys(int? pageNumber, int pageSize);
         ICollection<Key> GetKeyByQuery(string pattern, int? pageNumber, int? pageSize);
         bool DeleteKey(string keyName, string orgId, string subset = "");
     }

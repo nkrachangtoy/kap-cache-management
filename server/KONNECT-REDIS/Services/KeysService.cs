@@ -26,7 +26,7 @@ namespace KONNECT_REDIS.Services
         /// <param name="pageNumber">Page number</param>
         /// <param name="pageSize">Page size</param>
         /// <returns>List of Keys</returns>
-        public ICollection<Key> GetAllKeys(int? pageNumber, int? pageSize)
+        public ICollection<Key> GetAllKeys(int? pageNumber, int pageSize)
         {
             var keys = _multiplexer.GetServer("localhost", 6379).Keys();
             
@@ -62,7 +62,11 @@ namespace KONNECT_REDIS.Services
             }
 
             // Pagination
-            keyList = Paginate<Key>.Create(keyList.AsQueryable(), pageNumber ?? 1, pageSize ?? 25);
+            //if (!pageSize.Equals(""))
+            //{
+            //    pageSize = 25;
+            //}
+            keyList = Paginate<Key>.Create(keyList.AsQueryable(), pageNumber ?? 1, pageSize);
 
             return keyList
                     .OrderBy(k => k.KeyName)
@@ -74,9 +78,9 @@ namespace KONNECT_REDIS.Services
         /// </summary>
         /// <param name="pattern">A Redis key pattern</param>
         /// <param name="pageNumber">Page number</param>
-        /// <param name="pageSize">Page size</param>
+        /// <param name="pageSize">Page size default value is 10</param>
         /// <returns></returns>
-        public ICollection<Key> GetKeyByQuery(string pattern, int? pageNumber, int? pageSize)
+        public ICollection<Key> GetKeyByQuery(string pattern, int? pageNumber, int pageSize)
         {
             var server = _multiplexer.GetServer("localhost", 6379);
 
@@ -108,7 +112,7 @@ namespace KONNECT_REDIS.Services
             }
 
             // Paginate
-            keyList = Paginate<Key>.Create(keyList.AsQueryable(), pageNumber ?? 1, pageSize ?? 25);
+            keyList = Paginate<Key>.Create(keyList.AsQueryable(), pageNumber ?? 1, pageSize);
             
             return keyList
                 .OrderBy(k => k.KeyName)
