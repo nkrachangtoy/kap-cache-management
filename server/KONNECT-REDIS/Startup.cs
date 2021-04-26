@@ -14,6 +14,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using StackExchange.Redis;
 
+
+
 namespace KONNECT_REDIS
 {
     public class Startup
@@ -32,8 +34,15 @@ namespace KONNECT_REDIS
             services.AddCors();
 
             // Configure Redis Connection
+            var options = new ConfigurationOptions
+            {
+                EndPoints = { "redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com:12388" },
+                Password = "KoreKonnect123!",
+                AllowAdmin = true,
+                AbortOnConnectFail = false,
+            };
             services.AddSingleton<IConnectionMultiplexer>(
-               ConnectionMultiplexer.Connect("localhost:6379,allowAdmin=true"));
+               ConnectionMultiplexer.Connect(options));
 
             // Register KeyService
             services.AddScoped<IKeysService, KeysService>();
