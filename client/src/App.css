@@ -47,6 +47,12 @@
   border: 1px solid grey;
 }
 
+.sideDrawer__heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .sideDrawer__warning {
   color: red;
   margin-top: 0;

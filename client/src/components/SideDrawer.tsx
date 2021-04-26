@@ -42,18 +42,19 @@ const SideDrawer: React.FC<DrawerProps> = ({ selectedRows }) => {
   } else if (selectedRows?.length > 1) {
     return (
       <div className="sideDrawer">
-        <h3>Bulk Select:</h3>
+        <div className="sideDrawer__heading">
+          <h3>Bulk Select:</h3> {selectedRows.length} items selected
+        </div>
         <hr />
-        <p>
-          {selectedRows
-            .map(
-              (node: any) =>
-                `${node.keyName}` +
+        <div>
+          {selectedRows.map((node: any, i: number) => (
+            <p key={i}>
+              {`${node.keyName}` +
                 `${node.subset && `#${node.subset}`}` +
-                `#${node.orgId}`
-            )
-            .join(", ")}
-        </p>
+                `#${node.orgId}`}
+            </p>
+          ))}
+        </div>
         <br />
         <button>Delete all</button>
       </div>

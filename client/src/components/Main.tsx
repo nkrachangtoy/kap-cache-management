@@ -39,7 +39,6 @@ const Main = () => {
 
   const handleGetSelectedRows = (row: Array<IRowData>) => {
     setSelectedRows(row);
-    console.log("selectedRows>>>", selectedRows);
   };
 
   useEffect(() => {
