@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Grid from "./Grid";
 
 import Pagination from "./Pagination";
-import { getAllKeys, searchKeys } from "../network/network";
+import { getAllKeys, getKeyValue, searchKeys } from "../network/network";
 import Search from "./Search";
 import { getPage } from "../network/network";
 import SideDrawer from "./SideDrawer";
@@ -11,6 +11,7 @@ interface IRowData {
   keyName: string;
   subset: string;
   orgId: string;
+  value?: string;
 }
 
 const Main = () => {
@@ -37,7 +38,14 @@ const Main = () => {
     setRowData(data);
   };
 
-  const handleGetSelectedRows = (row: Array<IRowData>) => {
+  const handleGetSelectedRows = async (row: Array<IRowData>) => {
+    if (row.length === 1) {
+      console.log("row[0] >>", row[0]);
+      const data = await getKeyValue(row[0]);
+      console.log("value>>", data);
+      row[0].value = data.value;
+    }
+
     setSelectedRows(row);
   };
 

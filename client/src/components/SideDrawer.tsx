@@ -4,6 +4,7 @@ interface IRowData {
   keyName: string;
   subset: string;
   orgId: string;
+  value?: string;
 }
 
 interface DrawerProps {
@@ -34,7 +35,7 @@ const SideDrawer: React.FC<DrawerProps> = ({ selectedRows }) => {
           {selectedRows[0]?.orgId}
         </p>
         <p>
-          <strong>Value:</strong>
+          <strong>Value:</strong> {selectedRows[0]?.value}
         </p>
         {selectedRows[0] && <button>Delete</button>}
       </div>
