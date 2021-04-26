@@ -72,6 +72,7 @@ namespace KONNECT_REDIS.Services
         /// </summary>
         /// <param name="pattern">A Redis key pattern</param>
         /// <param name="pageNumber">Page number</param>
+        /// <param name="pageSize">Page size</param>
         /// <returns></returns>
         public ICollection<Key> GetKeyByQuery(string pattern, int? pageNumber, int pageSize)
         {
