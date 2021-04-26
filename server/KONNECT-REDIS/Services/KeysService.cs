@@ -123,25 +123,28 @@ namespace KONNECT_REDIS.Services
         /// <summary>
         /// Delete key
         /// </summary>
-        /// <param name="keyName"></param>
-        /// <param name="orgId"></param>
-        /// <param name="subset">(optional)</param>
+        /// <param name="key"></param>
         /// <returns>True/False if key delete was success</returns>
-        public bool DeleteKey(string keyName, string orgId, string subset = "")
+        public bool DeleteKey(Key key)
         {
-            if (subset.Equals(""))
+            if (key.Subset != null)
             {
-                return _db.KeyDelete($"{keyName}#{orgId}");
+                var keyObj1 = new Key(key.KeyName, key.Subset, key.OrgId);
+
+                return _db.KeyDelete($"{keyObj1.KeyName}#{keyObj1.Subset}#{keyObj1.OrgId}");
             }
             else
             {
-                return _db.KeyDelete($"{keyName}#{subset}#{orgId}");
+                var keyObj2 = new Key(key.KeyName, key.OrgId);
+
+                return _db.KeyDelete($"{keyObj2.KeyName}#{keyObj2.OrgId}");
             }
         }
 
         /// <summary>
         /// Get value of key
         /// </summary>
+        /// <param name="key"></param>
         /// <returns>Value of key in string form</returns>
         public string GetValue(Key key)
         {
@@ -151,11 +154,12 @@ namespace KONNECT_REDIS.Services
 
                 return _db.StringGet($"{keyObj1.KeyName}#{keyObj1.Subset}#{keyObj1.OrgId}");
             }
+            else
+            {
+                var keyObj2 = new Key(key.KeyName, key.OrgId);
 
-            var keyObj2 = new Key(key.KeyName, key.OrgId);
-
-            
-            return _db.StringGet($"{keyObj2.KeyName}#{keyObj2.OrgId}");
+                return _db.StringGet($"{keyObj2.KeyName}#{keyObj2.OrgId}");
+            }
         }
     }
 }
