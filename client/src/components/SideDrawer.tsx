@@ -11,6 +11,8 @@ interface DrawerProps {
 }
 
 const SideDrawer: React.FC<DrawerProps> = ({ selectedRows }) => {
+  const handleDelete = () => {};
+
   if (selectedRows?.length === 1) {
     return (
       <div className="sideDrawer">
@@ -42,18 +44,34 @@ const SideDrawer: React.FC<DrawerProps> = ({ selectedRows }) => {
       <div className="sideDrawer">
         <h3>Bulk Select:</h3>
         <hr />
-        {selectedRows
-          .map(
-            (node: any) =>
-              `${node.keyName}` +
-              `${node.subset && `#${node.subset}`}` +
-              `#${node.orgId}`
-          )
-          .join(", ")}
+        <p>
+          {selectedRows
+            .map(
+              (node: any) =>
+                `${node.keyName}` +
+                `${node.subset && `#${node.subset}`}` +
+                `#${node.orgId}`
+            )
+            .join(", ")}
+        </p>
+        <br />
+        <button>Delete all</button>
       </div>
     );
   } else {
-    return <div className="sideDrawer">No rows are selected</div>;
+    return (
+      <div className="sideDrawer">
+        <h3>Konnect Redis Cache</h3>
+        <hr />
+        <form onSubmit={handleDelete}>
+          <input type="text" placeholder="Delete by Redis pattern" />
+          <button type="submit">Bulk Delete</button>
+          <p className="sideDrawer__warning">
+            Warning: This action cannot be undone.
+          </p>
+        </form>
+      </div>
+    );
   }
 };
 
@@ -62,7 +80,7 @@ export default SideDrawer;
 // const selectedDataStringPresentation = selectedData
 //   .map(
 //     (node: any) =>
-//       `${node.keyName}` +
+//       `${node.keyName}`
 //       `${node.subset && `#${node.subset}`}` +
 //       `#${node.orgId}`
 //   )

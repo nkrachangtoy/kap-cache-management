@@ -15,7 +15,7 @@ const Search: React.FC<SearchProps> = ({ handleSearch }) => {
       }}
     >
       <input
-        placeholder="search with Redis Query"
+        placeholder="Search with Redis pattern"
         onChange={(e) => setQuery(e.target.value)}
         type="text"
       />
