@@ -160,5 +160,16 @@ namespace KONNECT_REDIS.Services
                 return _db.StringGet($"{key.KeyName}#{key.OrgId}");
             }
         }
+
+        /// <summary>
+        /// Add new key value pair in Redis db
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns>True or false whether key value pair was succesfully added</returns>
+        public bool SetKeyValue(Key key, string value)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
