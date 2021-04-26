@@ -21,14 +21,19 @@
             /// <param name="pageSize">Page size</param>
             <returns></returns>
         </member>
-        <member name="M:KONNECT_REDIS.Controllers.KeysController.DeleteKey(System.String,System.String,System.String)">
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.DeleteKey(KONNECT_REDIS.Models.Key)">
             <summary>
             Delete a key
             </summary>
-            <param name="keyName"></param>
-            <param name="orgId"></param>
-            <param name="subset">(optional)</param>
+            <param name="key"></param>
             <returns>True/False if key delete was success</returns>
+        </member>
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.GetValue(KONNECT_REDIS.Models.Key)">
+            <summary>
+            Get value of key
+            </summary>
+            <param name="key"></param>
+            <returns>Value of key in string form</returns>
         </member>
         <member name="M:KONNECT_REDIS.Services.KeysService.GetAllKeys(System.Nullable{System.Int32},System.Int32)">
         <member name="M:KONNECT_REDIS.Controllers.KeysController.BatchDeleteKeysByQuery(System.String)">
@@ -55,14 +60,19 @@
             <param name="pageSize">Page size</param>
             <returns></returns>
         </member>
-        <member name="M:KONNECT_REDIS.Services.KeysService.DeleteKey(System.String,System.String,System.String)">
+        <member name="M:KONNECT_REDIS.Services.KeysService.DeleteKey(KONNECT_REDIS.Models.Key)">
             <summary>
             Delete key
             </summary>
-            <param name="keyName"></param>
-            <param name="orgId"></param>
-            <param name="subset">(optional)</param>
+            <param name="key"></param>
             <returns>True/False if key delete was success</returns>
+        </member>
+        <member name="M:KONNECT_REDIS.Services.KeysService.GetValue(KONNECT_REDIS.Models.Key)">
+            <summary>
+            Get value of key
+            </summary>
+            <param name="key"></param>
+            <returns>Value of key in string form</returns>
         </member>
     </members>
 </doc>
