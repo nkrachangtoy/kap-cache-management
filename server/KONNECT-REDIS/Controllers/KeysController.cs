@@ -117,6 +117,37 @@ namespace KONNECT_REDIS.Controllers
                 return BadRequest(e);
             }
         }
+
+        /// <summary>
+        /// Get value of key
+        /// </summary>
+        /// <param name="keyName"></param>
+        /// <param name="orgId"></param>
+        /// <param name="subset"></param>
+        /// <returns>Value of key in string form</returns>
+        [HttpGet("value")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult GetValue([FromQuery] string keyName, string orgId, string subset = "")
+        {
+            try
+            {
+                var res = _keysService.GetValue(keyName, orgId, subset);
+
+                if(res == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(res);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
     }
 }
         
