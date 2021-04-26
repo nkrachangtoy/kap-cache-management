@@ -10,23 +10,5 @@ namespace KONNECT_REDIS.Models
         public string KeyName { get; set; }
         public string Subset { get; set; }
         public string OrgId { get; set; }
-
-        public Key(string _KeyName, string _Subset, string _OrgId)
-        {
-            KeyName = _KeyName;
-            Subset = _Subset;
-            OrgId = _OrgId;
-        }
-
-        public Key(string _KeyName, string _OrgId)
-        {
-            KeyName = _KeyName;
-            OrgId = _OrgId;
-        }
-
-        public Key()
-        {
-
-        }
     }
 }

@@ -129,15 +129,11 @@ namespace KONNECT_REDIS.Services
         {
             if (key.Subset != null)
             {
-                var keyObj1 = new Key(key.KeyName, key.Subset, key.OrgId);
-
-                return _db.KeyDelete($"{keyObj1.KeyName}#{keyObj1.Subset}#{keyObj1.OrgId}");
+                return _db.KeyDelete($"{key.KeyName}#{key.Subset}#{key.OrgId}");
             }
             else
             {
-                var keyObj2 = new Key(key.KeyName, key.OrgId);
-
-                return _db.KeyDelete($"{keyObj2.KeyName}#{keyObj2.OrgId}");
+                return _db.KeyDelete($"{key.KeyName}#{key.OrgId}");
             }
         }
 
@@ -150,15 +146,11 @@ namespace KONNECT_REDIS.Services
         {
             if(key.Subset != null)
             {
-                var keyObj1 = new Key(key.KeyName, key.Subset, key.OrgId);
-
-                return _db.StringGet($"{keyObj1.KeyName}#{keyObj1.Subset}#{keyObj1.OrgId}");
+                return _db.StringGet($"{key.KeyName}#{key.Subset}#{key.OrgId}");
             }
             else
             {
-                var keyObj2 = new Key(key.KeyName, key.OrgId);
-
-                return _db.StringGet($"{keyObj2.KeyName}#{keyObj2.OrgId}");
+                return _db.StringGet($"{key.KeyName}#{key.OrgId}");
             }
         }
     }
