@@ -20,11 +20,11 @@ interface IRowData {
 
 interface GridProps {
   rowData: IRowData[];
-  setSelectedRows: (row: Array<IRowData>) => void;
+  handleGetSelectedRows: (row: IRowData) => void;
 }
 
-const Grid: React.FC<GridProps> = ({ rowData, setSelectedRows }) => {
-  const [, setGridApi] = useState<null | {}>(null);
+const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
+  const [gridApi, setGridApi] = useState<null | any>(null);
   // const [gridColumnApi, setGridColumnApi] = useState(null);
   const [columnDefs] = useState<Array<IColumnDef>>([
     {
@@ -51,18 +51,21 @@ const Grid: React.FC<GridProps> = ({ rowData, setSelectedRows }) => {
     { headerName: "Select", checkboxSelection: true, flex: 1 },
   ]);
 
-  // const handleGetSelectedRows = () => {
-  //   const selectedNodes = gridApi.getSelectedNodes();
-  //   const selectedData = selectedNodes.map((node) => node.data);
-  //   const selectedDataStringPresentation = selectData
-  //     .map((node) => node.first_name + ' ' + node.last_name)
-  //     .join(', ');
-  //   alert(`You selected the following rows: ${selectedDataStringPresentation}`);
-  //   // console.log();
-  // };
-
-  const handleGetSelectedRows = (row: IRowData) => {
-    setSelectedRows([row]);
+  const handleSelected = () => {
+    const selectedNodes = gridApi.getSelectedNodes();
+    const selectedData = selectedNodes.map((node: any) => node.data);
+    const selectedDataStringPresentation = selectedData
+      .map(
+        (node: any) =>
+          `${node.keyName}` +
+          `${node.subset && `#${node.subset}`}` +
+          `#${node.orgId}`
+      )
+      .join(", ");
+    console.log(
+      `You selected the following rows: ${selectedDataStringPresentation}`
+    );
+    // console.log();
   };
 
   return (
@@ -80,6 +83,7 @@ const Grid: React.FC<GridProps> = ({ rowData, setSelectedRows }) => {
           console.log("a row has been clicked>>", event.data);
           handleGetSelectedRows(event.data);
         }}
+        onRowSelected={handleSelected}
       />
     </div>
   );

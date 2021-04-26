@@ -37,6 +37,14 @@ const Main = () => {
     setRowData(data);
   };
 
+  const handleGetSelectedRows = (row: IRowData) => {
+    //on click, if row is already selected, remove from selectedRows array
+
+    //if row is not already selected, push to selectedRows array
+    //setSelectedRows([...selectedRows, row]);
+    console.log("selectedRows>>>", selectedRows);
+  };
+
   useEffect(() => {
     (async () => {
       const result = (await getAllKeys()) as Array<IRowData>;
@@ -56,7 +64,7 @@ const Main = () => {
         <Search handleSearch={handleSearch} />
       </div>
       <div className="main__redisData">
-        <Grid rowData={rowData} setSelectedRows={setSelectedRows} />
+        <Grid rowData={rowData} handleGetSelectedRows={handleGetSelectedRows} />
         <SideDrawer selectedRows={selectedRows} />
       </div>
     </div>
