@@ -46,7 +46,7 @@ const Main = () => {
 
   return (
     <div className="main">
-      <div className="toolbar">
+      <div className="main__toolbar">
         <Pagination
           pageNum={pageNum}
           handlePageNext={handlePageNext}
@@ -55,7 +55,7 @@ const Main = () => {
         />
         <Search handleSearch={handleSearch} />
       </div>
-      <div className="redisData">
+      <div className="main__redisData">
         <Grid rowData={rowData} setSelectedRow={setSelectedRow} />
         <SideDrawer selectedRow={selectedRow} />
       </div>
