@@ -35,8 +35,10 @@
 
 .sideDrawer {
   width: 30%;
-  height: 100%;
-  background-color: aqua;
+  height: calc(100% - 44px - 10px);
+  /* background-color: aqua; */
+  padding: 10px;
+  border: 1px solid grey;
 }
 
 .sidenav {

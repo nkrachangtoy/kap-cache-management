@@ -18,9 +18,10 @@ interface IRowData {
 
 interface GridProps {
   rowData: IRowData[];
+  setSelectedRow: (row: IRowData) => void;
 }
 
-const Grid: React.FC<GridProps> = ({ rowData }) => {
+const Grid: React.FC<GridProps> = ({ rowData, setSelectedRow }) => {
   const [, setGridApi] = useState<null | {}>(null);
   // const [gridColumnApi, setGridColumnApi] = useState(null);
   const [columnDefs] = useState<Array<IColumnDef>>([
@@ -59,6 +60,10 @@ const Grid: React.FC<GridProps> = ({ rowData }) => {
         onGridReady={(params) => {
           setGridApi(params.api);
           console.log("PARAMS", params.api);
+        }}
+        onRowClicked={(event) => {
+          console.log("a row has been clicked>>", event.data);
+          setSelectedRow(event.data);
         }}
       />
     </div>
