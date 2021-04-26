@@ -2,6 +2,51 @@
   display: flex;
 }
 
+.grid {
+  height: 100%;
+  width: 70%;
+}
+
+.main {
+  width: 100%;
+  padding: 20px;
+}
+
+.main__grid {
+  margin: 2%;
+}
+
+.main__redisData {
+  display: flex;
+  height: calc(100% - 44px - 10px);
+}
+
+.main__toolbar {
+  padding: 10px 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0 10px 0 0;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+}
+
+.sideDrawer {
+  width: 30%;
+  height: calc(100% - 10px);
+  /* background-color: aqua; */
+  padding: 10px;
+  border: 1px solid grey;
+}
+
 .sidenav {
   display: flex;
   flex-direction: column;
@@ -15,34 +60,4 @@
 .sidenav__icon {
   margin: 20% 0 20% 0;
   color: white;
-}
-
-.toolbar {
-  width: 100%;
-  /* background-color: blueviolet; */
-  padding: 10px;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.search {
-  display: flex;
-  align-items: center;
-  padding: 0 3%;
-}
-
-.main {
-  width: 100%;
-}
-
-.main__grid {
-  margin: 2%;
-  /* height: 100%; m */
-}
-
-.grid {
-  /* this needs to be updated to be responsive */
-  /* width: calc(100% - 70px); */
-  height: calc(100% - 68px);
-  margin: 0 2%;
 }
