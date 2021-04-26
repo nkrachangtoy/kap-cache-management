@@ -62,10 +62,10 @@ namespace KONNECT_REDIS.Services
             }
 
             // Pagination
-            //if (!pageSize.Equals(""))
-            //{
-            //    pageSize = 25;
-            //}
+            if (pageSize.Equals(null) || pageSize.Equals(0))
+            {
+                pageSize = 25;
+            }
             keyList = Paginate<Key>.Create(keyList.AsQueryable(), pageNumber ?? 1, pageSize);
 
             return keyList
@@ -78,7 +78,7 @@ namespace KONNECT_REDIS.Services
         /// </summary>
         /// <param name="pattern">A Redis key pattern</param>
         /// <param name="pageNumber">Page number</param>
-        /// <param name="pageSize">Page size default value is 10</param>
+        /// <param name="pageSize">Page size</param>
         /// <returns></returns>
         public ICollection<Key> GetKeyByQuery(string pattern, int? pageNumber, int pageSize)
         {
