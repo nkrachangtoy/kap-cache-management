@@ -1,12 +1,6 @@
 import axios from "axios";
 const BASE_URL = "https://localhost:44371/api/Keys";
 
-interface IRowData {
-  keyName: string;
-  subset: string;
-  orgId: string;
-}
-
 export const getAllKeys = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/`);
@@ -37,13 +31,13 @@ export const searchKeys = async (query: string) => {
   }
 };
 
-export const getKeyValue = async (key: IRowData) => {
+export const getKeyValue = async (row: any) => {
   try {
     const response = await axios.get(
-      `${BASE_URL}/value?KeyName=${key.keyName}&Subset=${key.subset}&OrgId=${key.orgId}`
+      `${BASE_URL}/value?KeyName=${row[0].keyName}&Subset=${row[0].subset}&OrgId=${row[0].orgId}`
     );
-    console.log(`value of ${key.keyName}...>>>`, response.data.value);
-    return response.data;
+    console.log(`value of ${row[0].keyName}...>>>`, response.data.data);
+    return response.data.data;
   } catch (e) {
     console.log(`Error: ${e}`);
   }

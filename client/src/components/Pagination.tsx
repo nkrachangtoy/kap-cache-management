@@ -1,18 +1,5 @@
 import React from "react";
 
-interface IRowData {
-  keys: Array<IKey>;
-  totalKeyCount: number;
-  pageSize: number;
-  totalPages: number;
-}
-
-interface IKey {
-  keyName: string;
-  subset: string;
-  orgId: string;
-}
-
 interface PaginationProps {
   pageNum: number;
   handlePageNext: () => void;

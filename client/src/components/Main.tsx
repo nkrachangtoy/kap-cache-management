@@ -46,12 +46,10 @@ const Main = () => {
     setRowData(data);
   };
 
-  const handleGetSelectedRows = async (row: Array<IRowData>) => {
+  const handleGetSelectedRows = async (row: any) => {
     if (row.length === 1) {
-      console.log("row[0] >>", row[0]);
-      const data = await getKeyValue(row[0]?.keys[0]);
-      console.log("value>>", data.value);
-      row[0].keys[0].value = data.value;
+      const data = await getKeyValue(row);
+      row[0].value = data;
     }
     setSelectedRows(row);
   };
