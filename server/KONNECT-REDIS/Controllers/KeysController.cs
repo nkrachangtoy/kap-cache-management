@@ -21,6 +21,7 @@ namespace KONNECT_REDIS.Controllers
         public KeysController(IKeysService keysService)
         {
             _keysService = keysService;
+
         }
 
         /// <summary>
@@ -46,8 +47,9 @@ namespace KONNECT_REDIS.Controllers
                 {
                     return NotFound();
                 }
-                //var results = new { keys = res, totalPages = _paginate.TotalPages, totalCounts = _paginate.TotalCounts };
-                return Ok(res);
+                var results = new { keys = res, totalCount = res.Count, pagesize = pageSize, totalpage = (int)Math.Ceiling(res.Count / (double)pageSize)};
+
+                return Ok(results);
             }
             catch (Exception e)
             {

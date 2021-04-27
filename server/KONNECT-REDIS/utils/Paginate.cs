@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace KONNECT_REDIS.utils
 {
-    public class Paginate<T> : List<T>, IPaginate<T>
+    public class Paginate<T> : List<T>
     {
         public int PageIndex { get; private set; }
 
@@ -13,7 +13,7 @@ namespace KONNECT_REDIS.utils
 
         public int TotalCounts { get; private set; }
 
-        public Paginate(List<T> items, int count, int pageIndex, int pageSize)
+        public Paginate(IList<T> items, int count, int pageIndex, int pageSize)
         {
             PageIndex = pageIndex;
             // Define the totalpages with number of items/pageSize
