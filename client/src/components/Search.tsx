@@ -12,12 +12,14 @@ const Search: React.FC<SearchProps> = ({ handleSearch }) => {
       onSubmit={(e) => {
         e.preventDefault();
         handleSearch(query);
+        setQuery("");
       }}
     >
       <input
-        placeholder="search with Redis Query"
+        placeholder="Search with Redis pattern"
         onChange={(e) => setQuery(e.target.value)}
         type="text"
+        value={query}
       />
       <button type="submit">Search</button>
     </form>

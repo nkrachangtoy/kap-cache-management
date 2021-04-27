@@ -1,3 +1,7 @@
+button {
+  margin: 8px;
+}
+
 .App {
   display: flex;
 }
@@ -45,6 +49,51 @@
   /* background-color: aqua; */
   padding: 10px;
   border: 1px solid grey;
+}
+
+.sideDrawer__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sideDrawer__formField {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  margin: 3px 0;
+}
+
+.sideDrawer__formLabel {
+  margin-right: 3px;
+}
+
+.sideDrawer__heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sideDrawer__warning {
+  color: red;
+  margin-top: 0;
+  font-size: 0.8rem;
+}
+
+.sideDrawer_valueCodeBlock {
+  background-color: #eee;
+  border: 1px solid #999;
+  display: block;
+  padding: 10px;
+  overflow: auto;
+}
+
+pre {
+  white-space: pre-wrap; /* css-3 */
+  white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+  white-space: -pre-wrap; /* Opera 4-6 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
 }
 
 .sidenav {
