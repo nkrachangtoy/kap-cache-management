@@ -21,14 +21,14 @@
             /// <param name="pageSize">Page size</param>
             <returns></returns>
         </member>
-        <member name="M:KONNECT_REDIS.Controllers.KeysController.DeleteKey(KONNECT_REDIS.Models.Key)">
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.DeleteKey(KONNECT_REDIS.Models.Dtos.KeyDto)">
             <summary>
             Delete a key
             </summary>
             <param name="key"></param>
             <returns>True/False if key delete was success</returns>
         </member>
-        <member name="M:KONNECT_REDIS.Controllers.KeysController.GetValue(KONNECT_REDIS.Models.Key)">
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.GetValue(KONNECT_REDIS.Models.Dtos.KeyDto)">
             <summary>
             Get value of key
             </summary>
@@ -41,6 +41,14 @@
             </summary>
             <param name="pattern">A Redis key pattern</param>
             <returns>Number of deleted keys and pattern they followed, or throws an error</returns>
+        </member>
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.SetKeyValue(KONNECT_REDIS.Models.Key)">
+            <summary>
+            Create new key value pair
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
         </member>
         <member name="M:KONNECT_REDIS.Services.KeysService.GetAllKeys(System.Nullable{System.Int32},System.Int32)">
             <summary>
@@ -59,19 +67,27 @@
             <param name="pageSize">Page size</param>
             <returns></returns>
         </member>
-        <member name="M:KONNECT_REDIS.Services.KeysService.DeleteKey(KONNECT_REDIS.Models.Key)">
+        <member name="M:KONNECT_REDIS.Services.KeysService.DeleteKey(KONNECT_REDIS.Models.Dtos.KeyDto)">
             <summary>
             Delete key
             </summary>
             <param name="key"></param>
             <returns>True/False if key delete was success</returns>
         </member>
-        <member name="M:KONNECT_REDIS.Services.KeysService.GetValue(KONNECT_REDIS.Models.Key)">
+        <member name="M:KONNECT_REDIS.Services.KeysService.GetValue(KONNECT_REDIS.Models.Dtos.KeyDto)">
             <summary>
             Get value of key
             </summary>
             <param name="key"></param>
             <returns>Value of key in string form</returns>
+        </member>
+        <member name="M:KONNECT_REDIS.Services.KeysService.SetKeyValue(KONNECT_REDIS.Models.Key)">
+            <summary>
+            Add new key value pair in Redis db
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns>True or false whether key value pair was succesfully added</returns>
         </member>
     </members>
 </doc>
