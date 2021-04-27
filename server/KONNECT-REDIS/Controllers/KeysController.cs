@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using KONNECT_REDIS.Models;
+using KONNECT_REDIS.Models.Dtos;
 using KONNECT_REDIS.Services.IServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -91,7 +92,7 @@ namespace KONNECT_REDIS.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult DeleteKey([FromQuery] Key key)
+        public IActionResult DeleteKey([FromQuery] KeyDto key)
         {
             try
             {
@@ -126,7 +127,7 @@ namespace KONNECT_REDIS.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetValue([FromQuery] Key key)
+        public IActionResult GetValue([FromQuery] KeyDto key)
         {
             try
             {

@@ -21,14 +21,14 @@
             /// <param name="pageSize">Page size</param>
             <returns></returns>
         </member>
-        <member name="M:KONNECT_REDIS.Controllers.KeysController.DeleteKey(KONNECT_REDIS.Models.Key)">
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.DeleteKey(KONNECT_REDIS.Models.Dtos.KeyDto)">
             <summary>
             Delete a key
             </summary>
             <param name="key"></param>
             <returns>True/False if key delete was success</returns>
         </member>
-        <member name="M:KONNECT_REDIS.Controllers.KeysController.GetValue(KONNECT_REDIS.Models.Key)">
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.GetValue(KONNECT_REDIS.Models.Dtos.KeyDto)">
             <summary>
             Get value of key
             </summary>
@@ -67,14 +67,14 @@
             <param name="pageSize">Page size</param>
             <returns></returns>
         </member>
-        <member name="M:KONNECT_REDIS.Services.KeysService.DeleteKey(KONNECT_REDIS.Models.Key)">
+        <member name="M:KONNECT_REDIS.Services.KeysService.DeleteKey(KONNECT_REDIS.Models.Dtos.KeyDto)">
             <summary>
             Delete key
             </summary>
             <param name="key"></param>
             <returns>True/False if key delete was success</returns>
         </member>
-        <member name="M:KONNECT_REDIS.Services.KeysService.GetValue(KONNECT_REDIS.Models.Key)">
+        <member name="M:KONNECT_REDIS.Services.KeysService.GetValue(KONNECT_REDIS.Models.Dtos.KeyDto)">
             <summary>
             Get value of key
             </summary>

@@ -1,4 +1,5 @@
 ﻿using KONNECT_REDIS.Models;
+using KONNECT_REDIS.Models.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,11 @@ namespace KONNECT_REDIS.Services.IServices
 {
     public interface IKeysService
     {
-        ICollection<Key> GetAllKeys(int? pageNumber, int pageSize);
-        ICollection<Key> GetKeyByQuery(string pattern, int? pageNumber, int pageSize);
+        ICollection<KeyDto> GetAllKeys(int? pageNumber, int pageSize);
+        ICollection<KeyDto> GetKeyByQuery(string pattern, int? pageNumber, int pageSize);
         long BatchDeleteKeysByQuery(string pattern);
-        bool DeleteKey(Key key);
-        Value GetValue(Key key);
+        bool DeleteKey(KeyDto key);
+        Value GetValue(KeyDto key);
         bool SetKeyValue(Key key);
     }
 }
