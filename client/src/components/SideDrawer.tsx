@@ -4,16 +4,20 @@ interface IRowData {
   keyName: string;
   subset: string;
   orgId: string;
-  value?: string;
+  value?: any;
 }
 
 interface DrawerProps {
   selectedRows: Array<IRowData>;
+  handleDeleteByQuery: () => void;
+  setDeleteQuery: (query: string) => void;
 }
 
-const SideDrawer: React.FC<DrawerProps> = ({ selectedRows }) => {
-  const handleDelete = () => {};
-
+const SideDrawer: React.FC<DrawerProps> = ({
+  selectedRows,
+  handleDeleteByQuery,
+  setDeleteQuery,
+}) => {
   if (selectedRows?.length === 1) {
     return (
       <div className="sideDrawer">
@@ -38,7 +42,7 @@ const SideDrawer: React.FC<DrawerProps> = ({ selectedRows }) => {
           <strong>Value:</strong>
           <div className="sideDrawer_valueCodeBlock">
             <pre>
-              <code>{selectedRows[0]?.value}</code>
+              <code>{selectedRows[0].value?.data}</code>
             </pre>
           </div>
         </p>
@@ -70,8 +74,17 @@ const SideDrawer: React.FC<DrawerProps> = ({ selectedRows }) => {
       <div className="sideDrawer">
         <h3>Konnect Redis Cache</h3>
         <hr />
-        <form onSubmit={handleDelete}>
-          <input type="text" placeholder="Delete by Redis pattern" />
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            handleDeleteByQuery();
+          }}
+        >
+          <input
+            type="text"
+            placeholder="Delete by Redis pattern"
+            onChange={(e) => setDeleteQuery(e.target.value)}
+          />
           <button type="submit">Bulk Delete</button>
           <p className="sideDrawer__warning">
             Warning: This action cannot be undone.

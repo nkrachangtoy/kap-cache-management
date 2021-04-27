@@ -6,6 +6,7 @@ import { getAllKeys, getKeyValue, searchKeys } from "../network/network";
 import Search from "./Search";
 import { getPage } from "../network/network";
 import SideDrawer from "./SideDrawer";
+import { deleteKeyByQuery } from "./../network/network";
 
 interface IRowData {
   keyName: string;
@@ -18,6 +19,7 @@ const Main = () => {
   const [rowData, setRowData] = useState<Array<IRowData>>([]);
   const [pageNum, setPageNum] = useState<number>(1);
   const [selectedRows, setSelectedRows] = useState<Array<IRowData>>([]);
+  const [deleteQuery, setDeleteQuery] = useState("");
 
   const handlePageNext = async () => {
     const data = await getPage(pageNum + 1);
@@ -45,8 +47,13 @@ const Main = () => {
       console.log("value>>", data);
       row[0].value = data.value;
     }
-
     setSelectedRows(row);
+  };
+
+  const handleDeleteByQuery = async () => {
+    const data = await deleteKeyByQuery(deleteQuery);
+    console.log(`delete query: ${deleteQuery}, result:`, data);
+    setDeleteQuery("");
   };
 
   useEffect(() => {
@@ -69,7 +76,11 @@ const Main = () => {
       </div>
       <div className="main__redisData">
         <Grid rowData={rowData} handleGetSelectedRows={handleGetSelectedRows} />
-        <SideDrawer selectedRows={selectedRows} />
+        <SideDrawer
+          selectedRows={selectedRows}
+          setDeleteQuery={setDeleteQuery}
+          handleDeleteByQuery={handleDeleteByQuery}
+        />
       </div>
     </div>
   );
