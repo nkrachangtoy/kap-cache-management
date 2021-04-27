@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using KONNECT_REDIS.Models;
 using KONNECT_REDIS.Services.IServices;
+using KONNECT_REDIS.utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,10 +15,12 @@ namespace KONNECT_REDIS.Controllers
     public class KeysController : ControllerBase
     {
         private IKeysService _keysService;
+        private Paginate _paginate;
 
-        public KeysController(IKeysService keysService)
+        public KeysController(IKeysService keysService, Paginate paginate)
         {
             _keysService = keysService;
+            _paginate = paginate;
         }
 
         /// <summary>
@@ -37,13 +40,13 @@ namespace KONNECT_REDIS.Controllers
         {
             try
             {
-                var res = _keysService.GetAllKeys(pageNumber, pageSize);
-
+                var res = _keysService.GetAllKeys(pageNumber, pageSize); 
+                
                 if (res == null)
                 {
                     return NotFound();
                 }
-
+                //var results = new { keys = res, totalPages = _paginate.TotalPages, totalCounts = _paginate.TotalCounts };
                 return Ok(res);
             }
             catch (Exception e)

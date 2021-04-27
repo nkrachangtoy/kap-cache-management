@@ -18,6 +18,7 @@ namespace KONNECT_REDIS.Services
         {
             _multiplexer = multiplexer;
             _db = _multiplexer.GetDatabase();
+
         }
 
         /// <summary>
