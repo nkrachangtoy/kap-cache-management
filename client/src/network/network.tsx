@@ -54,16 +54,13 @@ export const deleteKeyByQuery = async (query: string) => {
     const response: any = await axios.delete(
       `${BASE_URL}/removeSubset?pattern=${query}`
     );
-    console.log(
-      `deleted ${response.data.success} results from ${query}>>>`,
-      response.data.message
-    );
+    response.data.success &&
+      alert(
+        `Deleted ${response.data.success} results >>>
+      ${response.data.message}`
+      );
     return response.data;
   } catch (e) {
-    console.log(`Error: ${e}`);
+    alert(`Error: ${e}`);
   }
 };
-
-//https://localhost:44371/api/Keys/removeSubset?pattern=KonnectOrganization%235%2A
-
-//https://localhost:44371/api/Keys/value?KeyName=KoreSetting&Subset=UnallocatedRevenueProperty&OrgId=fsdfsd-123123-dfds-123123
