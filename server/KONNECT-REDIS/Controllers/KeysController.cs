@@ -47,7 +47,7 @@ namespace KONNECT_REDIS.Controllers
                 {
                     return NotFound();
                 }
-                var results = new { keys = res, totalCount = res.Count, pagesize = pageSize, totalpage = (int)Math.Ceiling(res.Count / (double)pageSize)};
+                var results = new { Keys = res, TotalKeyCount = res.Count, PageSize = pageSize, TotalPages = (int)Math.Ceiling(res.Count / (double)pageSize) };
 
                 return Ok(results);
             }
@@ -77,8 +77,8 @@ namespace KONNECT_REDIS.Controllers
                 {
                     return NotFound();
                 }
-
-                return Ok(res);
+                var results = new { Keys = res, TotalKeyCount = res.Count, PageSize = pageSize, TotalPages = (int)Math.Ceiling(res.Count / (double)pageSize) };
+                return Ok(results);
             }
             catch (Exception e)
             {

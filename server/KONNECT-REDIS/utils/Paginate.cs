@@ -13,7 +13,7 @@ namespace KONNECT_REDIS.utils
 
         public int TotalCounts { get; private set; }
 
-        public Paginate(IList<T> items, int count, int pageIndex, int pageSize)
+        public Paginate(List<T> items, int count, int pageIndex, int pageSize)
         {
             PageIndex = pageIndex;
             // Define the totalpages with number of items/pageSize
