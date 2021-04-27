@@ -13,13 +13,20 @@ interface IColumnDef {
 }
 
 interface IRowData {
+  keys: Array<IKey>;
+  totalKeyCount: number;
+  pageSize: number;
+  totalPages: number;
+}
+
+interface IKey {
   keyName: string;
   subset: string;
   orgId: string;
 }
 
 interface GridProps {
-  rowData: IRowData[];
+  rowData: any;
   handleGetSelectedRows: (row: Array<IRowData>) => void;
 }
 
@@ -63,7 +70,7 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
       {/* <Button onClick={handleGetSelectedRows}>Get selected rows</Button> */}
       <AgGridReact
         columnDefs={columnDefs}
-        rowData={rowData}
+        rowData={rowData.keys}
         rowSelection="multiple"
         onGridReady={(params) => {
           setGridApi(params.api);

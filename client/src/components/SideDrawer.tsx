@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 
 interface IRowData {
+  keys: Array<IKey>;
+  totalKeyCount: number;
+  pageSize: number;
+  totalPages: number;
+}
+
+interface IKey {
   keyName: string;
   subset: string;
   orgId: string;
-  value?: any;
+  value?: object;
 }
 
 interface DrawerProps {
@@ -25,28 +32,28 @@ const SideDrawer: React.FC<DrawerProps> = ({
         <hr />
         <p>
           <strong>Key Name: </strong>
-          {selectedRows[0]?.keyName}
+          {selectedRows[0]?.keys[0].keyName}
         </p>
 
-        {selectedRows[0]?.subset && (
+        {selectedRows[0]?.keys[0].subset && (
           <p>
             <strong>Subset: </strong>
-            {selectedRows[0]?.subset}
+            {selectedRows[0]?.keys[0].subset}
           </p>
         )}
         <p>
           <strong>Org Id: </strong>
-          {selectedRows[0]?.orgId}
+          {selectedRows[0]?.keys[0].orgId}
         </p>
         <div>
           <strong>Value:</strong>
           <div className="sideDrawer_valueCodeBlock">
             <pre>
-              <code>{selectedRows[0].value}</code>
+              <code>{selectedRows[0].keys[0].value}</code>
             </pre>
           </div>
         </div>
-        {selectedRows[0] && <button>Delete</button>}
+        {selectedRows[0].keys[0] && <button>Delete</button>}
       </div>
     );
   } else if (selectedRows?.length > 1) {

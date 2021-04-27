@@ -9,14 +9,21 @@ import SideDrawer from "./SideDrawer";
 import { deleteKeyByQuery } from "./../network/network";
 
 interface IRowData {
+  keys: Array<IKey>;
+  totalKeyCount: number;
+  pageSize: number;
+  totalPages: number;
+}
+
+interface IKey {
   keyName: string;
   subset: string;
   orgId: string;
-  value?: string;
+  value?: object;
 }
 
 const Main = () => {
-  const [rowData, setRowData] = useState<Array<IRowData>>([]);
+  const [rowData, setRowData] = useState<IRowData | object>({});
   const [pageNum, setPageNum] = useState<number>(1);
   const [selectedRows, setSelectedRows] = useState<Array<IRowData>>([]);
 
@@ -42,9 +49,9 @@ const Main = () => {
   const handleGetSelectedRows = async (row: Array<IRowData>) => {
     if (row.length === 1) {
       console.log("row[0] >>", row[0]);
-      const data = await getKeyValue(row[0]);
+      const data = await getKeyValue(row[0]?.keys[0]);
       console.log("value>>", data.value);
-      row[0].value = data.value;
+      row[0].keys[0].value = data.value;
     }
     setSelectedRows(row);
   };
@@ -56,8 +63,9 @@ const Main = () => {
 
   useEffect(() => {
     (async () => {
-      const result = (await getAllKeys()) as Array<IRowData>;
+      const result = await getAllKeys();
       setRowData(result);
+      console.log("ROW DATA", result);
     })();
   }, []);
 
