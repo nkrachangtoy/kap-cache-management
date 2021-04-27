@@ -137,9 +137,7 @@ namespace KONNECT_REDIS.Controllers
                     return NotFound();
                 }
 
-                var response = new { value = res };
-
-                return Ok(response);
+                return Ok(res);
             }
             catch (Exception e)
             {

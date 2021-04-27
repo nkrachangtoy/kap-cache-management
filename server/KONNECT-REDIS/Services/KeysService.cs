@@ -149,15 +149,17 @@ namespace KONNECT_REDIS.Services
         /// </summary>
         /// <param name="key"></param>
         /// <returns>Value of key in string form</returns>
-        public string GetValue(Key key)
+        public Value GetValue(Key key)
         {
             if(key.Subset != null)
             {
-                return _db.StringGet($"{key.KeyName}#{key.Subset}#{key.OrgId}");
+               var res = _db.StringGet($"{key.KeyName}#{key.Subset}#{key.OrgId}");
+                return new Value { Data = res };
             }
             else
             {
-                return _db.StringGet($"{key.KeyName}#{key.OrgId}");
+               var res =  _db.StringGet($"{key.KeyName}#{key.OrgId}");
+                return new Value { Data = res };
             }
         }
 

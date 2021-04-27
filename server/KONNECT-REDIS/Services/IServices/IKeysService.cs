@@ -12,7 +12,7 @@ namespace KONNECT_REDIS.Services.IServices
         ICollection<Key> GetKeyByQuery(string pattern, int? pageNumber, int pageSize);
         long BatchDeleteKeysByQuery(string pattern);
         bool DeleteKey(Key key);
-        string GetValue(Key key);
+        Value GetValue(Key key);
         bool SetKeyValue(Key key);
     }
 }
