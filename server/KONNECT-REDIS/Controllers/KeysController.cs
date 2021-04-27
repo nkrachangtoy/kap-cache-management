@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using KONNECT_REDIS.Models;
+using KONNECT_REDIS.Models.Dtos;
 using KONNECT_REDIS.Services.IServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -62,7 +63,7 @@ namespace KONNECT_REDIS.Controllers
         [HttpGet]
         [Route("Query")]
         [ProducesResponseType(200, Type = typeof(ICollection<Key>))]
-        public IActionResult GetKeyByQuery([FromQuery]string pattern, int pageNumber, int pageSize = 25)
+        public IActionResult GetKeyByQuery([FromQuery] string pattern, int pageNumber, int pageSize = 25)
         {
             try
             {
@@ -91,7 +92,7 @@ namespace KONNECT_REDIS.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult DeleteKey([FromQuery] Key key)
+        public IActionResult DeleteKey([FromQuery] KeyDto key)
         {
             try
             {
@@ -126,20 +127,18 @@ namespace KONNECT_REDIS.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetValue([FromQuery] Key key)
+        public IActionResult GetValue([FromQuery] KeyDto key)
         {
             try
             {
                 var res = _keysService.GetValue(key);
 
-                if(res == null)
+                if (res == null)
                 {
                     return NotFound();
                 }
 
-                var response = new { value = res };
-
-                return Ok(response);
+                return Ok(res);
             }
             catch (Exception e)
             {
@@ -181,6 +180,38 @@ namespace KONNECT_REDIS.Controllers
                 return BadRequest(e);
             }
         }
+
+        /// <summary>
+        /// Create new key value pair
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult SetKeyValue([FromBody] Key key)
+        {
+            try
+            {
+                if(key == null)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                if(!_keysService.SetKeyValue(key))
+                {
+                    ModelState.AddModelError("", $"Something went wrong seting key pair value");
+                    return StatusCode(500, ModelState);
+                }
+
+                return Ok(key);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
     }
 }
-        

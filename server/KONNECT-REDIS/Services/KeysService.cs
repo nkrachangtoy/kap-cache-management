@@ -1,4 +1,5 @@
 ﻿using KONNECT_REDIS.Models;
+using KONNECT_REDIS.Models.Dtos;
 using KONNECT_REDIS.Services.IServices;
 using KONNECT_REDIS.utils;
 using StackExchange.Redis;
@@ -26,12 +27,12 @@ namespace KONNECT_REDIS.Services
         /// <param name="pageNumber">Page number</param>
         /// <param name="pageSize">Page size</param>
         /// <returns>List of Keys</returns>
-        public ICollection<Key> GetAllKeys(int? pageNumber, int pageSize)
+        public ICollection<KeyDto> GetAllKeys(int? pageNumber, int pageSize)
 
         {
             var keys = _multiplexer.GetServer("redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com", 12388).Keys();
             
-            var keyList = new List<Key>();
+            var keyList = new List<KeyDto>();
 
             foreach (var key in keys)
             {
@@ -47,7 +48,7 @@ namespace KONNECT_REDIS.Services
                     var f2 = keyString.Split("#")[1];
                     var f3 = keyString.Split("#")[2];
 
-                    var keyObj = new Key { KeyName = f1, Subset = f2, OrgId = f3 };
+                    var keyObj = new KeyDto { KeyName = f1, Subset = f2, OrgId = f3 };
 
                     keyList.Add(keyObj);
                 }
@@ -56,7 +57,7 @@ namespace KONNECT_REDIS.Services
                     var f1 = keyString.Split("#")[0];
                     var f3 = keyString.Split("#")[1];
                    
-                    var keyObj = new Key { KeyName = f1, Subset = "", OrgId = f3 };
+                    var keyObj = new KeyDto { KeyName = f1, Subset = "", OrgId = f3 };
 
                     keyList.Add(keyObj);
                 }
@@ -67,7 +68,7 @@ namespace KONNECT_REDIS.Services
             {
                 pageSize = 25;
             }
-            keyList = Paginate<Key>.Create(keyList.AsQueryable(), pageNumber ?? 1, pageSize);
+            keyList = Paginate<KeyDto>.Create(keyList.AsQueryable(), pageNumber ?? 1, pageSize);
 
             return keyList
                     .OrderBy(k => k.KeyName)
@@ -81,11 +82,11 @@ namespace KONNECT_REDIS.Services
         /// <param name="pageNumber">Page number</param>
         /// <param name="pageSize">Page size</param>
         /// <returns></returns>
-        public ICollection<Key> GetKeyByQuery(string pattern, int? pageNumber, int pageSize)
+        public ICollection<KeyDto> GetKeyByQuery(string pattern, int? pageNumber, int pageSize)
         {
             var server = _multiplexer.GetServer("redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com", 12388);
 
-            var keyList = new List<Key>();
+            var keyList = new List<KeyDto>();
 
             foreach (var key in server.Keys(pattern: pattern))
             {
@@ -97,7 +98,7 @@ namespace KONNECT_REDIS.Services
                     var f2 = keyString.Split("#")[1];
                     var f3 = keyString.Split("#")[2];
 
-                    var keyObj = new Key { KeyName = f1, Subset = f2, OrgId = f3 };
+                    var keyObj = new KeyDto { KeyName = f1, Subset = f2, OrgId = f3 };
 
                     keyList.Add(keyObj);
                 }
@@ -106,14 +107,14 @@ namespace KONNECT_REDIS.Services
                     var f1 = keyString.Split("#")[0];
                     var f3 = keyString.Split("#")[1];
 
-                    var keyObj = new Key { KeyName = f1, Subset = "", OrgId = f3 };
+                    var keyObj = new KeyDto { KeyName = f1, Subset = "", OrgId = f3 };
 
                     keyList.Add(keyObj);
                 }
             }
 
             // Paginate
-            keyList = Paginate<Key>.Create(keyList.AsQueryable(), pageNumber ?? 1, pageSize);
+            keyList = Paginate<KeyDto>.Create(keyList.AsQueryable(), pageNumber ?? 1, pageSize);
             
             return keyList
                 .OrderBy(k => k.KeyName)
@@ -132,7 +133,7 @@ namespace KONNECT_REDIS.Services
         /// </summary>
         /// <param name="key"></param>
         /// <returns>True/False if key delete was success</returns>
-        public bool DeleteKey(Key key)
+        public bool DeleteKey(KeyDto key)
         {
             if (key.Subset != null)
             {
@@ -149,15 +150,35 @@ namespace KONNECT_REDIS.Services
         /// </summary>
         /// <param name="key"></param>
         /// <returns>Value of key in string form</returns>
-        public string GetValue(Key key)
+        public Value GetValue(KeyDto key)
         {
             if(key.Subset != null)
             {
-                return _db.StringGet($"{key.KeyName}#{key.Subset}#{key.OrgId}");
+               var res = _db.StringGet($"{key.KeyName}#{key.Subset}#{key.OrgId}");
+                return new Value { Data = res };
             }
             else
             {
-                return _db.StringGet($"{key.KeyName}#{key.OrgId}");
+               var res =  _db.StringGet($"{key.KeyName}#{key.OrgId}");
+                return new Value { Data = res };
+            }
+        }
+
+        /// <summary>
+        /// Add new key value pair in Redis db
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns>True or false whether key value pair was succesfully added</returns>
+        public bool SetKeyValue(Key key)
+        {
+            if(key.Subset != null)
+            {
+                return _db.StringSet($"{key.KeyName}#{key.Subset}#{key.OrgId}", key.Value.Data);
+            }
+            else
+            {
+                return _db.StringSet($"{key.KeyName}#{key.OrgId}", key.Value.Data);
             }
         }
     }
