@@ -1,16 +1,10 @@
 import React from "react";
 
-interface IRowData {
-  keyName: string;
-  subset: string;
-  orgId: string;
-}
-
 interface PaginationProps {
   pageNum: number;
   handlePageNext: () => void;
   handlePageBack: () => void;
-  rowData: IRowData[];
+  rowData: any;
 }
 
 const Pagination: React.FC<PaginationProps> = ({
@@ -21,7 +15,7 @@ const Pagination: React.FC<PaginationProps> = ({
 }) => {
   return (
     <div className="pagination">
-      <div>Showing {rowData.length} results</div>
+      <div>Showing {rowData?.keys?.length} results</div>
       <div>
         <button
           onClick={handlePageBack}
@@ -30,7 +24,12 @@ const Pagination: React.FC<PaginationProps> = ({
           back
         </button>
         Page {pageNum}
-        <button onClick={handlePageNext}>next</button>
+        <button
+          onClick={handlePageNext}
+          // disabled={pageNum === rowData.totalPages ? true : false}
+        >
+          next
+        </button>
       </div>
     </div>
   );

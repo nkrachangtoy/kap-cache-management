@@ -2,21 +2,30 @@ import React, { useEffect, useState } from "react";
 import Grid from "./Grid";
 
 import Pagination from "./Pagination";
-import { getAllKeys, searchKeys } from "../network/network";
+import { getAllKeys, getKeyValue, searchKeys } from "../network/network";
 import Search from "./Search";
 import { getPage } from "../network/network";
 import SideDrawer from "./SideDrawer";
+import { deleteKeyByQuery } from "./../network/network";
 
 interface IRowData {
+  keys: Array<IKey>;
+  totalKeyCount: number;
+  pageSize: number;
+  totalPages: number;
+}
+
+interface IKey {
   keyName: string;
   subset: string;
   orgId: string;
+  value?: object;
 }
 
 const Main = () => {
-  const [rowData, setRowData] = useState<Array<IRowData>>([]);
+  const [rowData, setRowData] = useState<IRowData | object>({});
   const [pageNum, setPageNum] = useState<number>(1);
-  const [selectedRow, setSelectedRow] = useState<IRowData | null>(null);
+  const [selectedRows, setSelectedRows] = useState<Array<IRowData>>([]);
 
   const handlePageNext = async () => {
     const data = await getPage(pageNum + 1);
@@ -37,10 +46,24 @@ const Main = () => {
     setRowData(data);
   };
 
+  const handleGetSelectedRows = async (row: any) => {
+    if (row.length === 1) {
+      const data = await getKeyValue(row);
+      row[0].value = data;
+    }
+    setSelectedRows(row);
+  };
+
+  const handleDeleteByQuery = async (deleteQuery: string) => {
+    const data = await deleteKeyByQuery(deleteQuery);
+    console.log(`delete query: ${deleteQuery}, result:`, data);
+  };
+
   useEffect(() => {
     (async () => {
-      const result = (await getAllKeys()) as Array<IRowData>;
+      const result = await getAllKeys();
       setRowData(result);
+      console.log("ROW DATA", result);
     })();
   }, []);
 
@@ -56,8 +79,11 @@ const Main = () => {
         <Search handleSearch={handleSearch} />
       </div>
       <div className="main__redisData">
-        <Grid rowData={rowData} setSelectedRow={setSelectedRow} />
-        <SideDrawer selectedRow={selectedRow} />
+        <Grid rowData={rowData} handleGetSelectedRows={handleGetSelectedRows} />
+        <SideDrawer
+          selectedRows={selectedRows}
+          handleDeleteByQuery={handleDeleteByQuery}
+        />
       </div>
     </div>
   );
