@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 interface IRowData {
   keyName: string;
@@ -9,15 +9,15 @@ interface IRowData {
 
 interface DrawerProps {
   selectedRows: Array<IRowData>;
-  handleDeleteByQuery: () => void;
-  setDeleteQuery: (query: string) => void;
+  handleDeleteByQuery: (deleteQuery: string) => void;
 }
 
 const SideDrawer: React.FC<DrawerProps> = ({
   selectedRows,
   handleDeleteByQuery,
-  setDeleteQuery,
 }) => {
+  const [deleteQuery, setDeleteQuery] = useState("");
+
   if (selectedRows?.length === 1) {
     return (
       <div className="sideDrawer">
@@ -77,13 +77,15 @@ const SideDrawer: React.FC<DrawerProps> = ({
         <form
           onSubmit={(event) => {
             event.preventDefault();
-            handleDeleteByQuery();
+            handleDeleteByQuery(deleteQuery);
+            setDeleteQuery("");
           }}
         >
           <input
             type="text"
             placeholder="Delete by Redis pattern"
             onChange={(e) => setDeleteQuery(e.target.value)}
+            value={deleteQuery}
           />
           <button type="submit">Bulk Delete</button>
           <p className="sideDrawer__warning">
@@ -96,15 +98,3 @@ const SideDrawer: React.FC<DrawerProps> = ({
 };
 
 export default SideDrawer;
-
-// const selectedDataStringPresentation = selectedData
-//   .map(
-//     (node: any) =>
-//       `${node.keyName}`
-//       `${node.subset && `#${node.subset}`}` +
-//       `#${node.orgId}`
-//   )
-//   .join(", ");
-// console.log(
-//   `You selected the following rows: ${selectedDataStringPresentation}`
-// );

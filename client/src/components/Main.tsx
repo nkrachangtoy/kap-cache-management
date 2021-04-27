@@ -19,7 +19,6 @@ const Main = () => {
   const [rowData, setRowData] = useState<Array<IRowData>>([]);
   const [pageNum, setPageNum] = useState<number>(1);
   const [selectedRows, setSelectedRows] = useState<Array<IRowData>>([]);
-  const [deleteQuery, setDeleteQuery] = useState("");
 
   const handlePageNext = async () => {
     const data = await getPage(pageNum + 1);
@@ -50,10 +49,9 @@ const Main = () => {
     setSelectedRows(row);
   };
 
-  const handleDeleteByQuery = async () => {
+  const handleDeleteByQuery = async (deleteQuery: string) => {
     const data = await deleteKeyByQuery(deleteQuery);
     console.log(`delete query: ${deleteQuery}, result:`, data);
-    setDeleteQuery("");
   };
 
   useEffect(() => {
@@ -78,7 +76,6 @@ const Main = () => {
         <Grid rowData={rowData} handleGetSelectedRows={handleGetSelectedRows} />
         <SideDrawer
           selectedRows={selectedRows}
-          setDeleteQuery={setDeleteQuery}
           handleDeleteByQuery={handleDeleteByQuery}
         />
       </div>
