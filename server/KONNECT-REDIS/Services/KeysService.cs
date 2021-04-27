@@ -19,6 +19,7 @@ namespace KONNECT_REDIS.Services
         {
             _multiplexer = multiplexer;
             _db = _multiplexer.GetDatabase();
+
         }
 
         /// <summary>
@@ -64,11 +65,8 @@ namespace KONNECT_REDIS.Services
             }
 
             // Pagination
-            if(pageSize.Equals(null) || pageSize.Equals(0))
-            {
-                pageSize = 25;
-            }
             keyList = Paginate<KeyDto>.Create(keyList.AsQueryable(), pageNumber ?? 1, pageSize);
+
 
             return keyList
                     .OrderBy(k => k.KeyName)

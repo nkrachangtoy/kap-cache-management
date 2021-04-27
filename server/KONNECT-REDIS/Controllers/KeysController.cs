@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using KONNECT_REDIS.Models;
 using KONNECT_REDIS.Models.Dtos;
 using KONNECT_REDIS.Services.IServices;
+using KONNECT_REDIS.utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,9 +17,11 @@ namespace KONNECT_REDIS.Controllers
     {
         private IKeysService _keysService;
 
+
         public KeysController(IKeysService keysService)
         {
             _keysService = keysService;
+
         }
 
         /// <summary>
@@ -33,19 +36,20 @@ namespace KONNECT_REDIS.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetAllKeys(int pageNumber, int pageSize)
+        public IActionResult GetAllKeys(int pageNumber, int pageSize = 25)
 
         {
             try
             {
-                var res = _keysService.GetAllKeys(pageNumber, pageSize);
-
+                var res = _keysService.GetAllKeys(pageNumber, pageSize); 
+                
                 if (res == null)
                 {
                     return NotFound();
                 }
+                var results = new { Keys = res, TotalKeyCount = res.Count, PageSize = pageSize, TotalPages = (int)Math.Ceiling(res.Count / (double)pageSize) };
 
-                return Ok(res);
+                return Ok(results);
             }
             catch (Exception e)
             {
@@ -73,8 +77,8 @@ namespace KONNECT_REDIS.Controllers
                 {
                     return NotFound();
                 }
-
-                return Ok(res);
+                var results = new { Keys = res, TotalKeyCount = res.Count, PageSize = pageSize, TotalPages = (int)Math.Ceiling(res.Count / (double)pageSize) };
+                return Ok(results);
             }
             catch (Exception e)
             {
