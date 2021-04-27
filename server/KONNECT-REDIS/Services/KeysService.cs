@@ -53,7 +53,7 @@ namespace KONNECT_REDIS.Services
 
                     keyList.Add(keyObj);
                 }
-                else
+                else if (keyString.Split("#").Length == 2)
                 {
                     var f1 = keyString.Split("#")[0];
                     var f3 = keyString.Split("#")[1];
@@ -100,7 +100,7 @@ namespace KONNECT_REDIS.Services
 
                     keyList.Add(keyObj);
                 }
-                else
+                else if (keyString.Split("#").Length == 2)
                 {
                     var f1 = keyString.Split("#")[0];
                     var f3 = keyString.Split("#")[1];
