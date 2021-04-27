@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace KONNECT_REDIS.utils
 {
-    public class Paginate<T> : List<T>
+    public class Paginate<T> : List<T>, IPaginate<T>
     {
         public int PageIndex { get; private set; }
 

@@ -15,12 +15,11 @@ namespace KONNECT_REDIS.Controllers
     public class KeysController : ControllerBase
     {
         private IKeysService _keysService;
-        private Paginate _paginate;
 
-        public KeysController(IKeysService keysService, Paginate paginate)
+
+        public KeysController(IKeysService keysService)
         {
             _keysService = keysService;
-            _paginate = paginate;
         }
 
         /// <summary>
