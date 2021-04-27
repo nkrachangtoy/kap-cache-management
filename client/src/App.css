@@ -1,3 +1,7 @@
+button {
+  margin: 8px;
+}
+
 .App {
   display: flex;
 }
@@ -45,6 +49,23 @@
   /* background-color: aqua; */
   padding: 10px;
   border: 1px solid grey;
+}
+
+.sideDrawer__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sideDrawer__formField {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  margin: 3px 0;
+}
+
+.sideDrawer__formLabel {
+  margin-right: 3px;
 }
 
 .sideDrawer__heading {
