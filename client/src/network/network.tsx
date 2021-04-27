@@ -3,7 +3,7 @@ const BASE_URL = "https://localhost:44371/api/Keys";
 
 export const getAllKeys = async () => {
   try {
-    const response = await axios.get(`${BASE_URL}/`);
+    const response = await axios.get(`${BASE_URL}`);
     console.log("getAllKeys response>>", response.data);
     return response.data;
   } catch (e) {

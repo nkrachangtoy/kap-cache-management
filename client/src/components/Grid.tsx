@@ -70,7 +70,7 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
       {/* <Button onClick={handleGetSelectedRows}>Get selected rows</Button> */}
       <AgGridReact
         columnDefs={columnDefs}
-        rowData={rowData.keys}
+        rowData={rowData?.keys}
         rowSelection="multiple"
         onGridReady={(params) => {
           setGridApi(params.api);

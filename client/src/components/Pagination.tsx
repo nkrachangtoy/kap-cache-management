@@ -26,7 +26,7 @@ const Pagination: React.FC<PaginationProps> = ({
         Page {pageNum}
         <button
           onClick={handlePageNext}
-          disabled={pageNum === rowData?.totalPages ? true : false}
+          // disabled={pageNum === rowData.totalPages ? true : false}
         >
           next
         </button>
