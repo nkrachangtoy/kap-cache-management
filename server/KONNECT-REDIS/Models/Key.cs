@@ -10,5 +10,7 @@ namespace KONNECT_REDIS.Models
         public string KeyName { get; set; }
         public string Subset { get; set; }
         public string OrgId { get; set; }
+
+        public Value Value { get; set; }
     }
 }

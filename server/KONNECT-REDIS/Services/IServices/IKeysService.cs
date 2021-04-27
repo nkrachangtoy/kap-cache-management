@@ -13,6 +13,6 @@ namespace KONNECT_REDIS.Services.IServices
         long BatchDeleteKeysByQuery(string pattern);
         bool DeleteKey(Key key);
         string GetValue(Key key);
-        bool SetKeyValue(Key key, string value);
+        bool SetKeyValue(Key key);
     }
 }

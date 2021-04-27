@@ -167,15 +167,15 @@ namespace KONNECT_REDIS.Services
         /// <param name="key"></param>
         /// <param name="value"></param>
         /// <returns>True or false whether key value pair was succesfully added</returns>
-        public bool SetKeyValue(Key key, string value)
+        public bool SetKeyValue(Key key)
         {
             if(key.Subset != null)
             {
-                return _db.StringSet($"{key.KeyName}#{key.Subset}#{key.OrgId}", value);
+                return _db.StringSet($"{key.KeyName}#{key.Subset}#{key.OrgId}", key.Value.Data);
             }
             else
             {
-                return _db.StringSet($"{key.KeyName}#{key.OrgId}", value);
+                return _db.StringSet($"{key.KeyName}#{key.OrgId}", key.Value.Data);
             }
         }
     }
