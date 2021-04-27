@@ -44,7 +44,7 @@ const Main = () => {
     if (row.length === 1) {
       console.log("row[0] >>", row[0]);
       const data = await getKeyValue(row[0]);
-      console.log("value>>", data);
+      console.log("value>>", data.value);
       row[0].value = data.value;
     }
     setSelectedRows(row);

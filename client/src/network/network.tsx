@@ -42,7 +42,7 @@ export const getKeyValue = async (key: IRowData) => {
     const response = await axios.get(
       `${BASE_URL}/value?KeyName=${key.keyName}&Subset=${key.subset}&OrgId=${key.orgId}`
     );
-    console.log(`value of ${key.keyName}...>>>`, response.data);
+    console.log(`value of ${key.keyName}...>>>`, response.data.value);
     return response.data;
   } catch (e) {
     console.log(`Error: ${e}`);
