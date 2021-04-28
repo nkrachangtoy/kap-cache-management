@@ -11,13 +11,17 @@ interface IKeyValue {
 interface DrawerProps {
   selectedRows: any;
   handleDeleteByQuery: (deleteQuery: string) => void;
-  handleAddNewKey: (keyValue: IKeyValue) => void;
+  handleAddNewKey: () => void;
+  keyValue: IKeyValue;
+  setKeyValue: (keyValue: IKeyValue) => void;
 }
 
 const SideDrawer: React.FC<DrawerProps> = ({
   selectedRows,
   handleDeleteByQuery,
   handleAddNewKey,
+  keyValue,
+  setKeyValue,
 }) => {
   const [deleteQuery, setDeleteQuery] = useState("");
 
@@ -47,7 +51,11 @@ const SideDrawer: React.FC<DrawerProps> = ({
           <strong>Value:</strong>
           <div className="sideDrawer_valueCodeBlock">
             <pre>
-              <code>{selectedRows[0].value}</code>
+              <code>
+                {selectedRows[0].value.data
+                  ? selectedRows[0].value.data
+                  : selectedRows[0].value}
+              </code>
             </pre>
           </div>
         </div>
@@ -106,7 +114,11 @@ const SideDrawer: React.FC<DrawerProps> = ({
             Warning: This action cannot be undone.
           </p>
         </form>
-        <AddKeyForm handleAddNewKey={handleAddNewKey} />
+        <AddKeyForm
+          handleAddNewKey={handleAddNewKey}
+          keyValue={keyValue}
+          setKeyValue={setKeyValue}
+        />
       </div>
     );
   }

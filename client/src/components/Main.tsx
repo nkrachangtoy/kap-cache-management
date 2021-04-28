@@ -39,6 +39,12 @@ const Main = () => {
   const [rowData, setRowData] = useState<IRowData | object>({});
   const [pageNum, setPageNum] = useState<number>(1);
   const [selectedRows, setSelectedRows] = useState<Array<IRowData>>([]);
+  const [keyValue, setKeyValue] = useState<IKeyValue>({
+    keyName: "",
+    subset: "",
+    orgId: "",
+    valueString: "",
+  });
 
   const handlePageNext = async () => {
     const data = await getPage(pageNum + 1);
@@ -72,8 +78,15 @@ const Main = () => {
     console.log(`delete query: ${deleteQuery}, result:`, data);
   };
 
-  const handleAddNewKey = async (keyValue: IKeyValue) => {
+  const handleAddNewKey = async () => {
     const data = await postNewKeyValue(keyValue);
+    data &&
+      setKeyValue({
+        keyName: "",
+        subset: "",
+        orgId: "",
+        valueString: "",
+      });
   };
 
   useEffect(() => {
@@ -101,6 +114,8 @@ const Main = () => {
           selectedRows={selectedRows}
           handleDeleteByQuery={handleDeleteByQuery}
           handleAddNewKey={handleAddNewKey}
+          keyValue={keyValue}
+          setKeyValue={setKeyValue}
         />
       </div>
     </div>

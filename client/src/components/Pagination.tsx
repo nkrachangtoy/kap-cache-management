@@ -15,7 +15,7 @@ const Pagination: React.FC<PaginationProps> = ({
 }) => {
   return (
     <div className="pagination">
-      <div>Showing {rowData?.keys?.length} results</div>
+      <div>Showing {rowData?.keys?.length} of (totalNum) results</div>
       <div>
         <button
           onClick={handlePageBack}
