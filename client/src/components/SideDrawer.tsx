@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import AddKeyForm from "./AddKeyForm";
 import DeleteByQueryForm from "./DeleteByQueryForm";
-import { deleteKeyByQuery } from "./../network/network";
 
 interface IKeyValue {
   keyName: string;
@@ -18,6 +17,7 @@ interface DrawerProps {
   setKeyValue: (keyValue: IKeyValue) => void;
   deleteQuery: string;
   setDeleteQuery: (query: string) => void;
+  handleDeleteBySelection: () => void;
 }
 
 const SideDrawer: React.FC<DrawerProps> = ({
@@ -28,6 +28,7 @@ const SideDrawer: React.FC<DrawerProps> = ({
   setKeyValue,
   deleteQuery,
   setDeleteQuery,
+  handleDeleteBySelection,
 }) => {
   // ===== IF A SINGLE ROW IS SELECTED ===== //
   //         display the key's value
@@ -63,7 +64,9 @@ const SideDrawer: React.FC<DrawerProps> = ({
             </pre>
           </div>
         </div>
-        {selectedRows[0] && <button>Delete</button>}
+        {selectedRows[0] && (
+          <button onClick={handleDeleteBySelection}>Delete</button>
+        )}
       </div>
     );
   } else if (selectedRows?.length > 1) {
@@ -85,7 +88,7 @@ const SideDrawer: React.FC<DrawerProps> = ({
           ))}
         </div>
         <br />
-        <button>Delete all</button>
+        <button onClick={handleDeleteBySelection}>Delete all</button>
       </div>
     );
   } else {

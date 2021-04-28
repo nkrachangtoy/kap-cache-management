@@ -171,7 +171,7 @@ namespace KONNECT_REDIS.Services
         /// <returns>True or false whether key value pair was succesfully added</returns>
         public bool SetKeyValue(Key key)
         {
-            if(!key.Subset.equals(""))
+            if(!key.Subset.Equals(""))
             {
                 return _db.StringSet($"{key.KeyName}#{key.Subset}#{key.OrgId}", key.Value.Data);
             }

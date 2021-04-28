@@ -3,6 +3,7 @@ import Grid from "./Grid";
 
 import Pagination from "./Pagination";
 import {
+  deleteKeyBySelection,
   getAllKeys,
   getKeyValue,
   postNewKeyValue,
@@ -79,6 +80,11 @@ const Main = () => {
     console.log(`delete query: ${deleteQuery}, result:`, data);
   };
 
+  const handleDeleteBySelection = async () => {
+    console.log("selected Rows for deletion", selectedRows);
+    await deleteKeyBySelection(selectedRows);
+  };
+
   const handleAddNewKey = async () => {
     const data = await postNewKeyValue(keyValue);
     data &&
@@ -129,6 +135,7 @@ const Main = () => {
           setKeyValue={setKeyValue}
           deleteQuery={deleteQuery}
           setDeleteQuery={setDeleteQuery}
+          handleDeleteBySelection={handleDeleteBySelection}
         />
       </div>
     </div>
