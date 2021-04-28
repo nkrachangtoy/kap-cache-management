@@ -7,7 +7,11 @@ interface IKeyValue {
   valueString: string;
 }
 
-const AddKeyForm = () => {
+interface AddKeyFormProps {
+  handleAddNewKey: (keyValue: IKeyValue) => void;
+}
+
+const AddKeyForm: React.FC<AddKeyFormProps> = ({ handleAddNewKey }) => {
   const [keyValue, setKeyValue] = useState<IKeyValue>({
     keyName: "",
     subset: "",
@@ -24,6 +28,7 @@ const AddKeyForm = () => {
         onSubmit={(e) => {
           e.preventDefault();
           console.log("New KeyValue Pair >>", keyValue);
+          handleAddNewKey(keyValue);
         }}
       >
         <div className="sideDrawer__formField">

@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import Grid from "./Grid";
 
 import Pagination from "./Pagination";
-import { getAllKeys, getKeyValue, searchKeys } from "../network/network";
+import {
+  getAllKeys,
+  getKeyValue,
+  postNewKeyValue,
+  searchKeys,
+} from "../network/network";
 import Search from "./Search";
 import { getPage } from "../network/network";
 import SideDrawer from "./SideDrawer";
@@ -20,6 +25,14 @@ interface IKey {
   subset: string;
   orgId: string;
   value?: object;
+}
+
+interface IKeyValue {
+  //Need to refactor this to reduce redundacy above
+  keyName: string;
+  subset: string;
+  orgId: string;
+  valueString: string;
 }
 
 const Main = () => {
@@ -59,6 +72,10 @@ const Main = () => {
     console.log(`delete query: ${deleteQuery}, result:`, data);
   };
 
+  const handleAddNewKey = async (keyValue: IKeyValue) => {
+    const data = await postNewKeyValue(keyValue);
+  };
+
   useEffect(() => {
     (async () => {
       const result = await getAllKeys();
@@ -83,6 +100,7 @@ const Main = () => {
         <SideDrawer
           selectedRows={selectedRows}
           handleDeleteByQuery={handleDeleteByQuery}
+          handleAddNewKey={handleAddNewKey}
         />
       </div>
     </div>

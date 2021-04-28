@@ -1,14 +1,23 @@
 import React, { useState } from "react";
 import AddKeyForm from "./AddKeyForm";
 
+interface IKeyValue {
+  keyName: string;
+  subset: string;
+  orgId: string;
+  valueString: string;
+}
+
 interface DrawerProps {
   selectedRows: any;
   handleDeleteByQuery: (deleteQuery: string) => void;
+  handleAddNewKey: (keyValue: IKeyValue) => void;
 }
 
 const SideDrawer: React.FC<DrawerProps> = ({
   selectedRows,
   handleDeleteByQuery,
+  handleAddNewKey,
 }) => {
   const [deleteQuery, setDeleteQuery] = useState("");
 
@@ -97,7 +106,7 @@ const SideDrawer: React.FC<DrawerProps> = ({
             Warning: This action cannot be undone.
           </p>
         </form>
-        <AddKeyForm />
+        <AddKeyForm handleAddNewKey={handleAddNewKey} />
       </div>
     );
   }
