@@ -1,6 +1,13 @@
 import axios from "axios";
 const BASE_URL = "https://localhost:44371/api/Keys";
 
+interface IKeyValue {
+  keyName: string;
+  subset: string;
+  orgId: string;
+  valueString: string;
+}
+
 export const getAllKeys = async () => {
   try {
     const response = await axios.get(`${BASE_URL}`);
@@ -56,5 +63,26 @@ export const deleteKeyByQuery = async (query: string) => {
     return response.data;
   } catch (e) {
     alert(`Error: ${e}`);
+  }
+};
+
+export const postNewKeyValue = async (keyValue: IKeyValue) => {
+  try {
+    const postObj = {
+      keyName: keyValue.keyName,
+      subset: keyValue.subset,
+      orgId: keyValue.orgId,
+      value: {
+        data: keyValue.valueString,
+      },
+    };
+    console.log(postObj);
+    const response = await axios.post(`${BASE_URL}`, postObj);
+    console.log("Post response >>", response);
+    response.status === 200 &&
+      alert(`Successfully added new key: ${JSON.stringify(response.data)}`);
+    return response.data;
+  } catch (e) {
+    console.log(`Error: ${e}`);
   }
 };
