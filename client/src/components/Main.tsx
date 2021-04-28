@@ -3,6 +3,7 @@ import Grid from "./Grid";
 
 import Pagination from "./Pagination";
 import {
+  deleteKeyBySelection,
   getAllKeys,
   getKeyValue,
   postNewKeyValue,
@@ -39,6 +40,7 @@ const Main = () => {
   const [rowData, setRowData] = useState<IRowData | object>({});
   const [pageNum, setPageNum] = useState<number>(1);
   const [selectedRows, setSelectedRows] = useState<Array<IRowData>>([]);
+  const [deleteQuery, setDeleteQuery] = useState<string>("");
   const [keyValue, setKeyValue] = useState<IKeyValue>({
     keyName: "",
     subset: "",
@@ -73,9 +75,15 @@ const Main = () => {
     setSelectedRows(row);
   };
 
-  const handleDeleteByQuery = async (deleteQuery: string) => {
+  const handleDeleteByQuery = async () => {
     const data = await deleteKeyByQuery(deleteQuery);
     console.log(`delete query: ${deleteQuery}, result:`, data);
+  };
+
+  const handleDeleteBySelection = async () => {
+    console.log("selected Rows for deletion", selectedRows);
+    await deleteKeyBySelection(selectedRows);
+    await handleGetAllKeys(); //this is slow, set up a spinner???
   };
 
   const handleAddNewKey = async () => {
@@ -126,6 +134,9 @@ const Main = () => {
           handleAddNewKey={handleAddNewKey}
           keyValue={keyValue}
           setKeyValue={setKeyValue}
+          deleteQuery={deleteQuery}
+          setDeleteQuery={setDeleteQuery}
+          handleDeleteBySelection={handleDeleteBySelection}
         />
       </div>
     </div>

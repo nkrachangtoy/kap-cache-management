@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 interface IKeyValue {
   keyName: string;
@@ -68,6 +68,7 @@ const AddKeyForm: React.FC<AddKeyFormProps> = ({
             onChange={(e) =>
               setKeyValue({ ...keyValue, orgId: e.target.value })
             }
+            required
           />
         </div>
         <div className="sideDrawer__formField">

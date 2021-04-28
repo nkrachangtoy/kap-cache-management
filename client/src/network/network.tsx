@@ -66,6 +66,21 @@ export const deleteKeyByQuery = async (query: string) => {
   }
 };
 
+export const deleteKeyBySelection = async (selection: any) => {
+  try {
+    const response = await axios({
+      method: "delete",
+      url: `${BASE_URL}/removeSelected`,
+      data: selection,
+      headers: { "Content-Type": "application/json" },
+    });
+    response.data.success && alert(response.data.message);
+    console.log("Delete by Selection Response:", response);
+  } catch (e) {
+    alert(`Error: ${e}`);
+  }
+};
+
 export const postNewKeyValue = async (keyValue: IKeyValue) => {
   try {
     const postObj = {
