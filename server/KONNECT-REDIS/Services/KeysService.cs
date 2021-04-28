@@ -183,15 +183,21 @@ namespace KONNECT_REDIS.Services
 
         public bool DeleteKeysBySelect(List<KeyDto> keys)
         {
-            var frontEndArray = keys;
-            var keyList = new List<KeyDto>;
-
-            foreach (var key in frontEndArray) 
+            var result = false;
+            foreach (var key in keys) 
             {
-                var keyObj = new KeyDto { KeyName };
-                keyList.Add(keyObj);
+
+                if(key.Subset != null)
+                {
+                    
+                    result = _db.KeyDelete($"{key.KeyName}#{key.Subset}#{key.OrgId}");
+                }
+                else
+                {
+                    result = _db.KeyDelete($"{key.KeyName}#{key.OrgId}");
+                }
             }
-            return default;
+            return result;
         }
     }
 }

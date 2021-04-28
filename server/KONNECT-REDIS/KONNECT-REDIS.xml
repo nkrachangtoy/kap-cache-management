@@ -37,7 +37,7 @@
         </member>
         <member name="M:KONNECT_REDIS.Controllers.KeysController.BatchDeleteKeysByQuery(System.String)">
             <summary>
-            Delete a multiple keys by Redis key pattern
+            Delete multiple keys by Redis key pattern
             </summary>
             <param name="pattern">A Redis key pattern</param>
             <returns>Number of deleted keys and pattern they followed, or throws an error</returns>
@@ -49,6 +49,13 @@
             <param name="key"></param>
             <param name="value"></param>
             <returns></returns>
+        </member>
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.DeleteKeysBySelect(System.Collections.Generic.List{KONNECT_REDIS.Models.Dtos.KeyDto})">
+            <summary>
+            Delete a multiple keys by select
+            </summary>
+            <param name="keys">Selected keys</param>
+            <returns>Number of deleted keys and keys, or throws an error</returns>
         </member>
         <member name="M:KONNECT_REDIS.Services.KeysService.GetAllKeys(System.Nullable{System.Int32},System.Int32)">
             <summary>

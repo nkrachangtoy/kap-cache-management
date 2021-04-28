@@ -243,7 +243,7 @@ namespace KONNECT_REDIS.Controllers
 
                 var deletedKeys = $"{res}";
 
-                var message = new { success = res, message = $"Successfully deleted {keys}" };
+                var message = new { success = res, message = $"Successfully deleted {keys.Count} keys" };
 
                 return Ok(message);
             }
