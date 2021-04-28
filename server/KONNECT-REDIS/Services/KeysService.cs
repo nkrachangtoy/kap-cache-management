@@ -180,5 +180,24 @@ namespace KONNECT_REDIS.Services
                 return _db.StringSet($"{key.KeyName}#{key.OrgId}", key.Value.Data);
             }
         }
+
+        public bool DeleteKeysBySelect(List<KeyDto> keys)
+        {
+            var result = false;
+            foreach (var key in keys) 
+            {
+
+                if(key.Subset != null)
+                {
+                    
+                    result = _db.KeyDelete($"{key.KeyName}#{key.Subset}#{key.OrgId}");
+                }
+                else
+                {
+                    result = _db.KeyDelete($"{key.KeyName}#{key.OrgId}");
+                }
+            }
+            return result;
+        }
     }
 }
