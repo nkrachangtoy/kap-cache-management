@@ -87,7 +87,7 @@ namespace KONNECT_REDIS.Services
 
             var keyList = new List<KeyDto>();
 
-            foreach (var key in server.Keys(pattern: pattern))
+            foreach (var key in server.Keys(0, pattern: pattern, pageSize: 100000))
             {
                 var keyString = key.ToString();
 
@@ -123,7 +123,7 @@ namespace KONNECT_REDIS.Services
         public long BatchDeleteKeysByQuery(string pattern)
         {
                 var server = _multiplexer.GetServer("redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com", 12388);
-                var keys = server.Keys(pattern: pattern).ToArray();
+                var keys = server.Keys(0, pattern: pattern, pageSize: 100000).ToArray();
                 return _db.KeyDelete(keys);
         }
 

@@ -33,7 +33,7 @@ const AddKeyForm: React.FC<AddKeyFormProps> = ({ handleAddNewKey }) => {
       >
         <div className="sideDrawer__formField">
           <label htmlFor="keyName" className="sideDrawer__formLabel">
-            Key Name: *
+            Key Name:
           </label>
           <input
             id="keyName"
@@ -73,7 +73,7 @@ const AddKeyForm: React.FC<AddKeyFormProps> = ({ handleAddNewKey }) => {
         </div>
         <div className="sideDrawer__formField">
           <label htmlFor="value" className="sideDrawer__formLabel">
-            Value: *
+            Value:
           </label>
           <textarea
             id="value"
