@@ -66,6 +66,14 @@ export const deleteKeyByQuery = async (query: string) => {
   }
 };
 
+export const deleteKeyBySelection = async (selection: any) => {
+  try {
+    console.log(selection);
+  } catch (e) {
+    alert(`Error: ${e}`);
+  }
+};
+
 export const postNewKeyValue = async (keyValue: IKeyValue) => {
   try {
     const postObj = {

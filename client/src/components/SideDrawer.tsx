@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import AddKeyForm from "./AddKeyForm";
+import DeleteByQueryForm from "./DeleteByQueryForm";
+import { deleteKeyByQuery } from "./../network/network";
 
 interface IKeyValue {
   keyName: string;
@@ -10,10 +12,12 @@ interface IKeyValue {
 
 interface DrawerProps {
   selectedRows: any;
-  handleDeleteByQuery: (deleteQuery: string) => void;
+  handleDeleteByQuery: () => void;
   handleAddNewKey: () => void;
   keyValue: IKeyValue;
   setKeyValue: (keyValue: IKeyValue) => void;
+  deleteQuery: string;
+  setDeleteQuery: (query: string) => void;
 }
 
 const SideDrawer: React.FC<DrawerProps> = ({
@@ -22,9 +26,9 @@ const SideDrawer: React.FC<DrawerProps> = ({
   handleAddNewKey,
   keyValue,
   setKeyValue,
+  deleteQuery,
+  setDeleteQuery,
 }) => {
-  const [deleteQuery, setDeleteQuery] = useState("");
-
   // ===== IF A SINGLE ROW IS SELECTED ===== //
   //         display the key's value
   if (selectedRows?.length === 1) {
@@ -91,29 +95,11 @@ const SideDrawer: React.FC<DrawerProps> = ({
       <div className="sideDrawer">
         <h3>Konnect Redis Cache</h3>
         <hr />
-        <h4>Delete By Query</h4>
-        <hr />
-        <form
-          onSubmit={(event) => {
-            event.preventDefault();
-            handleDeleteByQuery(deleteQuery);
-            setDeleteQuery("");
-          }}
-          className="sideDrawer__form"
-        >
-          <div>
-            <input
-              type="text"
-              placeholder="Delete by Redis pattern"
-              onChange={(e) => setDeleteQuery(e.target.value)}
-              value={deleteQuery}
-            />
-            <button type="submit">Bulk Delete</button>
-          </div>
-          <p className="sideDrawer__warning">
-            Warning: This action cannot be undone.
-          </p>
-        </form>
+        <DeleteByQueryForm
+          handleDeleteByQuery={handleDeleteByQuery}
+          deleteQuery={deleteQuery}
+          setDeleteQuery={setDeleteQuery}
+        />
         <AddKeyForm
           handleAddNewKey={handleAddNewKey}
           keyValue={keyValue}

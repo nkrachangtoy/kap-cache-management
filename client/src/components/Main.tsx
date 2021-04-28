@@ -39,6 +39,7 @@ const Main = () => {
   const [rowData, setRowData] = useState<IRowData | object>({});
   const [pageNum, setPageNum] = useState<number>(1);
   const [selectedRows, setSelectedRows] = useState<Array<IRowData>>([]);
+  const [deleteQuery, setDeleteQuery] = useState<string>("");
   const [keyValue, setKeyValue] = useState<IKeyValue>({
     keyName: "",
     subset: "",
@@ -73,7 +74,7 @@ const Main = () => {
     setSelectedRows(row);
   };
 
-  const handleDeleteByQuery = async (deleteQuery: string) => {
+  const handleDeleteByQuery = async () => {
     const data = await deleteKeyByQuery(deleteQuery);
     console.log(`delete query: ${deleteQuery}, result:`, data);
   };
@@ -126,6 +127,8 @@ const Main = () => {
           handleAddNewKey={handleAddNewKey}
           keyValue={keyValue}
           setKeyValue={setKeyValue}
+          deleteQuery={deleteQuery}
+          setDeleteQuery={setDeleteQuery}
         />
       </div>
     </div>
