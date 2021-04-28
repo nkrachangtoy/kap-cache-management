@@ -16,5 +16,6 @@ namespace KONNECT_REDIS.Services.IServices
         bool DeleteKey(KeyDto key);
         Value GetValue(KeyDto key);
         bool SetKeyValue(Key key);
+        bool DeleteKeysBySelect(List<KeyDto> keys);
     }
 }

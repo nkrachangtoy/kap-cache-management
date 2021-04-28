@@ -118,7 +118,7 @@ namespace KONNECT_REDIS.Services
         public long BatchDeleteKeysByQuery(string pattern)
         {
                 var server = _multiplexer.GetServer("redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com", 12388);
-                var keys = server.Keys(pattern: pattern).ToArray();
+                var keys = server.Keys(0, pattern: pattern, pageSize: 100000).ToArray();
                 return _db.KeyDelete(keys);
         }
 
@@ -174,6 +174,25 @@ namespace KONNECT_REDIS.Services
             {
                 return _db.StringSet($"{key.KeyName}#{key.OrgId}", key.Value.Data);
             }
+        }
+
+        public bool DeleteKeysBySelect(List<KeyDto> keys)
+        {
+            var result = false;
+            foreach (var key in keys) 
+            {
+
+                if(key.Subset != null)
+                {
+                    
+                    result = _db.KeyDelete($"{key.KeyName}#{key.Subset}#{key.OrgId}");
+                }
+                else
+                {
+                    result = _db.KeyDelete($"{key.KeyName}#{key.OrgId}");
+                }
+            }
+            return result;
         }
     }
 }

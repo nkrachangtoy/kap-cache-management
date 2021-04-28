@@ -1,13 +1,27 @@
 import React, { useState } from "react";
+import AddKeyForm from "./AddKeyForm";
+
+interface IKeyValue {
+  keyName: string;
+  subset: string;
+  orgId: string;
+  valueString: string;
+}
 
 interface DrawerProps {
   selectedRows: any;
   handleDeleteByQuery: (deleteQuery: string) => void;
+  handleAddNewKey: () => void;
+  keyValue: IKeyValue;
+  setKeyValue: (keyValue: IKeyValue) => void;
 }
 
 const SideDrawer: React.FC<DrawerProps> = ({
   selectedRows,
   handleDeleteByQuery,
+  handleAddNewKey,
+  keyValue,
+  setKeyValue,
 }) => {
   const [deleteQuery, setDeleteQuery] = useState("");
 
@@ -37,7 +51,11 @@ const SideDrawer: React.FC<DrawerProps> = ({
           <strong>Value:</strong>
           <div className="sideDrawer_valueCodeBlock">
             <pre>
-              <code>{selectedRows[0].value}</code>
+              <code>
+                {selectedRows[0].value.data
+                  ? selectedRows[0].value.data
+                  : selectedRows[0].value}
+              </code>
             </pre>
           </div>
         </div>
@@ -96,40 +114,11 @@ const SideDrawer: React.FC<DrawerProps> = ({
             Warning: This action cannot be undone.
           </p>
         </form>
-        <h4>Add New Key</h4>
-        <hr />
-        <form
-          className="sideDrawer__form"
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
-        >
-          <div className="sideDrawer__formField">
-            <label htmlFor="keyName" className="sideDrawer__formLabel">
-              Key Name: *
-            </label>
-            <input id="keyName" type="text" required />
-          </div>
-          <div className="sideDrawer__formField">
-            <label htmlFor="subset" className="sideDrawer__formLabel">
-              Subset:
-            </label>
-            <input id="subset" type="text" />
-          </div>
-          <div className="sideDrawer__formField">
-            <label htmlFor="orgId" className="sideDrawer__formLabel">
-              OrgId:
-            </label>
-            <input id="orgId" type="text" />
-          </div>
-          <div className="sideDrawer__formField">
-            <label htmlFor="value" className="sideDrawer__formLabel">
-              Value: *
-            </label>
-            <textarea id="value" rows={4} required></textarea>
-          </div>
-          <button type="submit">Add New Key</button>
-        </form>
+        <AddKeyForm
+          handleAddNewKey={handleAddNewKey}
+          keyValue={keyValue}
+          setKeyValue={setKeyValue}
+        />
       </div>
     );
   }

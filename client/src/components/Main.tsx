@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import Grid from "./Grid";
 
 import Pagination from "./Pagination";
-import { getAllKeys, getKeyValue, searchKeys } from "../network/network";
+import {
+  getAllKeys,
+  getKeyValue,
+  postNewKeyValue,
+  searchKeys,
+} from "../network/network";
 import Search from "./Search";
 import { getPage } from "../network/network";
 import SideDrawer from "./SideDrawer";
@@ -22,10 +27,24 @@ interface IKey {
   value?: object;
 }
 
+interface IKeyValue {
+  //Need to refactor this to reduce redundacy above
+  keyName: string;
+  subset: string;
+  orgId: string;
+  valueString: string;
+}
+
 const Main = () => {
   const [rowData, setRowData] = useState<IRowData | object>({});
   const [pageNum, setPageNum] = useState<number>(1);
   const [selectedRows, setSelectedRows] = useState<Array<IRowData>>([]);
+  const [keyValue, setKeyValue] = useState<IKeyValue>({
+    keyName: "",
+    subset: "",
+    orgId: "",
+    valueString: "",
+  });
 
   const handlePageNext = async () => {
     const data = await getPage(pageNum + 1);
@@ -59,11 +78,32 @@ const Main = () => {
     console.log(`delete query: ${deleteQuery}, result:`, data);
   };
 
+  const handleAddNewKey = async () => {
+    const data = await postNewKeyValue(keyValue);
+    data &&
+      setKeyValue({
+        keyName: "",
+        subset: "",
+        orgId: "",
+        valueString: "",
+      });
+    await handleGetAllKeys();
+  };
+
+  const handleGetAllKeys = async () => {
+    const result = await getAllKeys();
+    setRowData(result);
+    console.log("ROW DATA", result);
+  };
+
+  const handleReset = async () => {
+    await handleGetAllKeys();
+    setSelectedRows([]);
+  };
+
   useEffect(() => {
     (async () => {
-      const result = await getAllKeys();
-      setRowData(result);
-      console.log("ROW DATA", result);
+      await handleGetAllKeys();
     })();
   }, []);
 
@@ -76,13 +116,16 @@ const Main = () => {
           handlePageBack={handlePageBack}
           rowData={rowData}
         />
-        <Search handleSearch={handleSearch} />
+        <Search handleSearch={handleSearch} handleReset={handleReset} />
       </div>
       <div className="main__redisData">
         <Grid rowData={rowData} handleGetSelectedRows={handleGetSelectedRows} />
         <SideDrawer
           selectedRows={selectedRows}
           handleDeleteByQuery={handleDeleteByQuery}
+          handleAddNewKey={handleAddNewKey}
+          keyValue={keyValue}
+          setKeyValue={setKeyValue}
         />
       </div>
     </div>

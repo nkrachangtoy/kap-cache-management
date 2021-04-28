@@ -151,7 +151,7 @@ namespace KONNECT_REDIS.Controllers
         }
 
         /// <summary>
-        /// Delete a multiple keys by Redis key pattern
+        /// Delete multiple keys by Redis key pattern
         /// </summary>
         /// <param name="pattern">A Redis key pattern</param>
         /// <returns>Number of deleted keys and pattern they followed, or throws an error</returns>
@@ -211,6 +211,41 @@ namespace KONNECT_REDIS.Controllers
                 }
 
                 return Ok(key);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
+
+        /// <summary>
+        /// Delete a multiple keys by select
+        /// </summary>
+        /// <param name="keys">Selected keys</param>
+        /// <returns>Number of deleted keys and keys, or throws an error</returns>
+        [HttpDelete("removeSelected")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult DeleteKeysBySelect([FromBody] List<KeyDto> keys)
+        {
+            try
+            {
+                var res = _keysService.DeleteKeysBySelect(keys);
+
+                if (res == false)
+                {
+                    var errMessage = new { success = res, message = "No key selected" };
+
+                    return NotFound(errMessage);
+                }
+
+                var deletedKeys = $"{res}";
+
+                var message = new { success = res, message = $"Successfully deleted {keys.Count} keys" };
+
+                return Ok(message);
             }
             catch (Exception e)
             {
