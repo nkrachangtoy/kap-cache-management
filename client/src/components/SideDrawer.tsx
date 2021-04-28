@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import AddKeyForm from "./AddKeyForm";
 
 interface DrawerProps {
   selectedRows: any;
@@ -96,40 +97,7 @@ const SideDrawer: React.FC<DrawerProps> = ({
             Warning: This action cannot be undone.
           </p>
         </form>
-        <h4>Add New Key</h4>
-        <hr />
-        <form
-          className="sideDrawer__form"
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
-        >
-          <div className="sideDrawer__formField">
-            <label htmlFor="keyName" className="sideDrawer__formLabel">
-              Key Name: *
-            </label>
-            <input id="keyName" type="text" required />
-          </div>
-          <div className="sideDrawer__formField">
-            <label htmlFor="subset" className="sideDrawer__formLabel">
-              Subset:
-            </label>
-            <input id="subset" type="text" />
-          </div>
-          <div className="sideDrawer__formField">
-            <label htmlFor="orgId" className="sideDrawer__formLabel">
-              OrgId:
-            </label>
-            <input id="orgId" type="text" />
-          </div>
-          <div className="sideDrawer__formField">
-            <label htmlFor="value" className="sideDrawer__formLabel">
-              Value: *
-            </label>
-            <textarea id="value" rows={4} required></textarea>
-          </div>
-          <button type="submit">Add New Key</button>
-        </form>
+        <AddKeyForm />
       </div>
     );
   }
