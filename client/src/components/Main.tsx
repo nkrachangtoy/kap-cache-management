@@ -87,13 +87,23 @@ const Main = () => {
         orgId: "",
         valueString: "",
       });
+    await handleGetAllKeys();
+  };
+
+  const handleGetAllKeys = async () => {
+    const result = await getAllKeys();
+    setRowData(result);
+    console.log("ROW DATA", result);
+  };
+
+  const handleReset = async () => {
+    await handleGetAllKeys();
+    setSelectedRows([]);
   };
 
   useEffect(() => {
     (async () => {
-      const result = await getAllKeys();
-      setRowData(result);
-      console.log("ROW DATA", result);
+      await handleGetAllKeys();
     })();
   }, []);
 
@@ -106,7 +116,7 @@ const Main = () => {
           handlePageBack={handlePageBack}
           rowData={rowData}
         />
-        <Search handleSearch={handleSearch} />
+        <Search handleSearch={handleSearch} handleReset={handleReset} />
       </div>
       <div className="main__redisData">
         <Grid rowData={rowData} handleGetSelectedRows={handleGetSelectedRows} />

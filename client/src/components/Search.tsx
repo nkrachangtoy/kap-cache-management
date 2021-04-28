@@ -2,9 +2,10 @@ import React, { useState } from "react";
 
 interface SearchProps {
   handleSearch: (query: string) => void;
+  handleReset: () => void;
 }
 
-const Search: React.FC<SearchProps> = ({ handleSearch }) => {
+const Search: React.FC<SearchProps> = ({ handleSearch, handleReset }) => {
   const [query, setQuery] = useState("");
   return (
     <>
@@ -24,7 +25,7 @@ const Search: React.FC<SearchProps> = ({ handleSearch }) => {
         />
         <button type="submit">Search</button>
       </form>
-      <button onClick={() => handleSearch("*")}>Reset</button>
+      <button onClick={handleReset}>Reset</button>
     </>
   );
 };
