@@ -36,7 +36,7 @@ namespace KONNECT_REDIS.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetAllKeys(int pageNumber, int pageSize = 25)
+        public IActionResult GetAllKeys(int pageNumber, int pageSize)
 
         {
             try
@@ -47,7 +47,7 @@ namespace KONNECT_REDIS.Controllers
                 {
                     return NotFound();
                 }
-                var results = new { Keys = res, TotalKeyCount = res.Count, PageSize = pageSize, TotalPages = (int)Math.Ceiling(res.Count / (double)pageSize) };
+                var results = new { Keys = res, TotalKeyCount = res.Count  };
 
                 return Ok(results);
             }

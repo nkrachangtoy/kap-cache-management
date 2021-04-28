@@ -31,7 +31,7 @@ namespace KONNECT_REDIS.Services
         public ICollection<KeyDto> GetAllKeys(int? pageNumber, int pageSize)
 
         {
-            var keys = _multiplexer.GetServer("redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com", 12388).Keys();
+            var keys = _multiplexer.GetServer("redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com", 12388).Keys(0,pattern: "*", pageSize: 100000);
             
             var keyList = new List<KeyDto>();
 
@@ -65,6 +65,7 @@ namespace KONNECT_REDIS.Services
             }
 
             // Pagination
+            pageSize = 50;
             keyList = Paginate<KeyDto>.Create(keyList.AsQueryable(), pageNumber ?? 1, pageSize);
 
 
