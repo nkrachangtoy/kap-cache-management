@@ -13,10 +13,13 @@ const Pagination: React.FC<PaginationProps> = ({
   handlePageBack,
   rowData,
 }) => {
+  const firstNum = Math.min((pageNum - 1) * 50 + 1, rowData?.totalCount);
+  const lastNum = Math.min(pageNum * 50, rowData?.totalCount);
+
   return (
     <div className="pagination">
       <div>
-        Showing {rowData?.keys?.length} of{" "}
+        Showing keys {firstNum} - {lastNum} of{" "}
         {rowData?.totalCount.toLocaleString()} results
       </div>
       <div>
