@@ -28,10 +28,10 @@ namespace KONNECT_REDIS.Services
         /// <param name="pageNumber">Page number</param>
         /// <param name="pageSize">Page size</param>
         /// <returns>List of Keys</returns>
-        public ICollection<KeyDto> GetAllKeys(int? pageNumber, int pageSize)
+        public PaginatedList<KeyDto> GetAllKeys(int? pageNumber, int pageSize)
 
         {
-            var keys = _multiplexer.GetServer("redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com", 12388).Keys(0,pattern: "*", pageSize: 100000);
+            var keys = _multiplexer.GetServer("redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com", 12388).Keys(0, pattern: "*", pageSize: 100000);
             
             var keyList = new List<KeyDto>();
 
@@ -42,6 +42,7 @@ namespace KONNECT_REDIS.Services
                 // f2 === ad_emit_event
                 // f3? === 1
                 var keyString = key.ToString();
+                
 
                 if (keyString.Split("#").Length == 3)
                 {
@@ -50,28 +51,24 @@ namespace KONNECT_REDIS.Services
                     var f3 = keyString.Split("#")[2];
 
                     var keyObj = new KeyDto { KeyName = f1, Subset = f2, OrgId = f3 };
-
                     keyList.Add(keyObj);
+                   
                 }
                 else if (keyString.Split("#").Length == 2)
                 {
                     var f1 = keyString.Split("#")[0];
                     var f3 = keyString.Split("#")[1];
-                   
-                    var keyObj = new KeyDto { KeyName = f1, Subset = "", OrgId = f3 };
 
+                    var keyObj = new KeyDto { KeyName = f1, Subset = "", OrgId = f3 };
+                    
                     keyList.Add(keyObj);
                 }
             }
 
-            // Pagination
+            // Paginate
             pageSize = 50;
-            keyList = Paginate<KeyDto>.Create(keyList.AsQueryable(), pageNumber ?? 1, pageSize);
 
-
-            return keyList
-                    .OrderBy(k => k.KeyName)
-                    .ToList();
+            return PaginatedList<KeyDto>.Create(keyList.AsQueryable().OrderBy(k => k.KeyName), pageNumber ?? 1, pageSize);
         }
 
         /// <summary>
@@ -81,13 +78,13 @@ namespace KONNECT_REDIS.Services
         /// <param name="pageNumber">Page number</param>
         /// <param name="pageSize">Page size</param>
         /// <returns></returns>
-        public ICollection<KeyDto> GetKeyByQuery(string pattern, int? pageNumber, int pageSize)
+        public PaginatedList<KeyDto> GetKeyByQuery(string pattern, int? pageNumber, int pageSize)
         {
             var server = _multiplexer.GetServer("redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com", 12388);
 
             var keyList = new List<KeyDto>();
 
-            foreach (var key in server.Keys(pattern: pattern))
+            foreach (var key in server.Keys(0, pattern: pattern, pageSize: 100000))
             {
                 var keyString = key.ToString();
 
@@ -113,11 +110,9 @@ namespace KONNECT_REDIS.Services
             }
 
             // Paginate
-            keyList = Paginate<KeyDto>.Create(keyList.AsQueryable(), pageNumber ?? 1, pageSize);
-            
-            return keyList
-                .OrderBy(k => k.KeyName)
-                .ToList();
+            pageSize = 50;
+
+            return PaginatedList<KeyDto>.Create(keyList.AsQueryable().OrderBy(k => k.KeyName), pageNumber ?? 1, pageSize);
         }
 
         public long BatchDeleteKeysByQuery(string pattern)

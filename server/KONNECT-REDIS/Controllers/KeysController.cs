@@ -31,7 +31,7 @@ namespace KONNECT_REDIS.Controllers
         /// <param name="pageSize">Page size</param>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(200, Type = typeof(ICollection<Key>))]
+        [ProducesResponseType(200, Type = typeof(PaginatedList<Key>))]
         [ProducesResponseType(404)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -47,7 +47,7 @@ namespace KONNECT_REDIS.Controllers
                 {
                     return NotFound();
                 }
-                var results = new { Keys = res, TotalKeyCount = res.Count  };
+                var results = new { Keys = res, res.TotalCount, res.TotalPages, res.HasNextPage, res.HasPreviousPage };
 
                 return Ok(results);
             }
@@ -67,7 +67,7 @@ namespace KONNECT_REDIS.Controllers
         [HttpGet]
         [Route("Query")]
         [ProducesResponseType(200, Type = typeof(ICollection<Key>))]
-        public IActionResult GetKeyByQuery([FromQuery] string pattern, int pageNumber, int pageSize = 25)
+        public IActionResult GetKeyByQuery([FromQuery] string pattern, int pageNumber, int pageSize)
         {
             try
             {
@@ -77,7 +77,7 @@ namespace KONNECT_REDIS.Controllers
                 {
                     return NotFound();
                 }
-                var results = new { Keys = res, TotalKeyCount = res.Count, PageSize = pageSize, TotalPages = (int)Math.Ceiling(res.Count / (double)pageSize) };
+                var results = new { Keys = res, res.TotalCount, res.TotalPages, res.HasNextPage, res.HasPreviousPage };
                 return Ok(results);
             }
             catch (Exception e)
