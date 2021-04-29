@@ -34,6 +34,7 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
   const [gridApi, setGridApi] = useState<null | any>(null);
   // const [gridColumnApi, setGridColumnApi] = useState(null);
   const [columnDefs] = useState<Array<IColumnDef>>([
+    { headerName: "Select", checkboxSelection: true, flex: 1 },
     {
       headerName: "Key Name",
       field: "keyName",
@@ -55,7 +56,7 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
       filter: true,
       flex: 2,
     },
-    { headerName: "Select", checkboxSelection: true, flex: 1 },
+    
   ]);
 
   const handleSelected = () => {
