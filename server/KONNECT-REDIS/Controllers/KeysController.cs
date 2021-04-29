@@ -193,7 +193,6 @@ namespace KONNECT_REDIS.Controllers
         /// Create new key value pair
         /// </summary>
         /// <param name="key"></param>
-        /// <param name="value"></param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -224,39 +223,68 @@ namespace KONNECT_REDIS.Controllers
             }
         }
 
-        //    /// <summary>
-        //    /// Delete a multiple keys by select
-        //    /// </summary>
-        //    /// <param name="keys">Selected keys</param>
-        //    /// <returns>Number of deleted keys and keys, or throws an error</returns>
-        //    [HttpDelete("removeSelected")]
-        //    [ProducesResponseType(200)]
-        //    [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //    [ProducesResponseType(StatusCodes.Status409Conflict)]
-        //    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //    public IActionResult DeleteKeysBySelect([FromBody] List<KeyDto> keys)
-        //    {
-        //        try
-        //        {
-        //            var res = _keysService.DeleteKeysBySelect(keys);
+     
+        [HttpPost("selections")]
+        public IActionResult CreateCollectionKeysToDelete([FromBody] List<KeyDto> keys)
+        {
+            try
+            {
+               if(keys == null)
+                {
+                    return BadRequest(ModelState);
+                }
 
-        //            if (res == false)
-        //            {
-        //                var errMessage = new { success = res, message = "No key selected" };
+                if (!_keysService.CreateCollectionKeysToDelete(keys))
+                {
+                    ModelState.AddModelError("", $"Something went wrong seting key pair value");
+                    return StatusCode(500, ModelState);
+                }
 
-        //                return NotFound(errMessage);
-        //            }
 
-        //            var deletedKeys = $"{res}";
+                var message = new { success = true, message = $"Successfully created collection of keys to delete" };
 
-        //            var message = new { success = res, message = $"Successfully deleted {keys.Count} keys" };
+                return Ok(message);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
 
-        //            return Ok(message);
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            return BadRequest(e);
-        //        }
-        //    }
+        }
+
+        /// <summary>
+        /// Delete a multiple keys by select
+        /// </summary>
+        /// <param name="selection">Selected keys</param>
+        /// <returns>Number of deleted keys and keys, or throws an error</returns>
+        [HttpDelete("deleteSelections")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult DeleteKeysBySelect([FromQuery] string selection = "keys2delete")
+        {
+            try
+            {
+                if (selection == null)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                if(!_keysService.DeleteKeysBySelect(selection))
+                {
+                    ModelState.AddModelError("", $"Something went wrong seting key pair value");
+                    return StatusCode(500, ModelState);
+                }
+
+                var message = new { success = true, message = $"Successfully deleted items" };
+
+                return Ok(message);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
     }
 }

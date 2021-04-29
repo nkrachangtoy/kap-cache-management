@@ -62,7 +62,7 @@ namespace KONNECT_REDIS.Services
         {
             var keyList = new List<KeyDto>();
 
-            foreach (var key in _keys)
+            foreach (var key in _server.Keys(0, pattern: pattern, pageSize: 100000))
             {
                 var keyString = key.ToString();
 
@@ -123,23 +123,42 @@ namespace KONNECT_REDIS.Services
             return _db.StringSet(key.KeyName, key.Value.Data);
         }
 
-        //    public bool DeleteKeysBySelect(List<KeyDto> keys)
-        //    {
-        //        var result = false;
-        //        foreach (var key in keys) 
-        //        {
 
-        //            if(key.Subset != null)
-        //            {
 
-        //                result = _db.KeyDelete($"{key.KeyName}#{key.Subset}#{key.OrgId}");
-        //            }
-        //            else
-        //            {
-        //                result = _db.KeyDelete($"{key.KeyName}#{key.OrgId}");
-        //            }
-        //        }
-        //        return result;
-        //    }
+
+        public bool CreateCollectionKeysToDelete(List<KeyDto> keys)
+        {
+            var keyNames = new List<string>();
+        
+
+            foreach (var key in keys)
+            {
+                keyNames.Add(key.KeyName);
+            }
+
+
+            var keyString = string.Join(",", keyNames);
+
+            return _db.StringSet("keys2delete", keyString);
+        }
+
+
+        public bool DeleteKeysBySelect(string selection)
+        {
+           var keyListString =  _db.StringGet(selection);
+
+           var keyListArr = keyListString.ToString().Split(",");
+
+            var result = false;
+
+            foreach(var value in keyListArr)
+            {
+               result = _db.KeyDelete(value);
+            }
+
+            _db.KeyDelete("keys2delete");
+
+            return result;
+        }
     }
 }
