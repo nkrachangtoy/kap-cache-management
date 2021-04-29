@@ -107,7 +107,7 @@ const Main = () => {
 
   const handleReset = async () => {
     await handleGetAllKeys();
-    setSelectedRows([]);
+    setSelectedRows([]); // this doesnt update the grid
   };
 
   useEffect(() => {
