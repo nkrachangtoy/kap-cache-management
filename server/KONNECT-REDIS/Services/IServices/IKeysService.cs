@@ -1,6 +1,7 @@
 ﻿using KONNECT_REDIS.Models;
 using KONNECT_REDIS.Models.Dtos;
 using KONNECT_REDIS.utils;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,6 @@ namespace KONNECT_REDIS.Services.IServices
         Value GetValue(KeyDto key);
         bool SetKeyValue(Key key);
         bool DeleteKeysBySelect(List<KeyDto> keys);
-        List<Array> KeyPatterns(KeyDto );
+        List<KeyDto> KeyPatterns(IEnumerable<RedisKey> keys);
     }
 }
