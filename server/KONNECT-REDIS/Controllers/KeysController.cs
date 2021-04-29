@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KONNECT_REDIS.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/keys")]
     [ApiController]
     public class KeysController : ControllerBase
     {
@@ -65,7 +65,7 @@ namespace KONNECT_REDIS.Controllers
         /// /// <param name="pageSize">Page size</param>
         /// <returns></returns>
         [HttpGet]
-        [Route("Query")]
+        [Route("query")]
         [ProducesResponseType(200, Type = typeof(PaginatedList<KeyDto>))]
         [ProducesResponseType(404)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -158,69 +158,71 @@ namespace KONNECT_REDIS.Controllers
             }
         }
 
-        //    /// <summary>
-        //    /// Get value of key
-        //    /// </summary>
-        //    /// <param name="key"></param>
-        //    /// <returns>Value of key in string form</returns>
-        //    [HttpGet("value")]
-        //    [ProducesResponseType(200)]
-        //    [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //    [ProducesResponseType(StatusCodes.Status409Conflict)]
-        //    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //    public IActionResult GetValue([FromQuery] KeyDto key)
-        //    {
-        //        try
-        //        {
-        //            var res = _keysService.GetValue(key);
+        /// <summary>
+        /// get value of key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns>value of key in string form</returns>
+        [HttpGet("value")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult GetValue([FromQuery] KeyDto key)
+        {
+            try
+            {
+                var res = _keysService.GetValue(key);
 
-        //            if (res == null)
-        //            {
-        //                return NotFound();
-        //            }
+                if (res == null)
+                {
+                    return NotFound();
+                }
 
-        //            return Ok(res);
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            return BadRequest(e);
-        //        }
-        //    }
+                return Ok(res);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
 
 
 
-        //    /// <summary>
-        //    /// Create new key value pair
-        //    /// </summary>
-        //    /// <param name="key"></param>
-        //    /// <param name="value"></param>
-        //    /// <returns></returns>
-        //    [HttpPost]
-        //    [ProducesResponseType(StatusCodes.Status201Created)]
-        //    [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //    public IActionResult SetKeyValue([FromBody] Key key)
-        //    {
-        //        try
-        //        {
-        //            if(key == null)
-        //            {
-        //                return BadRequest(ModelState);
-        //            }
+        /// <summary>
+        /// Create new key value pair
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult SetKeyValue([FromBody] Key key)
+        {
+            try
+            {
+                if (key == null)
+                {
+                    return BadRequest(ModelState);
+                }
 
-        //            if(!_keysService.SetKeyValue(key))
-        //            {
-        //                ModelState.AddModelError("", $"Something went wrong seting key pair value");
-        //                return StatusCode(500, ModelState);
-        //            }
-
-        //            return Ok(key);
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            return BadRequest(e);
-        //        }
-        //    }
+                if (!_keysService.SetKeyValue(key))
+                {
+                    ModelState.AddModelError("", $"Something went wrong seting key pair value");
+                    return StatusCode(500, ModelState);
+                }
+                
+                var message = new { success = true, message = $"Successfully added {key.KeyName}" };
+            
+                return Ok(message);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
 
         //    /// <summary>
         //    /// Delete a multiple keys by select

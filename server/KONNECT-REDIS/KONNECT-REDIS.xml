@@ -28,6 +28,20 @@
             <param name="pattern">A Redis key pattern</param>
             <returns>Number of deleted keys and pattern they followed, or throws an error</returns>
         </member>
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.DeleteKey(KONNECT_REDIS.Models.Dtos.KeyDto)">
+            <summary>
+            Delete a key
+            </summary>
+            <param name="key"></param>
+            <returns>True/False if key delete was success</returns>
+        </member>
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.GetValue(KONNECT_REDIS.Models.Dtos.KeyDto)">
+            <summary>
+            get value of key
+            </summary>
+            <param name="key"></param>
+            <returns>value of key in string form</returns>
+        </member>
         <member name="M:KONNECT_REDIS.Services.KeysService.GetAllKeys(System.Nullable{System.Int32},System.Int32)">
             <summary>
             Retrieve All keys
@@ -51,6 +65,20 @@
             </summary>
             <param name="pattern">A Redis key pattern</param>
             <returns>Number of deleted keys and pattern they followed, or throws an error</returns>
+        </member>
+        <member name="M:KONNECT_REDIS.Services.KeysService.DeleteKey(KONNECT_REDIS.Models.Dtos.KeyDto)">
+            <summary>
+            Delete key
+            </summary>
+            <param name="key"></param>
+            <returns>True/False if key delete was success</returns>
+        </member>
+        <member name="M:KONNECT_REDIS.Services.KeysService.GetValue(KONNECT_REDIS.Models.Dtos.KeyDto)">
+            <summary>
+            Get value of key
+            </summary>
+            <param name="key"></param>
+            <returns>Value of key in string form</returns>
         </member>
     </members>
 </doc>

@@ -100,42 +100,28 @@ namespace KONNECT_REDIS.Services
             return _db.KeyDelete(keyString);
         }
 
-        //    /// <summary>
-        //    /// Get value of key
-        //    /// </summary>
-        //    /// <param name="key"></param>
-        //    /// <returns>Value of key in string form</returns>
-        //    public Value GetValue(KeyDto key)
-        //    {
-        //        if(key.Subset != null)
-        //        {
-        //           var res = _db.StringGet($"{key.KeyName}#{key.Subset}#{key.OrgId}");
-        //            return new Value { Data = res };
-        //        }
-        //        else
-        //        {
-        //           var res =  _db.StringGet($"{key.KeyName}#{key.OrgId}");
-        //            return new Value { Data = res };
-        //        }
-        //    }
+        /// <summary>
+        /// Get value of key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns>Value of key in string form</returns>
+        public Value GetValue(KeyDto key)
+        {
+            var res = _db.StringGet(key.KeyName);
 
-        //    /// <summary>
-        //    /// Add new key value pair in Redis db
-        //    /// </summary>
-        //    /// <param name="key"></param>
-        //    /// <param name="value"></param>
-        //    /// <returns>True or false whether key value pair was succesfully added</returns>
-        //    public bool SetKeyValue(Key key)
-        //    {
-        //        if(!key.Subset.Equals(""))
-        //        {
-        //            return _db.StringSet($"{key.KeyName}#{key.Subset}#{key.OrgId}", key.Value.Data);
-        //        }
-        //        else
-        //        {
-        //            return _db.StringSet($"{key.KeyName}#{key.OrgId}", key.Value.Data);
-        //        }
-        //    }
+            return new Value { Data = res };
+        }
+
+        /// <summary>
+        /// Add new key value pair in Redis db
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns>True or false whether key value pair was succesfully added</returns>
+        public bool SetKeyValue(Key key)
+        {
+            return _db.StringSet(key.KeyName, key.Value.Data);
+        }
 
         //    public bool DeleteKeysBySelect(List<KeyDto> keys)
         //    {
