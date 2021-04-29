@@ -194,13 +194,16 @@ namespace KONNECT_REDIS.Services
             return result;
         }
 
-        public List<Array> KeyPatterns(KeyDto keys)
+        public List<KeyDto> KeyPatterns(IEnumerable<RedisKey> keys)
         {
-            var patterns = keys;
+            var patterns = _multiplexer.GetServer("redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com", 12388).Keys();
 
-
-
-            return patterns;
+            foreach (var key in patterns)
+            {
+                var keyString = key.ToString();
+                var splitterArray = keyString.Split("#");
+            }
+            return (List<KeyDto>)patterns;
         }
     }
 }
