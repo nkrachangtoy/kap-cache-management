@@ -21,6 +21,13 @@
             /// <param name="pageSize">Page size</param>
             <returns></returns>
         </member>
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.BatchDeleteKeysByQuery(System.String)">
+            <summary>
+            Delete multiple keys by Redis key pattern
+            </summary>
+            <param name="pattern">A Redis key pattern</param>
+            <returns>Number of deleted keys and pattern they followed, or throws an error</returns>
+        </member>
         <member name="M:KONNECT_REDIS.Services.KeysService.GetAllKeys(System.Nullable{System.Int32},System.Int32)">
             <summary>
             Retrieve All keys
@@ -37,6 +44,13 @@
             <param name="pageNumber">Page number</param>
             <param name="pageSize">Page size</param>
             <returns></returns>
+        </member>
+        <member name="M:KONNECT_REDIS.Services.KeysService.BatchDeleteKeysByQuery(System.String)">
+            <summary>
+            Delete multiple keys by Redis key pattern
+            </summary>
+            <param name="pattern">A Redis key pattern</param>
+            <returns>Number of deleted keys and pattern they followed, or throws an error</returns>
         </member>
     </members>
 </doc>

@@ -125,40 +125,38 @@ namespace KONNECT_REDIS.Controllers
             }
         }
 
-        //    /// <summary>
-        //    /// Delete a key
-        //    /// </summary>
-        //    /// <param name="key"></param>
-        //    /// <returns>True/False if key delete was success</returns>
-        //    [HttpDelete("remove")]
-        //    [ProducesResponseType(200)]
-        //    [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //    [ProducesResponseType(StatusCodes.Status409Conflict)]
-        //    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //    public IActionResult DeleteKey([FromQuery] KeyDto key)
-        //    {
-        //        try
-        //        {
-        //            var res = _keysService.DeleteKey(key);
+        /// <summary>
+        /// Delete a key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns>True/False if key delete was success</returns>
+        [HttpDelete("remove")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult DeleteKey([FromQuery] KeyDto key)
+        {
+            try
+            {
+                var res = _keysService.DeleteKey(key);
 
-        //            if (res == false)
-        //            {
-        //                var errMessage = new { success = res, message = "Error deleting key / could not find key" };
+                if (res == false)
+                {
+                    var errMessage = new { success = res, message = "Error deleting key / could not find key" };
 
-        //                return NotFound(errMessage);
-        //            }
+                    return NotFound(errMessage);
+                }
 
-        //            var deletedKey = key.Subset == null ? $"{key.KeyName}#{key.OrgId}" : $"{key.KeyName}#{key.Subset}#{key.OrgId}";
+                var message = new { success = res, message = $"Successfully deleted {key.KeyName}" };
 
-        //            var message = new { success = res, message = $"Successfully deleted {deletedKey}" };
-
-        //            return Ok(message);
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            return BadRequest(e);
-        //        }
-        //    }
+                return Ok(message);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
 
         //    /// <summary>
         //    /// Get value of key

@@ -88,22 +88,17 @@ namespace KONNECT_REDIS.Services
             return _db.KeyDelete(keys);
         }
 
-        //    /// <summary>
-        //    /// Delete key
-        //    /// </summary>
-        //    /// <param name="key"></param>
-        //    /// <returns>True/False if key delete was success</returns>
-        //    public bool DeleteKey(KeyDto key)
-        //    {
-        //        if (key.Subset != null)
-        //        {
-        //            return _db.KeyDelete($"{key.KeyName}#{key.Subset}#{key.OrgId}");
-        //        }
-        //        else
-        //        {
-        //            return _db.KeyDelete($"{key.KeyName}#{key.OrgId}");
-        //        }
-        //    }
+        /// <summary>
+        /// Delete key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns>True/False if key delete was success</returns>
+        public bool DeleteKey(KeyDto key)
+        {
+            var keyString = key.KeyName;
+
+            return _db.KeyDelete(keyString);
+        }
 
         //    /// <summary>
         //    /// Get value of key
