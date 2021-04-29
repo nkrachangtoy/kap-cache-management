@@ -1,4 +1,7 @@
 import React from "react";
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import SkipNextIcon from '@material-ui/icons/SkipNext';
+import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 
 interface PaginationProps {
   pageNum: number;
@@ -22,13 +25,21 @@ const Pagination: React.FC<PaginationProps> = ({
         Showing keys {firstNum} - {lastNum} of{" "}
         {rowData?.totalCount?.toLocaleString()} results
       </div>
-      <div>
-        <button onClick={handlePageBack} disabled={!rowData?.hasPreviousPage}>
-          back
+      <div className="pagination__fields">
+        <button  className="pagination__button">
+          <SkipPreviousIcon />
         </button>
-        Page {pageNum}
-        <button onClick={handlePageNext} disabled={!rowData?.hasNextPage}>
-          next
+        <button className="pagination__button" onClick={handlePageBack} disabled={!rowData?.hasPreviousPage}>
+          <NavigateNextIcon style={{transform: "rotate(180deg)"}} />
+        </button>
+        <div>
+          Page {pageNum}
+        </div>
+        <button className="pagination__button" onClick={handlePageNext} disabled={!rowData?.hasNextPage}>
+          <NavigateNextIcon />
+        </button>
+        <button  className="pagination__button">
+          <SkipNextIcon />
         </button>
       </div>
     </div>

@@ -1,0 +1,19 @@
+.App {
+  display: flex;
+}
+.main {
+  width: 100%;
+  padding: 20px;
+  &__grid {
+    margin: 2%;
+  }
+  &__redisData {
+    display: flex;
+    height: calc(100% - 44px - 10px);
+  }
+  &__toolbar {
+    padding: 10px 0;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
