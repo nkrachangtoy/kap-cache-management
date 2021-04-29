@@ -68,29 +68,35 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
 
   const findNumColumns = (rowData: any) => {
     rowData?.keys?.map((key: any) => {
-      // console.log(key.keyName);
       const split = key?.keyName?.split("#");
-      //console.log("split >>", split);
       if (split?.length > numFields) {
         setNumFields(split?.length);
       }
     });
   };
 
-  // const makeColumns = (rowData: any) => {
-  //   let splitKeys: any;
-  //   rowData.map((row) => {
-  //     const split = row.split("#");
+  const makeColumns = (rowData: any) => {
+    let splitKeys: Array<object> = [];
+    rowData?.keys?.map((key: any) => {
+      const splitArr = key?.keyName?.split("#");
+      let splitObj: object = {};
+      let i: number = 0;
 
-  //     if (row.split("#").length > numFields) {
-  //       numFields = row.split("#").length;
-  //     }
-  //   });
-  // };
+      do {
+        splitObj = { ...splitObj, [`field${i}`]: splitArr[i] };
+        i++;
+      } while (i < splitArr?.length);
+
+      //console.log("Split Object >> ", splitObj);
+      splitKeys.push(splitObj);
+    });
+    console.log("Split Keys Array >> ", splitKeys);
+  };
 
   useEffect(() => {
     findNumColumns(rowData);
     console.log("num of fields: ", numFields);
+    makeColumns(rowData);
   }, [rowData]);
 
   return (
