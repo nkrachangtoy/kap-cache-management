@@ -77,12 +77,16 @@ namespace KONNECT_REDIS.Services
             return PaginatedList<KeyDto>.Create(keyList.AsQueryable().OrderBy(k => k.KeyName), pageNumber ?? 1, pageSize);
         }
 
-        //    public long BatchDeleteKeysByQuery(string pattern)
-        //    {
-        //            var server = _multiplexer.GetServer("redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com", 12388);
-        //            var keys = server.Keys(0, pattern: pattern, pageSize: 100000).ToArray();
-        //            return _db.KeyDelete(keys);
-        //    }
+        /// <summary>
+        /// Delete multiple keys by Redis key pattern
+        /// </summary>
+        /// <param name="pattern">A Redis key pattern</param>
+        /// <returns>Number of deleted keys and pattern they followed, or throws an error</returns>
+        public long BatchDeleteKeysByQuery(string pattern)
+        {
+            var keys = _keys.ToArray();
+            return _db.KeyDelete(keys);
+        }
 
         //    /// <summary>
         //    /// Delete key
