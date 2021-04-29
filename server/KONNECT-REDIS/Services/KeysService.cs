@@ -14,11 +14,15 @@ namespace KONNECT_REDIS.Services
     {
         private readonly IConnectionMultiplexer _multiplexer;
         private readonly IDatabase _db;
+        private readonly IServer _server;
+        private readonly IEnumerable<RedisKey> _keys;
 
         public KeysService(IConnectionMultiplexer multiplexer)
         {
             _multiplexer = multiplexer;
             _db = _multiplexer.GetDatabase();
+            _server = _multiplexer.GetServer("redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com", 12388);
+            _keys = _server.Keys(0, pattern: "*", pageSize: 100000);
         }
 
         /// <summary>
@@ -30,11 +34,9 @@ namespace KONNECT_REDIS.Services
         public PaginatedList<KeyDto> GetAllKeys(int? pageNumber, int pageSize)
 
         {
-            var keys = _multiplexer.GetServer("redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com", 12388).Keys(0, pattern: "*", pageSize: 100000);
-            
             var keyList = new List<KeyDto>();
 
-            foreach (var key in keys)
+            foreach (var key in _keys)
             {
                 var keyString = key.ToString();
 
@@ -58,11 +60,9 @@ namespace KONNECT_REDIS.Services
         /// <returns></returns>
         public PaginatedList<KeyDto> GetKeyByQuery(string pattern, int? pageNumber, int pageSize)
         {
-            var server = _multiplexer.GetServer("redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com", 12388);
-
             var keyList = new List<KeyDto>();
 
-            foreach (var key in server.Keys(0, pattern: pattern, pageSize: 100000))
+            foreach (var key in _keys)
             {
                 var keyString = key.ToString();
 
