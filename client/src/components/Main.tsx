@@ -77,6 +77,7 @@ const Main = () => {
 
   const handleDeleteByQuery = async () => {
     const data = await deleteKeyByQuery(deleteQuery);
+    await handleGetAllKeys();
     console.log(`delete query: ${deleteQuery}, result:`, data);
   };
 

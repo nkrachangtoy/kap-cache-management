@@ -20,14 +20,14 @@ const Pagination: React.FC<PaginationProps> = ({
     <div className="pagination">
       <div>
         Showing keys {firstNum} - {lastNum} of{" "}
-        {rowData?.totalCount.toLocaleString()} results
+        {rowData?.totalCount?.toLocaleString()} results
       </div>
       <div>
-        <button onClick={handlePageBack} disabled={!rowData.hasPreviousPage}>
+        <button onClick={handlePageBack} disabled={!rowData?.hasPreviousPage}>
           back
         </button>
         Page {pageNum}
-        <button onClick={handlePageNext} disabled={!rowData.hasNextPage}>
+        <button onClick={handlePageNext} disabled={!rowData?.hasNextPage}>
           next
         </button>
       </div>
