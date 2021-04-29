@@ -57,34 +57,38 @@ namespace KONNECT_REDIS.Controllers
             }
         }
 
-        //    /// <summary>
-        //    /// Retrieves a list of keys according to a Redis key pattern 
-        //    /// </summary>
-        //    /// <param name="pattern">A Redis key pattern</param>
-        //    /// <param name="pageNumber">Paginates Search Query</param>
-        //    /// /// <param name="pageSize">Page size</param>
-        //    /// <returns></returns>
-        //    [HttpGet]
-        //    [Route("Query")]
-        //    [ProducesResponseType(200, Type = typeof(ICollection<Key>))]
-        //    public IActionResult GetKeyByQuery([FromQuery] string pattern, int pageNumber, int pageSize)
-        //    {
-        //        try
-        //        {
-        //            var res = _keysService.GetKeyByQuery(pattern, pageNumber, pageSize);
+        /// <summary>
+        /// Retrieves a list of keys according to a Redis key pattern 
+        /// </summary>
+        /// <param name="pattern">A Redis key pattern</param>
+        /// <param name="pageNumber">Paginates Search Query</param>
+        /// /// <param name="pageSize">Page size</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("Query")]
+        [ProducesResponseType(200, Type = typeof(PaginatedList<KeyDto>))]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult GetKeyByQuery([FromQuery] string pattern, int pageNumber, int pageSize)
+        {
+            try
+            {
+                var res = _keysService.GetKeyByQuery(pattern, pageNumber, pageSize);
 
-        //            if (res == null)
-        //            {
-        //                return NotFound();
-        //            }
-        //            var results = new { Keys = res, res.TotalCount, res.TotalPages, res.HasNextPage, res.HasPreviousPage };
-        //            return Ok(results);
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            return BadRequest(e);
-        //        }
-        //    }
+                if (res == null)
+                {
+                    return NotFound();
+                }
+                var results = new { Keys = res, res.TotalCount, res.TotalPages, res.HasNextPage, res.HasPreviousPage };
+                return Ok(results);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
 
         //    /// <summary>
         //    /// Delete a key

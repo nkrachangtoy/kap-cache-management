@@ -19,7 +19,6 @@ namespace KONNECT_REDIS.Services
         {
             _multiplexer = multiplexer;
             _db = _multiplexer.GetDatabase();
-
         }
 
         /// <summary>
@@ -50,49 +49,33 @@ namespace KONNECT_REDIS.Services
             return PaginatedList<KeyDto>.Create(keyList.AsQueryable().OrderBy(k => k.KeyName), pageNumber ?? 1, pageSize);
         }
 
-        //    /// <summary>
-        //    /// Retrieves a list of keys according to a Redis key pattern 
-        //    /// </summary>
-        //    /// <param name="pattern">A Redis key pattern</param>
-        //    /// <param name="pageNumber">Page number</param>
-        //    /// <param name="pageSize">Page size</param>
-        //    /// <returns></returns>
-        //    public PaginatedList<KeyDto> GetKeyByQuery(string pattern, int? pageNumber, int pageSize)
-        //    {
-        //        var server = _multiplexer.GetServer("redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com", 12388);
+        /// <summary>
+        /// Retrieves a list of keys according to a Redis key pattern 
+        /// </summary>
+        /// <param name="pattern">A Redis key pattern</param>
+        /// <param name="pageNumber">Page number</param>
+        /// <param name="pageSize">Page size</param>
+        /// <returns></returns>
+        public PaginatedList<KeyDto> GetKeyByQuery(string pattern, int? pageNumber, int pageSize)
+        {
+            var server = _multiplexer.GetServer("redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com", 12388);
 
-        //        var keyList = new List<KeyDto>();
+            var keyList = new List<KeyDto>();
 
-        //        foreach (var key in server.Keys(0, pattern: pattern, pageSize: 100000))
-        //        {
-        //            var keyString = key.ToString();
+            foreach (var key in server.Keys(0, pattern: pattern, pageSize: 100000))
+            {
+                var keyString = key.ToString();
 
-        //            if (keyString.Split("#").Length == 3)
-        //            {
-        //                var f1 = keyString.Split("#")[0];
-        //                var f2 = keyString.Split("#")[1];
-        //                var f3 = keyString.Split("#")[2];
+                var keyDto = new KeyDto { KeyName = keyString };
 
-        //                var keyObj = new KeyDto { KeyName = f1, Subset = f2, OrgId = f3 };
+                keyList.Add(keyDto);
+            }
 
-        //                keyList.Add(keyObj);
-        //            }
-        //            else if (keyString.Split("#").Length == 2 )
-        //            {
-        //                var f1 = keyString.Split("#")[0];
-        //                var f3 = keyString.Split("#")[1];
+            // Paginate
+            pageSize = 50;
 
-        //                var keyObj = new KeyDto { KeyName = f1, Subset = "", OrgId = f3 };
-
-        //                keyList.Add(keyObj);
-        //            }
-        //        }
-
-        //        // Paginate
-        //        pageSize = 50;
-
-        //        return PaginatedList<KeyDto>.Create(keyList.AsQueryable().OrderBy(k => k.KeyName), pageNumber ?? 1, pageSize);
-        //    }
+            return PaginatedList<KeyDto>.Create(keyList.AsQueryable().OrderBy(k => k.KeyName), pageNumber ?? 1, pageSize);
+        }
 
         //    public long BatchDeleteKeysByQuery(string pattern)
         //    {
