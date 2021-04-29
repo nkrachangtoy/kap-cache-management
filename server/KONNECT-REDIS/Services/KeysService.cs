@@ -175,7 +175,6 @@ namespace KONNECT_REDIS.Services
                 return _db.StringSet($"{key.KeyName}#{key.OrgId}", key.Value.Data);
             }
         }
-
         public bool DeleteKeysBySelect(List<KeyDto> keys)
         {
             var result = false;
@@ -193,6 +192,15 @@ namespace KONNECT_REDIS.Services
                 }
             }
             return result;
+        }
+
+        public List<Array> KeyPatterns(KeyDto keys)
+        {
+            var patterns = keys;
+
+
+
+            return patterns;
         }
     }
 }
