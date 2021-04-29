@@ -11,11 +11,11 @@ namespace KONNECT_REDIS.Services.IServices
     public interface IKeysService
     {
         PaginatedList<KeyDto> GetAllKeys(int? pageNumber, int pageSize);
-        PaginatedList<KeyDto> GetKeyByQuery(string pattern, int? pageNumber, int pageSize);
-        long BatchDeleteKeysByQuery(string pattern);
-        bool DeleteKey(KeyDto key);
-        Value GetValue(KeyDto key);
-        bool SetKeyValue(Key key);
-        bool DeleteKeysBySelect(List<KeyDto> keys);
+        //PaginatedList<KeyDto> GetKeyByQuery(string pattern, int? pageNumber, int pageSize);
+        //long BatchDeleteKeysByQuery(string pattern);
+        //bool DeleteKey(KeyDto key);
+        //Value GetValue(KeyDto key);
+        //bool SetKeyValue(Key key);
+        //bool DeleteKeysBySelect(List<KeyDto> keys);
     }
 }
