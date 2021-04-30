@@ -47,9 +47,10 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
    */
 
   const handleSelected = () => {
-    const selectedNodes = gridApi.getSelectedNodes();
-    console.log("selectedNodes >>", selectedNodes);
-    const selectedData = selectedNodes.map((node: any) => node.data);
+    //const selectedNodes = gridApi.getSelectedNodes();
+    //const selectedData = selectedNodes.map((node: any) => node.data);
+    const selectedData = gridApi.getSelectedRows();
+    console.log("selectedRows >>", selectedData);
     handleGetSelectedRows(selectedData);
   };
 
@@ -90,7 +91,6 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
 
     if (numFields > 1) {
       do {
-        console.log("do while #", i);
         column = {
           headerName: `Field${i}`,
           field: `field${i}`,
@@ -98,7 +98,6 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
           filter: true,
           flex: 2,
         };
-
         columns.push(column);
         i++;
       } while (i < numFields);
@@ -145,7 +144,8 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
 
   return (
     <div className="ag-theme-balham grid">
-      {/* <Button onClick={handleGetSelectedRows}>Get selected rows</Button> */}
+      <button onClick={() => gridApi.selectAll()}>Select All</button>
+      <button onClick={() => gridApi.deselectAll()}>Deselect All</button>
       <AgGridReact
         columnDefs={columnDefs}
         rowData={destructuredKeys ? destructuredKeys : rowData.keys}

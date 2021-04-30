@@ -65,13 +65,17 @@ const Main = () => {
   const handleSearch = async (query: string) => {
     const data = await searchKeys(query);
     setRowData(data);
+    setPageNum(1);
   };
 
   const handleGetSelectedRows = async (row: any) => {
-    if (row.length === 1) {
-      const data = await getKeyValue(row);
-      row[0].value = data;
-    }
+    //Need to concantenate the fields before sending API call
+
+    // if (row.length === 1) {
+    //   const data = await getKeyValue(row);
+    //   row[0].value = data;
+    // }
+    console.log("ROWSSSSS", row);
     setSelectedRows(row);
   };
 
@@ -107,6 +111,7 @@ const Main = () => {
 
   const handleReset = async () => {
     await handleGetAllKeys();
+    setPageNum(1);
     setSelectedRows([]); // this doesnt update the grid
   };
 
