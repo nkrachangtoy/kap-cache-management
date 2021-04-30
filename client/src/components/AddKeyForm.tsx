@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 interface IKeyValue {
   keyName: string;
@@ -18,10 +20,25 @@ const AddKeyForm: React.FC<AddKeyFormProps> = ({
   keyValue,
   setKeyValue,
 }) => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
+
+
+
+  // const handleButtonClick = () => {
+  //   if (!loading) {
+  //     setSuccess(false);
+  //     setLoading(true);
+  //     timer.current = window.setTimeout(() => {
+  //       setSuccess(true);
+  //       setLoading(false);
+  //     }, 2000);
+  //   }
+  // };
+
   return (
     <div>
       <h4>Add New Key</h4>
-      <hr />
       <form
         className="sideDrawer__form"
         onSubmit={(e) => {
@@ -85,7 +102,7 @@ const AddKeyForm: React.FC<AddKeyFormProps> = ({
             }
           ></textarea>
         </div>
-        <button type="submit">Add New Key</button>
+          <button type="submit"  disabled={loading}>Submit</button>
       </form>
     </div>
   );

@@ -25,5 +25,20 @@
   }
   &__actions {
     display: flex;
+    align-items: center;
+  }
+  &__header {
+    font-size: 28px;
+    font-weight: bold;
+  }
+  &__button {
+    @include clearButton;
+    color: white;
+    background-color: $primary;
+    border-radius: 5px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    margin-right: 16px;
   }
 }
