@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
-import { TramRounded } from "@material-ui/icons";
 
 interface IColumnDef {
   headerName: string;
@@ -15,16 +14,10 @@ interface IColumnDef {
 }
 
 interface IRowData {
-  keys: Array<IKey>;
+  keys: Array<string>;
   totalKeyCount: number;
   pageSize: number;
   totalPages: number;
-}
-
-interface IKey {
-  keyName: string;
-  // subset: string;
-  // orgId: string;
 }
 
 interface GridProps {
@@ -48,12 +41,23 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
     },
   ]);
 
+  /**
+   * Adds data of rows selected in the grid to an array that is passed to Main.tsx
+   * @return Array of objects as it is stored in the grid (keys will be destructured)
+   */
+
   const handleSelected = () => {
     const selectedNodes = gridApi.getSelectedNodes();
     console.log("selectedNodes >>", selectedNodes);
     const selectedData = selectedNodes.map((node: any) => node.data);
     handleGetSelectedRows(selectedData);
   };
+
+  /**
+   *Finds number of columns needed in grid by counting max number of fields needed
+   * @param rowData
+   * @return sets NumFields state to a number
+   */
 
   const findNumColumns = (rowData: any) => {
     let n: number = 1;
@@ -66,6 +70,11 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
     });
     setNumFields(n);
   };
+
+  /**
+   * Creates columns definitions for AgGrid based on the number of fields (numFields) needed
+   * @return sets ColumnDefs state to Array<IColumnDef>
+   */
 
   const makeColumns = () => {
     let i: number = 0;
@@ -80,7 +89,6 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
     ];
 
     if (numFields > 1) {
-      console.log("entered if loop");
       do {
         console.log("do while #", i);
         column = {
@@ -92,16 +100,19 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
         };
 
         columns.push(column);
-        console.log("column definitions 1>>", columns);
         i++;
       } while (i < numFields);
 
-      console.log("column definitions 2>>", columns);
+      console.log("column definitions>>", columns);
       setColumnDefs(columns);
-    } else {
-      console.log("if loop skipped");
     }
   };
+
+  /**
+   * Separates key strings into fields separated by `#`
+   * @param rowData
+   * @return Array of key objects
+   */
 
   const destructureKeys = (rowData: any) => {
     let splitKeys: Array<object> = [];
@@ -123,16 +134,11 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
   };
 
   useEffect(() => {
-    (async () => {
-      await findNumColumns(rowData);
-    })();
-    // console.log("num of fields: ", numFields);
-    // makeColumns();
-    // destructureKeys(rowData);
+    findNumColumns(rowData);
   }, [rowData]);
 
   useEffect(() => {
-    console.log("num of fields: #2>>>>>> ", numFields);
+    console.log("num of fields: ", numFields);
     makeColumns();
     destructureKeys(rowData);
   }, [numFields]);
