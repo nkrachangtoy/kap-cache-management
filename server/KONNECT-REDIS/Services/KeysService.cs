@@ -62,7 +62,7 @@ namespace KONNECT_REDIS.Services
         {
             var keyList = new List<KeyDto>();
 
-            foreach (var key in _keys)
+            foreach (var key in _server.Keys(0, pattern: pattern, pageSize: 100000))
             {
                 var keyString = key.ToString();
 
@@ -88,77 +88,88 @@ namespace KONNECT_REDIS.Services
             return _db.KeyDelete(keys);
         }
 
-        //    /// <summary>
-        //    /// Delete key
-        //    /// </summary>
-        //    /// <param name="key"></param>
-        //    /// <returns>True/False if key delete was success</returns>
-        //    public bool DeleteKey(KeyDto key)
-        //    {
-        //        if (key.Subset != null)
-        //        {
-        //            return _db.KeyDelete($"{key.KeyName}#{key.Subset}#{key.OrgId}");
-        //        }
-        //        else
-        //        {
-        //            return _db.KeyDelete($"{key.KeyName}#{key.OrgId}");
-        //        }
-        //    }
+        /// <summary>
+        /// Delete key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns>True/False if key delete was success</returns>
+        public bool DeleteKey(KeyDto key)
+        {
+            var keyString = key.KeyName;
 
-        //    /// <summary>
-        //    /// Get value of key
-        //    /// </summary>
-        //    /// <param name="key"></param>
-        //    /// <returns>Value of key in string form</returns>
-        //    public Value GetValue(KeyDto key)
-        //    {
-        //        if(key.Subset != null)
-        //        {
-        //           var res = _db.StringGet($"{key.KeyName}#{key.Subset}#{key.OrgId}");
-        //            return new Value { Data = res };
-        //        }
-        //        else
-        //        {
-        //           var res =  _db.StringGet($"{key.KeyName}#{key.OrgId}");
-        //            return new Value { Data = res };
-        //        }
-        //    }
+            return _db.KeyDelete(keyString);
+        }
 
-        //    /// <summary>
-        //    /// Add new key value pair in Redis db
-        //    /// </summary>
-        //    /// <param name="key"></param>
-        //    /// <param name="value"></param>
-        //    /// <returns>True or false whether key value pair was succesfully added</returns>
-        //    public bool SetKeyValue(Key key)
-        //    {
-        //        if(!key.Subset.Equals(""))
-        //        {
-        //            return _db.StringSet($"{key.KeyName}#{key.Subset}#{key.OrgId}", key.Value.Data);
-        //        }
-        //        else
-        //        {
-        //            return _db.StringSet($"{key.KeyName}#{key.OrgId}", key.Value.Data);
-        //        }
-        //    }
+        /// <summary>
+        /// Get value of key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns>Value of key in string form</returns>
+        public Value GetValue(KeyDto key)
+        {
+            var res = _db.StringGet(key.KeyName);
 
-        //    public bool DeleteKeysBySelect(List<KeyDto> keys)
-        //    {
-        //        var result = false;
-        //        foreach (var key in keys) 
-        //        {
+            return new Value { Data = res };
+        }
 
-        //            if(key.Subset != null)
-        //            {
+        /// <summary>
+        /// Add new key value pair in Redis db
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns>True or false whether key value pair was succesfully added</returns>
+        public bool SetKeyValue(Key key)
+        {
+            return _db.StringSet(key.KeyName, key.Value.Data);
+        }
 
-        //                result = _db.KeyDelete($"{key.KeyName}#{key.Subset}#{key.OrgId}");
-        //            }
-        //            else
-        //            {
-        //                result = _db.KeyDelete($"{key.KeyName}#{key.OrgId}");
-        //            }
-        //        }
-        //        return result;
-        //    }
+
+        // =======================================================
+        // Delete By Select
+        // =======================================================
+        /// <summary>
+        /// Creates a key value pair
+        /// key == keys2delete
+        /// value == keys to be deleted
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <returns>True or false whether creation was succesful or not</returns>
+        public bool CreateCollectionKeysToDelete(List<KeyDto> keys)
+        {
+            var keyNames = new List<string>();
+        
+
+            foreach (var key in keys)
+            {
+                keyNames.Add(key.KeyName);
+            }
+
+
+            var keyString = string.Join(",", keyNames);
+
+            return _db.StringSet("keys2delete", keyString);
+        }
+
+        /// <summary>
+        /// Delete a multiple keys by select
+        /// </summary>
+        /// <param name="selection">Selected keys</param>
+        /// <returns>True or false whether delete was successful</returns>
+        public bool DeleteKeysBySelect(string selection)
+        {
+           var keyListString =  _db.StringGet(selection);
+
+           var keyListArr = keyListString.ToString().Split(",");
+
+            var result = false;
+
+            foreach(var value in keyListArr)
+            {
+               result = _db.KeyDelete(value);
+            }
+
+            _db.KeyDelete("keys2delete");
+
+            return result;
+        }
     }
 }

@@ -13,9 +13,15 @@ namespace KONNECT_REDIS.Services.IServices
         PaginatedList<KeyDto> GetAllKeys(int? pageNumber, int pageSize);
         PaginatedList<KeyDto> GetKeyByQuery(string pattern, int? pageNumber, int pageSize);
         long BatchDeleteKeysByQuery(string pattern);
-        //bool DeleteKey(KeyDto key);
-        //Value GetValue(KeyDto key);
-        //bool SetKeyValue(Key key);
-        //bool DeleteKeysBySelect(List<KeyDto> keys);
+        bool DeleteKey(KeyDto key);
+        Value GetValue(KeyDto key);
+        bool SetKeyValue(Key key);
+
+        // ==============================
+        // Delete By Select
+        // ==============================
+        bool CreateCollectionKeysToDelete(List<KeyDto> keys);
+        bool DeleteKeysBySelect(string selection);
     }
 }
+    
