@@ -39,7 +39,7 @@ interface IKeyValue {
 const Main = () => {
   const [rowData, setRowData] = useState<IRowData | object>({});
   const [pageNum, setPageNum] = useState<number>(1);
-  const [selectedRows, setSelectedRows] = useState<Array<IRowData>>([]);
+  const [selectedRows, setSelectedRows] = useState<Array<string>>([]);
   const [deleteQuery, setDeleteQuery] = useState<string>("");
   const [keyValue, setKeyValue] = useState<IKeyValue>({
     keyName: "",
@@ -70,13 +70,13 @@ const Main = () => {
 
   const handleGetSelectedRows = async (row: any) => {
     //Need to concantenate the fields before sending API call
-
-    // if (row.length === 1) {
-    //   const data = await getKeyValue(row);
-    //   row[0].value = data;
-    // }
-    console.log("ROWSSSSS", row);
-    setSelectedRows(row);
+    let keys: Array<string> = [];
+    row?.map((key: object) => {
+      const joinedKey = Object.values(key).join("#");
+      keys.push(joinedKey);
+    });
+    console.log("concantenated keys array>>", keys);
+    setSelectedRows(keys);
   };
 
   const handleDeleteByQuery = async () => {
