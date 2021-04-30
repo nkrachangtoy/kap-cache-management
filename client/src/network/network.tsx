@@ -1,10 +1,8 @@
 import axios from "axios";
-const BASE_URL = "https://localhost:44371/api/Keys";
+const BASE_URL = "https://localhost:44371/api/keys";
 
 interface IKeyValue {
   keyName: string;
-  subset: string;
-  orgId: string;
   valueString: string;
 }
 
@@ -38,12 +36,12 @@ export const searchKeys = async (query: string) => {
   }
 };
 
-export const getKeyValue = async (row: any) => {
+export const getKeyValue = async (key: any) => {
   try {
-    const response = await axios.get(
-      `${BASE_URL}/value?KeyName=${row[0].keyName}&Subset=${row[0].subset}&OrgId=${row[0].orgId}`
-    );
-    console.log(`value of ${row[0].keyName}...>>>`, response.data.data);
+    const replaced = key.replace(/[#]/g, "%23");
+    console.log("REPLACED", replaced);
+    const response = await axios.get(`${BASE_URL}/value?KeyName=${replaced}`);
+    console.log(`value of ${key}...>>>`, response.data.data);
     return response.data.data;
   } catch (e) {
     console.log(`Error: ${e}`);
@@ -85,8 +83,6 @@ export const postNewKeyValue = async (keyValue: IKeyValue) => {
   try {
     const postObj = {
       keyName: keyValue.keyName,
-      subset: keyValue.subset,
-      orgId: keyValue.orgId,
       value: {
         data: keyValue.valueString,
       },

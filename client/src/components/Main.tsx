@@ -29,10 +29,7 @@ interface IKey {
 }
 
 interface IKeyValue {
-  //Need to refactor this to reduce redundacy above
   keyName: string;
-  subset: string;
-  orgId: string;
   valueString: string;
 }
 
@@ -43,8 +40,6 @@ const Main = () => {
   const [deleteQuery, setDeleteQuery] = useState<string>("");
   const [keyValue, setKeyValue] = useState<IKeyValue>({
     keyName: "",
-    subset: "",
-    orgId: "",
     valueString: "",
   });
 
@@ -68,7 +63,7 @@ const Main = () => {
     setPageNum(1);
   };
 
-  const handleGetSelectedRows = async (row: any) => {
+  const handleGetSelectedRows = async (row: Array<object>) => {
     //Need to concantenate the fields before sending API call
     let keys: Array<string> = [];
     row?.map((key: object) => {
@@ -77,6 +72,20 @@ const Main = () => {
     });
     console.log("concantenated keys array>>", keys);
     setSelectedRows(keys);
+
+    if (row?.length === 1) {
+      await handleGetValue(keys[0]);
+    }
+  };
+
+  //this can be called elsewhere later on
+  const handleGetValue = async (key: string) => {
+    const data = await getKeyValue(key);
+    const keyValuePair = {
+      keyName: key,
+      valueString: data,
+    };
+    setKeyValue(keyValuePair);
   };
 
   const handleDeleteByQuery = async () => {
@@ -96,8 +105,6 @@ const Main = () => {
     data &&
       setKeyValue({
         keyName: "",
-        subset: "",
-        orgId: "",
         valueString: "",
       });
     await handleGetAllKeys();

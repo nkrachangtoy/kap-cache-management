@@ -155,10 +155,10 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
           setGridApi(params.api);
           console.log("PARAMS", params.api);
         }}
-        onRowClicked={(event) => {
-          console.log("a row has been clicked>>", event.data);
-          handleGetSelectedRows(event.data);
-        }}
+        // onRowClicked={(event) => {
+        //   console.log("a row has been clicked>>", event.data);
+        //   handleGetSelectedRows(event.data);
+        // }}
         onRowSelected={handleSelected}
       />
     </div>

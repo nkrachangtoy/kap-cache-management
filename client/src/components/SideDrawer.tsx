@@ -4,8 +4,6 @@ import DeleteByQueryForm from "./DeleteByQueryForm";
 
 interface IKeyValue {
   keyName: string;
-  subset: string;
-  orgId: string;
   valueString: string;
 }
 
@@ -42,18 +40,14 @@ const SideDrawer: React.FC<DrawerProps> = ({
           {selectedRows[0]}
         </p>
 
-        {/* <div>
+        <div>
           <strong>Value:</strong>
           <div className="sideDrawer_valueCodeBlock">
             <pre>
-              <code>
-                {selectedRows[0].value.data
-                  ? selectedRows[0].value.data
-                  : selectedRows[0].value}
-              </code>
+              <code>{keyValue.valueString}</code>
             </pre>
           </div>
-        </div> */}
+        </div>
         {selectedRows[0] && (
           <button onClick={handleDeleteBySelection}>Delete</button>
         )}

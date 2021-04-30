@@ -2,8 +2,6 @@ import React from "react";
 
 interface IKeyValue {
   keyName: string;
-  subset: string;
-  orgId: string;
   valueString: string;
 }
 
@@ -22,7 +20,7 @@ const AddKeyForm: React.FC<AddKeyFormProps> = ({
     <div>
       <h4>Add New Key</h4>
       <hr />
-      <form
+      {/* <form
         className="sideDrawer__form"
         onSubmit={(e) => {
           e.preventDefault();
@@ -86,7 +84,7 @@ const AddKeyForm: React.FC<AddKeyFormProps> = ({
           ></textarea>
         </div>
         <button type="submit">Add New Key</button>
-      </form>
+      </form> */}
     </div>
   );
 };
