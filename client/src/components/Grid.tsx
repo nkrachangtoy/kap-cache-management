@@ -9,6 +9,7 @@ interface IColumnDef {
   sortable?: boolean;
   filter?: boolean;
   checkboxSelection?: boolean;
+  headerCheckboxSelection?: boolean;
   flex: number;
 }
 
@@ -34,7 +35,12 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
   const [gridApi, setGridApi] = useState<null | any>(null);
   // const [gridColumnApi, setGridColumnApi] = useState(null);
   const [columnDefs] = useState<Array<IColumnDef>>([
-    { headerName: "Select", checkboxSelection: true, flex: 1 },
+    {
+      headerName: "Select",
+      checkboxSelection: true,
+      headerCheckboxSelection: true,
+      flex: 1,
+    },
     {
       headerName: "Key Name",
       field: "keyName",

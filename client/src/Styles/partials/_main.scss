@@ -20,5 +20,10 @@
     padding: 10px 0;
     display: flex;
     justify-content: space-between;
+    border-bottom: 2px solid grey;
+    margin-bottom: 8px;
+  }
+  &__actions {
+    display: flex;
   }
 }

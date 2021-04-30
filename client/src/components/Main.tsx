@@ -13,6 +13,7 @@ import Search from "./Search";
 import { getPage } from "../network/network";
 import SideDrawer from "./SideDrawer";
 import { deleteKeyByQuery } from "./../network/network";
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 interface IRowData {
   keys: Array<IKey>;
@@ -121,7 +122,15 @@ const Main = () => {
     <div className="mainContainer">
       <div className="mainContainer__toolbar">
         <span>Results</span>
-        <Search handleSearch={handleSearch} handleReset={handleReset} />
+        <div className="mainContainer__actions">
+          <button>
+            Filter
+          </button>
+          <button>
+            <MoreHorizIcon />
+          </button>
+          <Search handleSearch={handleSearch} handleReset={handleReset} />
+        </div>
       </div>
       <div className="mainContainer__contentWrapper">
         <div className="mainContainer__gridWrapper">
