@@ -110,6 +110,7 @@ const Main = () => {
     setSelectedRows([]);
   };
 
+
   useEffect(() => {
     (async () => {
       await handleGetAllKeys();
@@ -117,18 +118,21 @@ const Main = () => {
   }, []);
 
   return (
-    <div className="main">
-      <div className="main__toolbar">
-        <Pagination
+    <div className="mainContainer">
+      <div className="mainContainer__toolbar">
+        <span>Results</span>
+        <Search handleSearch={handleSearch} handleReset={handleReset} />
+      </div>
+      <div className="mainContainer__contentWrapper">
+        <div className="mainContainer__gridWrapper">
+          <Grid rowData={rowData} handleGetSelectedRows={handleGetSelectedRows} />
+          <Pagination
           pageNum={pageNum}
           handlePageNext={handlePageNext}
           handlePageBack={handlePageBack}
           rowData={rowData}
-        />
-        <Search handleSearch={handleSearch} handleReset={handleReset} />
-      </div>
-      <div className="main__redisData">
-        <Grid rowData={rowData} handleGetSelectedRows={handleGetSelectedRows} />
+          />
+        </div>
         <SideDrawer
           selectedRows={selectedRows}
           handleDeleteByQuery={handleDeleteByQuery}

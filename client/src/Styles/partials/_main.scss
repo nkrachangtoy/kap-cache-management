@@ -1,19 +1,24 @@
 .App {
   display: flex;
 }
-.main {
+.mainContainer {
   width: 100%;
   padding: 20px;
-  &__grid {
-    margin: 2%;
-  }
-  &__redisData {
+  // &__grid {
+  //   margin: 2%;
+  // }
+  &__contentWrapper {
     display: flex;
     height: calc(100% - 44px - 10px);
+  }
+  &__gridWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
   }
   &__toolbar {
     padding: 10px 0;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
   }
 }

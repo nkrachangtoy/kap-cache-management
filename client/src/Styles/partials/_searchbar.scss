@@ -1,4 +1,26 @@
 .search {
   display: flex;
   align-items: center;
+  position: relative;
+  // border: solid 1px #acacac;
+  // border-radius: 5px;
+  // padding: 4px;
+  &__button {
+    @include clearButton;
+    position: absolute;
+    left: 4px;
+  }
+
+  &__input {
+    padding: 9px 18px 9px 36px;
+    border-radius: 5px;
+    border: 1px solid black;
+  }
+  &__icon {
+    cursor: pointer;
+    position: absolute;
+    right: 8px;
+    font-size: 18px;
+    color: rgb(175, 175, 175);
+  }
 }

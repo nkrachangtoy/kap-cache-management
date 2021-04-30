@@ -32,9 +32,9 @@ const Pagination: React.FC<PaginationProps> = ({
         <button className="pagination__button" onClick={handlePageBack} disabled={!rowData?.hasPreviousPage}>
           <NavigateNextIcon style={{transform: "rotate(180deg)"}} />
         </button>
-        <div>
+        <h5>
           Page {pageNum}
-        </div>
+        </h5>
         <button className="pagination__button" onClick={handlePageNext} disabled={!rowData?.hasNextPage}>
           <NavigateNextIcon />
         </button>
