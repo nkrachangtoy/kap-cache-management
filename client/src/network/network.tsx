@@ -87,7 +87,7 @@ export const postNewKeyValue = async (keyValue: IKeyValue) => {
         data: keyValue.valueString,
       },
     };
-    console.log(postObj);
+    console.log("NEWKEY", postObj);
     const response = await axios.post(`${BASE_URL}`, postObj);
     console.log("Post response >>", response);
     response.status === 200 &&

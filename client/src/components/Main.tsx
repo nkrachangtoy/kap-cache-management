@@ -42,6 +42,10 @@ const Main = () => {
     keyName: "",
     valueString: "",
   });
+  const [newKey, setNewKey] = useState<IKeyValue>({
+    keyName: "",
+    valueString: "",
+  });
 
   const handlePageNext = async () => {
     const data = await getPage(pageNum + 1);
@@ -101,9 +105,9 @@ const Main = () => {
   };
 
   const handleAddNewKey = async () => {
-    const data = await postNewKeyValue(keyValue);
+    const data = await postNewKeyValue(newKey);
     data &&
-      setKeyValue({
+      setNewKey({
         keyName: "",
         valueString: "",
       });
@@ -150,6 +154,8 @@ const Main = () => {
           deleteQuery={deleteQuery}
           setDeleteQuery={setDeleteQuery}
           handleDeleteBySelection={handleDeleteBySelection}
+          newKey={newKey}
+          setNewKey={setNewKey}
         />
       </div>
     </div>

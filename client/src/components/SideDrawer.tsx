@@ -16,6 +16,8 @@ interface DrawerProps {
   deleteQuery: string;
   setDeleteQuery: (query: string) => void;
   handleDeleteBySelection: () => void;
+  newKey: IKeyValue;
+  setNewKey: (keyValue: IKeyValue) => void;
 }
 
 const SideDrawer: React.FC<DrawerProps> = ({
@@ -27,6 +29,8 @@ const SideDrawer: React.FC<DrawerProps> = ({
   deleteQuery,
   setDeleteQuery,
   handleDeleteBySelection,
+  newKey,
+  setNewKey,
 }) => {
   // ===== IF A SINGLE ROW IS SELECTED ===== //
   //         display the key's value
@@ -85,8 +89,8 @@ const SideDrawer: React.FC<DrawerProps> = ({
         />
         <AddKeyForm
           handleAddNewKey={handleAddNewKey}
-          keyValue={keyValue}
-          setKeyValue={setKeyValue}
+          newKey={newKey}
+          setNewKey={setNewKey}
         />
       </div>
     );
