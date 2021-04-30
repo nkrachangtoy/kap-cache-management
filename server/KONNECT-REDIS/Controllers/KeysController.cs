@@ -187,8 +187,6 @@ namespace KONNECT_REDIS.Controllers
             }
         }
 
-
-
         /// <summary>
         /// Create new key value pair
         /// </summary>
@@ -223,7 +221,13 @@ namespace KONNECT_REDIS.Controllers
             }
         }
 
-     
+        /// <summary>
+        /// Creates a key value pair
+        /// key == keys2delete
+        /// value == keys to be deleted
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <returns>True or false whether creation was succesful or not</returns>
         [HttpPost("selections")]
         public IActionResult CreateCollectionKeysToDelete([FromBody] List<KeyDto> keys)
         {
@@ -249,14 +253,13 @@ namespace KONNECT_REDIS.Controllers
             {
                 return BadRequest(e);
             }
-
         }
 
         /// <summary>
         /// Delete a multiple keys by select
         /// </summary>
         /// <param name="selection">Selected keys</param>
-        /// <returns>Number of deleted keys and keys, or throws an error</returns>
+        /// <returns>True or false whether delete was successful</returns>
         [HttpDelete("deleteSelections")]
         [ProducesResponseType(200)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

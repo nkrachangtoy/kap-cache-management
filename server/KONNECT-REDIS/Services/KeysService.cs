@@ -116,7 +116,6 @@ namespace KONNECT_REDIS.Services
         /// Add new key value pair in Redis db
         /// </summary>
         /// <param name="key"></param>
-        /// <param name="value"></param>
         /// <returns>True or false whether key value pair was succesfully added</returns>
         public bool SetKeyValue(Key key)
         {
@@ -124,8 +123,16 @@ namespace KONNECT_REDIS.Services
         }
 
 
-
-
+        // =======================================================
+        // Delete By Select
+        // =======================================================
+        /// <summary>
+        /// Creates a key value pair
+        /// key == keys2delete
+        /// value == keys to be deleted
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <returns>True or false whether creation was succesful or not</returns>
         public bool CreateCollectionKeysToDelete(List<KeyDto> keys)
         {
             var keyNames = new List<string>();
@@ -142,7 +149,11 @@ namespace KONNECT_REDIS.Services
             return _db.StringSet("keys2delete", keyString);
         }
 
-
+        /// <summary>
+        /// Delete a multiple keys by select
+        /// </summary>
+        /// <param name="selection">Selected keys</param>
+        /// <returns>True or false whether delete was successful</returns>
         public bool DeleteKeysBySelect(string selection)
         {
            var keyListString =  _db.StringGet(selection);
