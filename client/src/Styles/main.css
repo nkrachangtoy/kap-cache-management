@@ -102,7 +102,7 @@ pre {
 
 .sideDrawer {
   width: 30%;
-  height: calc(100% - 10px);
+  height: 100%;
   padding: 10px;
   border: 1px solid grey;
   position: fixed;
