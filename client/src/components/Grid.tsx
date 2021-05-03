@@ -9,8 +9,9 @@ interface IColumnDef {
   sortable?: boolean;
   filter?: boolean;
   checkboxSelection?: boolean;
-  flex?: number;
-  lockPosition?: boolean;
+  headerCheckboxSelection?: boolean;
+  flex: number;
+
 }
 
 interface IRowData {
@@ -32,6 +33,12 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
   const [destructuredKeys, setDestructuredKeys] = useState<null | any>(null);
   const [columnDefs, setColumnDefs] = useState<Array<IColumnDef>>([
     { headerName: "Select", checkboxSelection: true },
+    {
+      headerName: "Select",
+      checkboxSelection: true,
+      headerCheckboxSelection: true,
+      flex: 1,
+    },
     {
       headerName: "Key Name",
       field: "field0",

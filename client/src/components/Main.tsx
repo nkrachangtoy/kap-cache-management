@@ -13,6 +13,16 @@ import Search from "./Search";
 import { getPage } from "../network/network";
 import SideDrawer from "./SideDrawer";
 import { deleteKeyByQuery } from "./../network/network";
+import AddKeyForm from "./AddKeyForm";
+// Material UI
+import AddIcon from '@material-ui/icons/Add';
+import Tooltip from '@material-ui/core/Tooltip';
+import FilterListIcon from '@material-ui/icons/FilterList';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import Drawer from '@material-ui/core/Drawer';
+import Modal from '@material-ui/core/Modal';
+
+
 
 interface IRowData {
   keys: Array<IKey>;
@@ -33,6 +43,7 @@ interface IKeyValue {
   valueString: string;
 }
 
+
 const Main = () => {
   const [rowData, setRowData] = useState<IRowData | object>({});
   const [pageNum, setPageNum] = useState<number>(1);
@@ -46,6 +57,8 @@ const Main = () => {
     keyName: "",
     valueString: "",
   });
+  const [open, setOpen] = useState<boolean>(false);
+  const [openDrawer, setOpenDrawer] = useState(false);
 
   const handlePageNext = async () => {
     const data = await getPage(pageNum + 1);
@@ -126,26 +139,72 @@ const Main = () => {
     setSelectedRows([]); // this doesnt update the grid
   };
 
+  const handleOpen = () => {
+    setOpen(true);
+  }
+
+  const handleClose = () => {
+    setOpen(false);
+  }
+
+  const toggleDrawer = () => {
+    setOpenDrawer(!openDrawer)
+  }
+  const handleCloseDrawer = () => {
+    setOpenDrawer(false)
+  }
+
+
   useEffect(() => {
     (async () => {
       await handleGetAllKeys();
     })();
   }, []);
 
+  const modalBody = (
+    <div className="modal">
+      <AddKeyForm
+          handleAddNewKey={handleAddNewKey}
+          keyValue={keyValue}
+          setKeyValue={setKeyValue}/>
+    </div>
+  );
+
   return (
-    <div className="main">
-      <div className="main__toolbar">
-        <Pagination
+    <div className="mainContainer">
+      <div className="mainContainer__toolbar">
+        <span className="mainContainer__header">Results</span>
+        <div className="mainContainer__actions">
+          <Tooltip title="Create" placement="top">
+            <button className="mainContainer__button" onClick={handleOpen}>
+            <AddIcon />
+            </button>
+          </Tooltip>
+          <Tooltip title="Delete" placement="top">
+            <button className="mainContainer__button" >
+            <DeleteOutlineIcon />
+            </button>
+          </Tooltip>
+          <Tooltip title="Filter" placement="top">
+            <button className="mainContainer__button" onClick={toggleDrawer}>
+            <FilterListIcon />
+            </button>
+          </Tooltip>
+            <Search handleSearch={handleSearch} handleReset={handleReset} />
+        </div>
+      </div>
+      <div className="mainContainer__contentWrapper">
+        <div className="mainContainer__gridWrapper">
+          <Grid rowData={rowData} handleGetSelectedRows={handleGetSelectedRows} />
+          <Pagination
           pageNum={pageNum}
           handlePageNext={handlePageNext}
           handlePageBack={handlePageBack}
           rowData={rowData}
-        />
-        <Search handleSearch={handleSearch} handleReset={handleReset} />
-      </div>
-      <div className="main__redisData">
-        <Grid rowData={rowData} handleGetSelectedRows={handleGetSelectedRows} />
-        <SideDrawer
+          />
+        </div>
+        <Drawer open={openDrawer} onClose={handleCloseDrawer}>
+          <SideDrawer
           selectedRows={selectedRows}
           handleDeleteByQuery={handleDeleteByQuery}
           handleAddNewKey={handleAddNewKey}
@@ -156,8 +215,14 @@ const Main = () => {
           handleDeleteBySelection={handleDeleteBySelection}
           newKey={newKey}
           setNewKey={setNewKey}
-        />
+          />
+        </Drawer>
       </div>
+      <Modal
+        open={open}
+        onClose={handleClose}>
+        {modalBody}
+      </Modal>
     </div>
   );
 };
