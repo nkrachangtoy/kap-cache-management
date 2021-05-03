@@ -195,22 +195,19 @@ namespace KONNECT_REDIS.Services
             });
 
             List<string> keyList1stField = new List<string>();
-            List<int> lengthArr = new List<int>();
-
-
-            // Find max value of arr length
-            int maxLength = lengthArr.Max();
 
             // Split string
             foreach (var key in keyList)
             {
-               lengthArr.Add(key.Split("#").Length);
+               var key1stField = key.Split("#")[0];
 
-               var key1stField = key.Split("#");
+               keyList1stField.Add(key1stField);
             }
 
-            
-            return keyList;
+            List<string> keyList1stFieldDistinct = keyList1stField.Distinct().ToList();
+
+
+            return keyList1stFieldDistinct;
         }
     }
 }
