@@ -17,7 +17,7 @@ namespace KONNECT_REDIS.Services.IServices
         Value GetValue(KeyDto key);
         bool SetKeyValue(Key key);
         ICollection<string> GetUnique1stFields();
-        ICollection<string> GetUniqueNextFields(string field);
+        ICollection<string> GetUniqueNextFields(string field, int index);
 
         // ==============================
         // Delete By Select

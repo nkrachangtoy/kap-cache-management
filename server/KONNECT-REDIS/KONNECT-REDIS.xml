@@ -55,7 +55,7 @@
             </summary>
             <returns>Array of unique keys</returns>
         </member>
-        <member name="M:KONNECT_REDIS.Controllers.KeysController.GetUniqueNextFields(System.String)">
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.GetUniqueNextFields(System.String,System.Int32)">
             <summary>
             Retrieve list of unique keys
             </summary>

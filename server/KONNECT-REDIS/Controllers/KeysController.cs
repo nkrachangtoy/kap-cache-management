@@ -249,11 +249,11 @@ namespace KONNECT_REDIS.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetUniqueNextFields([FromQuery]string field)
+        public IActionResult GetUniqueNextFields([FromQuery]string field, int index)
         {
             try
             {
-                var res = _keysService.GetUniqueNextFields(field);
+                var res = _keysService.GetUniqueNextFields(field, index);
 
                 if (res == null)
                 {
