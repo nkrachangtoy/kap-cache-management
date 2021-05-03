@@ -29,7 +29,7 @@ namespace KONNECT_REDIS.Services.IServices
 
 
 
-        ICollection<string> GetAllPatterns();
+        ICollection<string> GetUnique1stFields();
     }
 }
     

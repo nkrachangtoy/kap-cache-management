@@ -292,10 +292,10 @@ namespace KONNECT_REDIS.Controllers
 
 
 
-        [HttpGet("patterns")]
-        public IActionResult GetAllPattern()
+        [HttpGet("unique")]
+        public IActionResult GetUnique1stFields()
         {
-            var res = _keysService.GetAllPatterns();
+            var res = _keysService.GetUnique1stFields();
 
             return Ok(res);
         }

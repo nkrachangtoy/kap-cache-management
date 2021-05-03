@@ -179,7 +179,7 @@ namespace KONNECT_REDIS.Services
 
 
 
-        public ICollection<string> GetAllPatterns()
+        public ICollection<string> GetUnique1stFields()
         {
             List<string> keyList = new List<string>(new string[] {
                 "IsFeatureActive#ad_emit_events#5",
@@ -194,7 +194,7 @@ namespace KONNECT_REDIS.Services
                 "UsersCommentsOrganization#canucks"
             });
 
-            List<object> keyObjList = new List<object>();
+            List<string> keyList1stField = new List<string>();
             List<int> lengthArr = new List<int>();
 
 
@@ -206,8 +206,7 @@ namespace KONNECT_REDIS.Services
             {
                lengthArr.Add(key.Split("#").Length);
 
-                var keyObj = new { Field1 = key.Split("#")[0] };
-               
+               var key1stField = key.Split("#");
             }
 
             
