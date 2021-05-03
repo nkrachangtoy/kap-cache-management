@@ -21,13 +21,6 @@
             /// <param name="pageSize">Page size</param>
             <returns></returns>
         </member>
-        <member name="M:KONNECT_REDIS.Controllers.KeysController.BatchDeleteKeysByQuery(System.String)">
-            <summary>
-            Delete multiple keys by Redis key pattern
-            </summary>
-            <param name="pattern">A Redis key pattern</param>
-            <returns>Number of deleted keys and pattern they followed, or throws an error</returns>
-        </member>
         <member name="M:KONNECT_REDIS.Controllers.KeysController.DeleteKey(KONNECT_REDIS.Models.Dtos.KeyDto)">
             <summary>
             Delete a key
@@ -37,33 +30,32 @@
         </member>
         <member name="M:KONNECT_REDIS.Controllers.KeysController.GetValue(KONNECT_REDIS.Models.Dtos.KeyDto)">
             <summary>
-            get value of key
+            Get value of key
             </summary>
             <param name="key"></param>
-            <returns>value of key in string form</returns>
+            <returns>Value of key in string form</returns>
+        </member>
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.BatchDeleteKeysByQuery(System.String)">
+            <summary>
+            Delete multiple keys by Redis key pattern
+            </summary>
+            <param name="pattern">A Redis key pattern</param>
+            <returns>Number of deleted keys and pattern they followed, or throws an error</returns>
         </member>
         <member name="M:KONNECT_REDIS.Controllers.KeysController.SetKeyValue(KONNECT_REDIS.Models.Key)">
             <summary>
             Create new key value pair
             </summary>
             <param name="key"></param>
+            <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:KONNECT_REDIS.Controllers.KeysController.CreateCollectionKeysToDelete(System.Collections.Generic.List{KONNECT_REDIS.Models.Dtos.KeyDto})">
-            <summary>
-            Creates a key value pair
-            key == keys2delete
-            value == keys to be deleted
-            </summary>
-            <param name="keys"></param>
-            <returns>True or false whether creation was succesful or not</returns>
-        </member>
-        <member name="M:KONNECT_REDIS.Controllers.KeysController.DeleteKeysBySelect(System.String)">
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.DeleteKeysBySelect(System.Collections.Generic.List{KONNECT_REDIS.Models.Dtos.KeyDto})">
             <summary>
             Delete a multiple keys by select
             </summary>
-            <param name="selection">Selected keys</param>
-            <returns>True or false whether delete was successful</returns>
+            <param name="keys">Selected keys</param>
+            <returns>Number of deleted keys and keys, or throws an error</returns>
         </member>
         <member name="M:KONNECT_REDIS.Services.KeysService.GetAllKeys(System.Nullable{System.Int32},System.Int32)">
             <summary>
@@ -81,13 +73,6 @@
             <param name="pageNumber">Page number</param>
             <param name="pageSize">Page size</param>
             <returns></returns>
-        </member>
-        <member name="M:KONNECT_REDIS.Services.KeysService.BatchDeleteKeysByQuery(System.String)">
-            <summary>
-            Delete multiple keys by Redis key pattern
-            </summary>
-            <param name="pattern">A Redis key pattern</param>
-            <returns>Number of deleted keys and pattern they followed, or throws an error</returns>
         </member>
         <member name="M:KONNECT_REDIS.Services.KeysService.DeleteKey(KONNECT_REDIS.Models.Dtos.KeyDto)">
             <summary>
@@ -108,23 +93,8 @@
             Add new key value pair in Redis db
             </summary>
             <param name="key"></param>
+            <param name="value"></param>
             <returns>True or false whether key value pair was succesfully added</returns>
-        </member>
-        <member name="M:KONNECT_REDIS.Services.KeysService.CreateCollectionKeysToDelete(System.Collections.Generic.List{KONNECT_REDIS.Models.Dtos.KeyDto})">
-            <summary>
-            Creates a key value pair
-            key == keys2delete
-            value == keys to be deleted
-            </summary>
-            <param name="keys"></param>
-            <returns>True or false whether creation was succesful or not</returns>
-        </member>
-        <member name="M:KONNECT_REDIS.Services.KeysService.DeleteKeysBySelect(System.String)">
-            <summary>
-            Delete a multiple keys by select
-            </summary>
-            <param name="selection">Selected keys</param>
-            <returns>True or false whether delete was successful</returns>
         </member>
     </members>
 </doc>

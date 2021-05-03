@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KONNECT_REDIS.Controllers
 {
-    [Route("api/keys")]
+    [Route("api/[controller]")]
     [ApiController]
     public class KeysController : ControllerBase
     {
@@ -31,7 +31,7 @@ namespace KONNECT_REDIS.Controllers
         /// <param name="pageSize">Page size</param>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(200, Type = typeof(PaginatedList<KeyDto>))]
+        [ProducesResponseType(200, Type = typeof(PaginatedList<Key>))]
         [ProducesResponseType(404)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -65,12 +65,8 @@ namespace KONNECT_REDIS.Controllers
         /// /// <param name="pageSize">Page size</param>
         /// <returns></returns>
         [HttpGet]
-        [Route("query")]
-        [ProducesResponseType(200, Type = typeof(PaginatedList<KeyDto>))]
-        [ProducesResponseType(404)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("Query")]
+        [ProducesResponseType(200, Type = typeof(ICollection<Key>))]
         public IActionResult GetKeyByQuery([FromQuery] string pattern, int pageNumber, int pageSize)
         {
             try
@@ -83,6 +79,70 @@ namespace KONNECT_REDIS.Controllers
                 }
                 var results = new { Keys = res, res.TotalCount, res.TotalPages, res.HasNextPage, res.HasPreviousPage };
                 return Ok(results);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
+
+        /// <summary>
+        /// Delete a key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns>True/False if key delete was success</returns>
+        [HttpDelete("remove")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult DeleteKey([FromQuery] KeyDto key)
+        {
+            try
+            {
+                var res = _keysService.DeleteKey(key);
+
+                if (res == false)
+                {
+                    var errMessage = new { success = res, message = "Error deleting key / could not find key" };
+
+                    return NotFound(errMessage);
+                }
+
+                var deletedKey = key.Subset == null ? $"{key.KeyName}#{key.OrgId}" : $"{key.KeyName}#{key.Subset}#{key.OrgId}";
+
+                var message = new { success = res, message = $"Successfully deleted {deletedKey}" };
+
+                return Ok(message);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
+
+        /// <summary>
+        /// Get value of key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns>Value of key in string form</returns>
+        [HttpGet("value")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult GetValue([FromQuery] KeyDto key)
+        {
+            try
+            {
+                var res = _keysService.GetValue(key);
+
+                if (res == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(res);
             }
             catch (Exception e)
             {
@@ -126,71 +186,10 @@ namespace KONNECT_REDIS.Controllers
         }
 
         /// <summary>
-        /// Delete a key
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns>True/False if key delete was success</returns>
-        [HttpDelete("remove")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult DeleteKey([FromQuery] KeyDto key)
-        {
-            try
-            {
-                var res = _keysService.DeleteKey(key);
-
-                if (res == false)
-                {
-                    var errMessage = new { success = res, message = "Error deleting key / could not find key" };
-
-                    return NotFound(errMessage);
-                }
-
-                var message = new { success = res, message = $"Successfully deleted {key.KeyName}" };
-
-                return Ok(message);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e);
-            }
-        }
-
-        /// <summary>
-        /// get value of key
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns>value of key in string form</returns>
-        [HttpGet("value")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetValue([FromQuery] KeyDto key)
-        {
-            try
-            {
-                var res = _keysService.GetValue(key);
-
-                if (res == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(res);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e);
-            }
-        }
-
-        /// <summary>
         /// Create new key value pair
         /// </summary>
         /// <param name="key"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -200,54 +199,18 @@ namespace KONNECT_REDIS.Controllers
         {
             try
             {
-                if (key == null)
+                if(key == null)
                 {
                     return BadRequest(ModelState);
                 }
 
-                if (!_keysService.SetKeyValue(key))
-                {
-                    ModelState.AddModelError("", $"Something went wrong seting key pair value");
-                    return StatusCode(500, ModelState);
-                }
-                
-                var message = new { success = true, message = $"Successfully added {key.KeyName}" };
-            
-                return Ok(message);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e);
-            }
-        }
-
-        /// <summary>
-        /// Creates a key value pair
-        /// key == keys2delete
-        /// value == keys to be deleted
-        /// </summary>
-        /// <param name="keys"></param>
-        /// <returns>True or false whether creation was succesful or not</returns>
-        [HttpPost("selections")]
-        public IActionResult CreateCollectionKeysToDelete([FromBody] List<KeyDto> keys)
-        {
-            try
-            {
-               if(keys == null)
-                {
-                    return BadRequest(ModelState);
-                }
-
-                if (!_keysService.CreateCollectionKeysToDelete(keys))
+                if(!_keysService.SetKeyValue(key))
                 {
                     ModelState.AddModelError("", $"Something went wrong seting key pair value");
                     return StatusCode(500, ModelState);
                 }
 
-
-                var message = new { success = true, message = $"Successfully created collection of keys to delete" };
-
-                return Ok(message);
+                return Ok(key);
             }
             catch (Exception e)
             {
@@ -258,29 +221,29 @@ namespace KONNECT_REDIS.Controllers
         /// <summary>
         /// Delete a multiple keys by select
         /// </summary>
-        /// <param name="selection">Selected keys</param>
-        /// <returns>True or false whether delete was successful</returns>
-        [HttpDelete("deleteSelections")]
+        /// <param name="keys">Selected keys</param>
+        /// <returns>Number of deleted keys and keys, or throws an error</returns>
+        [HttpDelete("removeSelected")]
         [ProducesResponseType(200)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult DeleteKeysBySelect([FromQuery] string selection = "keys2delete")
+        public IActionResult DeleteKeysBySelect([FromBody] List<KeyDto> keys)
         {
             try
             {
-                if (selection == null)
+                var res = _keysService.DeleteKeysBySelect(keys);
+
+                if (res == false)
                 {
-                    return BadRequest(ModelState);
+                    var errMessage = new { success = res, message = "No key selected" };
+
+                    return NotFound(errMessage);
                 }
 
-                if(!_keysService.DeleteKeysBySelect(selection))
-                {
-                    ModelState.AddModelError("", $"Something went wrong seting key pair value");
-                    return StatusCode(500, ModelState);
-                }
+                var deletedKeys = $"{res}";
 
-                var message = new { success = true, message = $"Successfully deleted items" };
+                var message = new { success = res, message = $"Successfully deleted {keys.Count} keys" };
 
                 return Ok(message);
             }

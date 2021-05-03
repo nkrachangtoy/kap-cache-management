@@ -4,11 +4,13 @@ import DeleteByQueryForm from "./DeleteByQueryForm";
 
 interface IKeyValue {
   keyName: string;
+  subset: string;
+  orgId: string;
   valueString: string;
 }
 
 interface DrawerProps {
-  selectedRows: Array<string>;
+  selectedRows: any;
   handleDeleteByQuery: () => void;
   handleAddNewKey: () => void;
   keyValue: IKeyValue;
@@ -16,8 +18,6 @@ interface DrawerProps {
   deleteQuery: string;
   setDeleteQuery: (query: string) => void;
   handleDeleteBySelection: () => void;
-  newKey: IKeyValue;
-  setNewKey: (keyValue: IKeyValue) => void;
 }
 
 const SideDrawer: React.FC<DrawerProps> = ({
@@ -29,8 +29,6 @@ const SideDrawer: React.FC<DrawerProps> = ({
   deleteQuery,
   setDeleteQuery,
   handleDeleteBySelection,
-  newKey,
-  setNewKey,
 }) => {
   // ===== IF A SINGLE ROW IS SELECTED ===== //
   //         display the key's value
@@ -41,14 +39,28 @@ const SideDrawer: React.FC<DrawerProps> = ({
         <hr />
         <p>
           <strong>Key Name: </strong>
-          {selectedRows[0]}
+          {selectedRows[0]?.keyName}
         </p>
 
+        {selectedRows[0]?.subset && (
+          <p>
+            <strong>Subset: </strong>
+            {selectedRows[0]?.subset}
+          </p>
+        )}
+        <p>
+          <strong>Org Id: </strong>
+          {selectedRows[0]?.orgId}
+        </p>
         <div>
           <strong>Value:</strong>
           <div className="sideDrawer_valueCodeBlock">
             <pre>
-              <code>{keyValue.valueString}</code>
+              <code>
+                {selectedRows[0].value.data
+                  ? selectedRows[0].value.data
+                  : selectedRows[0].value}
+              </code>
             </pre>
           </div>
         </div>
@@ -67,8 +79,12 @@ const SideDrawer: React.FC<DrawerProps> = ({
         </div>
         <hr />
         <div>
-          {selectedRows.map((key: any, i: number) => (
-            <p key={i}>{key}</p>
+          {selectedRows.map((node: any, i: number) => (
+            <p key={i}>
+              {`${node.keyName}` +
+                `${node.subset && `#${node.subset}`}` +
+                `#${node.orgId}`}
+            </p>
           ))}
         </div>
         <br />
@@ -89,8 +105,8 @@ const SideDrawer: React.FC<DrawerProps> = ({
         />
         <AddKeyForm
           handleAddNewKey={handleAddNewKey}
-          newKey={newKey}
-          setNewKey={setNewKey}
+          keyValue={keyValue}
+          setKeyValue={setKeyValue}
         />
       </div>
     );
