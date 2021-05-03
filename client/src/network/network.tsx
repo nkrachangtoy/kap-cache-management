@@ -66,14 +66,23 @@ export const deleteKeyByQuery = async (query: string) => {
 
 export const deleteKeyBySelection = async (selection: any) => {
   try {
-    const response = await axios({
-      method: "delete",
-      url: `${BASE_URL}/removeSelected`,
-      data: selection,
-      headers: { "Content-Type": "application/json" },
+    //POST req to create selection
+    let keyNameObjects: Array<object> = [];
+    selection.map((key: string) => {
+      const obj = {
+        keyName: key,
+      };
+      keyNameObjects.push(obj);
     });
-    response.data.success && alert(response.data.message);
-    console.log("Delete by Selection Response:", response);
+    const postResponse = await axios.post(
+      `${BASE_URL}/selections`,
+      keyNameObjects
+    );
+
+    //DELETE req to delete selection from redis
+    const delResponse = await axios.delete(`${BASE_URL}/deleteSelections`);
+    delResponse.data.success && alert(delResponse.data.message);
+    console.log("Delete by Selection Response:", delResponse.data);
   } catch (e) {
     alert(`Error: ${e}`);
   }
