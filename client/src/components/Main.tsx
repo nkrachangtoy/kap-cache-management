@@ -29,22 +29,21 @@ interface IKey {
 }
 
 interface IKeyValue {
-  //Need to refactor this to reduce redundacy above
   keyName: string;
-  subset: string;
-  orgId: string;
   valueString: string;
 }
 
 const Main = () => {
   const [rowData, setRowData] = useState<IRowData | object>({});
   const [pageNum, setPageNum] = useState<number>(1);
-  const [selectedRows, setSelectedRows] = useState<Array<IRowData>>([]);
+  const [selectedRows, setSelectedRows] = useState<Array<string>>([]);
   const [deleteQuery, setDeleteQuery] = useState<string>("");
   const [keyValue, setKeyValue] = useState<IKeyValue>({
     keyName: "",
-    subset: "",
-    orgId: "",
+    valueString: "",
+  });
+  const [newKey, setNewKey] = useState<IKeyValue>({
+    keyName: "",
     valueString: "",
   });
 
@@ -65,14 +64,32 @@ const Main = () => {
   const handleSearch = async (query: string) => {
     const data = await searchKeys(query);
     setRowData(data);
+    setPageNum(1);
   };
 
-  const handleGetSelectedRows = async (row: any) => {
-    if (row.length === 1) {
-      const data = await getKeyValue(row);
-      row[0].value = data;
+  const handleGetSelectedRows = async (row: Array<object>) => {
+    //Need to concantenate the fields before sending API call
+    let keys: Array<string> = [];
+    row?.map((key: object) => {
+      const joinedKey = Object.values(key).join("#");
+      keys.push(joinedKey);
+    });
+    console.log("concantenated keys array>>", keys);
+    setSelectedRows(keys);
+
+    if (row?.length === 1) {
+      await handleGetValue(keys[0]);
     }
-    setSelectedRows(row);
+  };
+
+  //this can be called elsewhere later on
+  const handleGetValue = async (key: string) => {
+    const data = await getKeyValue(key);
+    const keyValuePair = {
+      keyName: key,
+      valueString: data,
+    };
+    setKeyValue(keyValuePair);
   };
 
   const handleDeleteByQuery = async () => {
@@ -88,12 +105,10 @@ const Main = () => {
   };
 
   const handleAddNewKey = async () => {
-    const data = await postNewKeyValue(keyValue);
+    const data = await postNewKeyValue(newKey);
     data &&
-      setKeyValue({
+      setNewKey({
         keyName: "",
-        subset: "",
-        orgId: "",
         valueString: "",
       });
     await handleGetAllKeys();
@@ -107,7 +122,8 @@ const Main = () => {
 
   const handleReset = async () => {
     await handleGetAllKeys();
-    setSelectedRows([]);
+    setPageNum(1);
+    setSelectedRows([]); // this doesnt update the grid
   };
 
   useEffect(() => {
@@ -138,6 +154,8 @@ const Main = () => {
           deleteQuery={deleteQuery}
           setDeleteQuery={setDeleteQuery}
           handleDeleteBySelection={handleDeleteBySelection}
+          newKey={newKey}
+          setNewKey={setNewKey}
         />
       </div>
     </div>
