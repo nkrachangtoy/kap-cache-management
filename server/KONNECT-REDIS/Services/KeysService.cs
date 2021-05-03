@@ -128,31 +128,16 @@ namespace KONNECT_REDIS.Services
         /// <returns>Array of unique keys</returns>
         public ICollection<string> GetUnique1stFields()
         {
-            List<string> keyList = new List<string>(new string[] {
-                "IsFeatureActive#ad_emit_events#5",
-                "IsFeatureActive#autoschedule#1",
-                "IsFeatureActive#dealassetstatus#3",
-                "IsFeatureActive#deliverymodule#2",
-                "IsFeatureActive#enabletags#3",
-                "KonnectOrganization#921638db-6b88-4985-b1cd-95283f4e2c67",
-                "KonnectOrganizationData#5",
-                "KoreSetting#UnallocatedRevenueProperty#f8ada701-266b-4f4c-8fd6-87c780ce6952",
-                "tableauconfig#23",
-                "UsersCommentsOrganization#canucks"
-            });
-
             List<string> keyList1stField = new List<string>();
 
-            // Split string
-            foreach (var key in keyList)
+            foreach (var key in _keys)
             {
-                var key1stField = key.Split("#")[0];
+                var key1stField = key.ToString().Split("#")[0];
 
                 keyList1stField.Add(key1stField);
             }
 
             List<string> keyList1stFieldDistinct = keyList1stField.Distinct().ToList();
-
 
             return keyList1stFieldDistinct;
         }
@@ -171,12 +156,10 @@ namespace KONNECT_REDIS.Services
         {
             var keyNames = new List<string>();
         
-
             foreach (var key in keys)
             {
                 keyNames.Add(key.KeyName);
             }
-
 
             var keyString = string.Join(",", keyNames);
 

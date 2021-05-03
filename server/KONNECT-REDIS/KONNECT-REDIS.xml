@@ -49,6 +49,12 @@
             <param name="key"></param>
             <returns></returns>
         </member>
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.GetUnique1stFields">
+            <summary>
+            Retrieve list of unique keys
+            </summary>
+            <returns>Array of unique keys</returns>
+        </member>
         <member name="M:KONNECT_REDIS.Controllers.KeysController.CreateCollectionKeysToDelete(System.Collections.Generic.List{KONNECT_REDIS.Models.Dtos.KeyDto})">
             <summary>
             Creates a key value pair
@@ -109,6 +115,12 @@
             </summary>
             <param name="key"></param>
             <returns>True or false whether key value pair was succesfully added</returns>
+        </member>
+        <member name="M:KONNECT_REDIS.Services.KeysService.GetUnique1stFields">
+            <summary>
+            Retrieve list of unique keys
+            </summary>
+            <returns>Array of unique keys</returns>
         </member>
         <member name="M:KONNECT_REDIS.Services.KeysService.CreateCollectionKeysToDelete(System.Collections.Generic.List{KONNECT_REDIS.Models.Dtos.KeyDto})">
             <summary>
