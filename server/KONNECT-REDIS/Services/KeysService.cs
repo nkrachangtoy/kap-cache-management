@@ -155,7 +155,7 @@ namespace KONNECT_REDIS.Services
                 keyListNextField.Add(keyNextField);
             }
 
-            return keyListNextField;
+            return keyListNextField.Distinct().ToList();
         }
 
         // =======================================================
