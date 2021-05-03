@@ -33,8 +33,6 @@ namespace KONNECT_REDIS.Controllers
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(PaginatedList<KeyDto>))]
         [ProducesResponseType(404)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult GetAllKeys(int pageNumber, int pageSize)
 
@@ -68,8 +66,6 @@ namespace KONNECT_REDIS.Controllers
         [Route("query")]
         [ProducesResponseType(200, Type = typeof(PaginatedList<KeyDto>))]
         [ProducesResponseType(404)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult GetKeyByQuery([FromQuery] string pattern, int pageNumber, int pageSize)
         {
@@ -98,7 +94,6 @@ namespace KONNECT_REDIS.Controllers
         [HttpDelete("removeSubset")]
         [ProducesResponseType(200)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult BatchDeleteKeysByQuery([FromQuery] string pattern)
         {
@@ -133,7 +128,6 @@ namespace KONNECT_REDIS.Controllers
         [HttpDelete("remove")]
         [ProducesResponseType(200)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult DeleteKey([FromQuery] KeyDto key)
         {
@@ -166,7 +160,6 @@ namespace KONNECT_REDIS.Controllers
         [HttpGet("value")]
         [ProducesResponseType(200)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult GetValue([FromQuery] KeyDto key)
         {
@@ -222,6 +215,33 @@ namespace KONNECT_REDIS.Controllers
         }
 
         /// <summary>
+        /// Retrieve list of unique keys
+        /// </summary>
+        /// <returns>Array of unique keys</returns>
+        [HttpGet("unique")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult GetUnique1stFields()
+        {
+            try
+            {
+                var res = _keysService.GetUnique1stFields();
+
+                if(res == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(res);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
+
+        /// <summary>
         /// Creates a key value pair
         /// key == keys2delete
         /// value == keys to be deleted
@@ -263,7 +283,6 @@ namespace KONNECT_REDIS.Controllers
         [HttpDelete("deleteSelections")]
         [ProducesResponseType(200)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult DeleteKeysBySelect([FromQuery] string selection = "keys2delete")
         {
@@ -288,16 +307,6 @@ namespace KONNECT_REDIS.Controllers
             {
                 return BadRequest(e);
             }
-        }
-
-
-
-        [HttpGet("unique")]
-        public IActionResult GetUnique1stFields()
-        {
-            var res = _keysService.GetUnique1stFields();
-
-            return Ok(res);
         }
     }
 }
