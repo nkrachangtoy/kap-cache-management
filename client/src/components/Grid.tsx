@@ -8,10 +8,10 @@ interface IColumnDef {
   field?: string;
   sortable?: boolean;
   filter?: boolean;
-  checkboxSelection?: boolean;
   headerCheckboxSelection?: boolean;
+  checkboxSelection?: boolean;
   flex: number;
-
+  lockPosition?: boolean;
 }
 
 interface IRowData {
@@ -32,7 +32,6 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
   const [numFields, setNumFields] = useState<number>(1);
   const [destructuredKeys, setDestructuredKeys] = useState<null | any>(null);
   const [columnDefs, setColumnDefs] = useState<Array<IColumnDef>>([
-    { headerName: "Select", checkboxSelection: true },
     {
       headerName: "Select",
       checkboxSelection: true,
@@ -91,6 +90,7 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
       {
         headerName: "Select",
         checkboxSelection: true,
+        headerCheckboxSelection: true,
         lockPosition: true,
         flex: 1,
       },
@@ -151,8 +151,8 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
 
   return (
     <div className="ag-theme-balham grid">
-      <button onClick={() => gridApi.selectAll()}>Select All</button>
-      <button onClick={() => gridApi.deselectAll()}>Deselect All</button>
+      {/* <button onClick={() => gridApi.selectAll()}>Select All</button>
+      <button onClick={() => gridApi.deselectAll()}>Deselect All</button> */}
       <AgGridReact
         columnDefs={columnDefs}
         rowData={destructuredKeys ? destructuredKeys : rowData.keys}
