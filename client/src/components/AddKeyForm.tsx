@@ -4,21 +4,19 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 interface IKeyValue {
   keyName: string;
-  subset: string;
-  orgId: string;
   valueString: string;
 }
 
 interface AddKeyFormProps {
   handleAddNewKey: () => void;
-  keyValue: IKeyValue;
-  setKeyValue: (keyValue: IKeyValue) => void;
+  newKey: IKeyValue;
+  setNewKey: (keyValue: IKeyValue) => void;
 }
 
 const AddKeyForm: React.FC<AddKeyFormProps> = ({
   handleAddNewKey,
-  keyValue,
-  setKeyValue,
+  newKey,
+  setNewKey,
 }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
@@ -43,7 +41,7 @@ const AddKeyForm: React.FC<AddKeyFormProps> = ({
         className="sideDrawer__form"
         onSubmit={(e) => {
           e.preventDefault();
-          console.log("New KeyValue Pair >>", keyValue);
+          console.log("New KeyValue Pair >>", newKey);
           handleAddNewKey();
         }}
       >
@@ -54,37 +52,8 @@ const AddKeyForm: React.FC<AddKeyFormProps> = ({
           <input
             id="keyName"
             type="text"
-            value={keyValue.keyName}
-            onChange={(e) =>
-              setKeyValue({ ...keyValue, keyName: e.target.value })
-            }
-            required
-          />
-        </div>
-        <div className="sideDrawer__formField">
-          <label htmlFor="subset" className="sideDrawer__formLabel">
-            Subset:
-          </label>
-          <input
-            id="subset"
-            type="text"
-            value={keyValue.subset}
-            onChange={(e) =>
-              setKeyValue({ ...keyValue, subset: e.target.value })
-            }
-          />
-        </div>
-        <div className="sideDrawer__formField">
-          <label htmlFor="orgId" className="sideDrawer__formLabel">
-            OrgId:
-          </label>
-          <input
-            id="orgId"
-            type="text"
-            value={keyValue.orgId}
-            onChange={(e) =>
-              setKeyValue({ ...keyValue, orgId: e.target.value })
-            }
+            value={newKey.keyName}
+            onChange={(e) => setNewKey({ ...newKey, keyName: e.target.value })}
             required
           />
         </div>
@@ -96,9 +65,9 @@ const AddKeyForm: React.FC<AddKeyFormProps> = ({
             id="value"
             rows={4}
             required
-            value={keyValue.valueString}
+            value={newKey.valueString}
             onChange={(e) =>
-              setKeyValue({ ...keyValue, valueString: e.target.value })
+              setNewKey({ ...newKey, valueString: e.target.value })
             }
           ></textarea>
         </div>
