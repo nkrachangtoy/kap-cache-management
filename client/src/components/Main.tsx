@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Grid from "./Grid";
-
 import Pagination from "./Pagination";
 import {
   deleteKeyBySelection,
@@ -15,14 +14,12 @@ import SideDrawer from "./SideDrawer";
 import { deleteKeyByQuery } from "./../network/network";
 import AddKeyForm from "./AddKeyForm";
 // Material UI
-import AddIcon from '@material-ui/icons/Add';
-import Tooltip from '@material-ui/core/Tooltip';
-import FilterListIcon from '@material-ui/icons/FilterList';
-import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import Drawer from '@material-ui/core/Drawer';
-import Modal from '@material-ui/core/Modal';
-
-
+import AddIcon from "@material-ui/icons/Add";
+import Tooltip from "@material-ui/core/Tooltip";
+import FilterListIcon from "@material-ui/icons/FilterList";
+import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
+import Drawer from "@material-ui/core/Drawer";
+import Modal from "@material-ui/core/Modal";
 
 interface IRowData {
   keys: Array<IKey>;
@@ -42,7 +39,6 @@ interface IKeyValue {
   keyName: string;
   valueString: string;
 }
-
 
 const Main = () => {
   const [rowData, setRowData] = useState<IRowData | object>({});
@@ -141,19 +137,18 @@ const Main = () => {
 
   const handleOpen = () => {
     setOpen(true);
-  }
+  };
 
   const handleClose = () => {
     setOpen(false);
-  }
+  };
 
   const toggleDrawer = () => {
-    setOpenDrawer(!openDrawer)
-  }
+    setOpenDrawer(!openDrawer);
+  };
   const handleCloseDrawer = () => {
-    setOpenDrawer(false)
-  }
-
+    setOpenDrawer(false);
+  };
 
   useEffect(() => {
     (async () => {
@@ -164,9 +159,10 @@ const Main = () => {
   const modalBody = (
     <div className="modal">
       <AddKeyForm
-          handleAddNewKey={handleAddNewKey}
-          keyValue={keyValue}
-          setKeyValue={setKeyValue}/>
+        handleAddNewKey={handleAddNewKey}
+        newKey={newKey}
+        setNewKey={setNewKey}
+      />
     </div>
   );
 
@@ -177,50 +173,49 @@ const Main = () => {
         <div className="mainContainer__actions">
           <Tooltip title="Create" placement="top">
             <button className="mainContainer__button" onClick={handleOpen}>
-            <AddIcon />
+              <AddIcon />
             </button>
           </Tooltip>
           <Tooltip title="Delete" placement="top">
-            <button className="mainContainer__button" >
-            <DeleteOutlineIcon />
+            <button className="mainContainer__button">
+              <DeleteOutlineIcon />
             </button>
           </Tooltip>
           <Tooltip title="Filter" placement="top">
             <button className="mainContainer__button" onClick={toggleDrawer}>
-            <FilterListIcon />
+              <FilterListIcon />
             </button>
           </Tooltip>
-            <Search handleSearch={handleSearch} handleReset={handleReset} />
+          <Search handleSearch={handleSearch} handleReset={handleReset} />
         </div>
       </div>
       <div className="mainContainer__contentWrapper">
         <div className="mainContainer__gridWrapper">
-          <Grid rowData={rowData} handleGetSelectedRows={handleGetSelectedRows} />
+          <Grid
+            rowData={rowData}
+            handleGetSelectedRows={handleGetSelectedRows}
+          />
           <Pagination
-          pageNum={pageNum}
-          handlePageNext={handlePageNext}
-          handlePageBack={handlePageBack}
-          rowData={rowData}
+            pageNum={pageNum}
+            handlePageNext={handlePageNext}
+            handlePageBack={handlePageBack}
+            rowData={rowData}
           />
         </div>
         <Drawer open={openDrawer} onClose={handleCloseDrawer}>
           <SideDrawer
-          selectedRows={selectedRows}
-          handleDeleteByQuery={handleDeleteByQuery}
-          handleAddNewKey={handleAddNewKey}
-          keyValue={keyValue}
-          setKeyValue={setKeyValue}
-          deleteQuery={deleteQuery}
-          setDeleteQuery={setDeleteQuery}
-          handleDeleteBySelection={handleDeleteBySelection}
-          newKey={newKey}
-          setNewKey={setNewKey}
+            selectedRows={selectedRows}
+            handleDeleteByQuery={handleDeleteByQuery}
+            handleAddNewKey={handleAddNewKey}
+            keyValue={keyValue}
+            setKeyValue={setKeyValue}
+            deleteQuery={deleteQuery}
+            setDeleteQuery={setDeleteQuery}
+            handleDeleteBySelection={handleDeleteBySelection}
           />
         </Drawer>
       </div>
-      <Modal
-        open={open}
-        onClose={handleClose}>
+      <Modal open={open} onClose={handleClose}>
         {modalBody}
       </Modal>
     </div>
