@@ -184,9 +184,12 @@ namespace KONNECT_REDIS.Services
 
             foreach (var key in _keys)
             {
-                var key1stField = key.ToString().Split("#")[0];
-
-                keyList1stField.Add(key1stField);
+                var key1stField = key.ToString().Split("#");
+                foreach (string keyPattern in key1stField)
+                {
+                    keyList1stField.Add(keyPattern);
+                }
+                
             }
 
             List<string> keyList1stFieldDistinct = keyList1stField.Distinct().ToList();

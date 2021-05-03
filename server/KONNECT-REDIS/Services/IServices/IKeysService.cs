@@ -30,4 +30,3 @@ namespace KONNECT_REDIS.Services.IServices
         ICollection<string> GetUnique1stFields();
     }
 }
-    
