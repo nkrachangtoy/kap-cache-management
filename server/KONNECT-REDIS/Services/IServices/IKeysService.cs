@@ -22,6 +22,14 @@ namespace KONNECT_REDIS.Services.IServices
         // ==============================
         bool CreateCollectionKeysToDelete(List<KeyDto> keys);
         bool DeleteKeysBySelect(string selection);
+
+
+
+
+
+
+
+        ICollection<string> GetAllPatterns();
     }
 }
     

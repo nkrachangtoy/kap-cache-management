@@ -289,5 +289,15 @@ namespace KONNECT_REDIS.Controllers
                 return BadRequest(e);
             }
         }
+
+
+
+        [HttpGet("patterns")]
+        public IActionResult GetAllPattern()
+        {
+            var res = _keysService.GetAllPatterns();
+
+            return Ok(res);
+        }
     }
 }

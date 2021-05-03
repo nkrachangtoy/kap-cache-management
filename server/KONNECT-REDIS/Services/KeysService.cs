@@ -171,5 +171,47 @@ namespace KONNECT_REDIS.Services
 
             return result;
         }
+
+
+
+
+
+
+
+
+        public ICollection<string> GetAllPatterns()
+        {
+            List<string> keyList = new List<string>(new string[] {
+                "IsFeatureActive#ad_emit_events#5",
+                "IsFeatureActive#autoschedule#1",
+                "IsFeatureActive#dealassetstatus#3",
+                "IsFeatureActive#deliverymodule#2",
+                "IsFeatureActive#enabletags#3",
+                "KonnectOrganization#921638db-6b88-4985-b1cd-95283f4e2c67",
+                "KonnectOrganizationData#5",
+                "KoreSetting#UnallocatedRevenueProperty#f8ada701-266b-4f4c-8fd6-87c780ce6952",
+                "tableauconfig#23",
+                "UsersCommentsOrganization#canucks"
+            });
+
+            List<object> keyObjList = new List<object>();
+            List<int> lengthArr = new List<int>();
+
+
+            // Find max value of arr length
+            int maxLength = lengthArr.Max();
+
+            // Split string
+            foreach (var key in keyList)
+            {
+               lengthArr.Add(key.Split("#").Length);
+
+                var keyObj = new { Field1 = key.Split("#")[0] };
+               
+            }
+
+            
+            return keyList;
+        }
     }
 }
