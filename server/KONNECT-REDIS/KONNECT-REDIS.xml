@@ -55,6 +55,12 @@
             </summary>
             <returns>Array of unique keys</returns>
         </member>
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.GetUniqueNextFields(System.String)">
+            <summary>
+            Retrieve list of unique keys
+            </summary>
+            <returns>Array of unique keys</returns>
+        </member>
         <member name="M:KONNECT_REDIS.Controllers.KeysController.CreateCollectionKeysToDelete(System.Collections.Generic.List{KONNECT_REDIS.Models.Dtos.KeyDto})">
             <summary>
             Creates a key value pair

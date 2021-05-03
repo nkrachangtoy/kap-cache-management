@@ -142,6 +142,22 @@ namespace KONNECT_REDIS.Services
             return keyList1stFieldDistinct;
         }
 
+        public ICollection<string> GetUniqueNextFields(string field)
+        {
+            List<string> keyListNextField = new List<string>();
+
+            var keys = _server.Keys(0, pattern: $"{field}*", pageSize: 100000);
+
+            foreach (var key in keys)
+            {
+                var keyNextField = key.ToString().Split("#")[1];
+
+                keyListNextField.Add(keyNextField);
+            }
+
+            return keyListNextField;
+        }
+
         // =======================================================
         // Delete By Select
         // =======================================================
