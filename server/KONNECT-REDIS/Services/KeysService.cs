@@ -6,6 +6,7 @@ using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace KONNECT_REDIS.Services
@@ -190,8 +191,26 @@ namespace KONNECT_REDIS.Services
 
             List<string> keyList1stFieldDistinct = keyList1stField.Distinct().ToList();
 
-            return keyList1stFieldDistinct;
+            foreach (var pattern in keyList1stFieldDistinct)
+            {
+                if (Guid.TryParse(pattern, out var guid))
+                {
+                    string pattern1stField = "{GUID}";
+                }
+                else if (Regex.IsMatch(pattern, @"^\d+$"))
+                {
+                    string pattern1stField = "{Int_ID}";
+                }
+                else
+                {
+                    string pattern1stField = "{String_ID}";
+                }
+            }
+
+            return pattern1stField;
         }
+
+
         //public List<KeyDto> KeyPatterns(IEnumerable<RedisKey> keys)
         //{
         //    var patterns = _keys;
