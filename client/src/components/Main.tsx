@@ -101,7 +101,7 @@ const Main = () => {
   const handleDeleteBySelection = async () => {
     console.log("selected Rows for deletion", selectedRows);
     await deleteKeyBySelection(selectedRows);
-    await handleGetAllKeys(); //this is slow, set up a spinner???
+    await handleGetAllKeys();
   };
 
   const handleAddNewKey = async () => {
