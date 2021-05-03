@@ -193,21 +193,25 @@ namespace KONNECT_REDIS.Services
 
             foreach (var pattern in keyList1stFieldDistinct)
             {
+                
                 if (Guid.TryParse(pattern, out var guid))
                 {
                     string pattern1stField = "{GUID}";
+                    keyList1stField.Add(pattern1stField);
                 }
                 else if (Regex.IsMatch(pattern, @"^\d+$"))
                 {
                     string pattern1stField = "{Int_ID}";
+                    keyList1stField.Add(pattern1stField);
                 }
                 else
                 {
                     string pattern1stField = "{String_ID}";
+                    keyList1stField.Add(pattern1stField);
                 }
             }
 
-            return pattern1stField;
+            return keyList1stField;
         }
 
 
