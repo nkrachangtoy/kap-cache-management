@@ -23,8 +23,8 @@ namespace KONNECT_REDIS.Services.IServices
         // ==============================
         bool CreateCollectionKeysToDelete(List<KeyDto> keys);
         bool DeleteKeysBySelect(string selection);
-
-        List<KeyDto> KeyPatterns(IEnumerable<RedisKey> keys);
+        ICollection<string> GetUniqueFields();
+        //List<KeyDto> KeyPatterns(IEnumerable<RedisKey> keys);
     }
 }
     

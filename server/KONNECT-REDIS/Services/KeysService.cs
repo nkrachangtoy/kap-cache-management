@@ -172,27 +172,54 @@ namespace KONNECT_REDIS.Services
             return result;
         }
 
-        public List<KeyDto> KeyPatterns(IEnumerable<RedisKey> keys)
+        public ICollection<string> GetUniqueFields()
         {
-            var patterns = _multiplexer.GetServer("redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com", 12388).Keys();
+            List<string> keyList = new List<string>(new string[] {
+                "IsFeatureActive#ad_emit_events#5",
+                "IsFeatureActive#autoschedule#1",
+                "IsFeatureActive#dealassetstatus#3",
+                "IsFeatureActive#deliverymodule#2",
+                "IsFeatureActive#enabletags#3",
+                "KonnectOrganization#921638db-6b88-4985-b1cd-95283f4e2c67",
+                "KonnectOrganizationData#5",
+                "KoreSetting#UnallocatedRevenueProperty#f8ada701-266b-4f4c-8fd6-87c780ce6952",
+                "tableauconfig#23",
+                "UsersCommentsOrganization#canucks"
+            });
 
-            foreach (var key in patterns)
+            List<string> keyFields = new List<string>();
+
+            // Split string
+            foreach (var key in keyList)
             {
-                var keyString = key.ToString();
-                var splitterArray = keyString.Split("#");
-                
-                foreach (var pattern in splitterArray)
-                {
-                    var n = splitterArray.Count();
-                    var i = 0;
-                    while (n > i)
-                    {
-                        Store all strings with hash tags fewer than n in an array and store that array in a Collection
-                        i++;
-                    } 
-                }
+                _ = key.Split("#");
             }
-            return (List<KeyDto>)patterns;
+
+            List<string> keyFieldsDistinct = keyFields.Distinct().ToList();
+            return keyFieldsDistinct;
         }
+
+        //public List<KeyDto> KeyPatterns(IEnumerable<RedisKey> keys)
+        //{
+        //    var patterns = _keys;
+
+        //    foreach (var key in patterns)
+        //    {
+        //        var keyString = key.ToString();
+        //        var splitterArray = keyString.Split("#");
+
+        //        foreach (var pattern in splitterArray)
+        //        {
+        //            var n = splitterArray.Count();
+        //            var i = 0;
+        //            while (n > i)
+        //            {
+
+        //                i++;
+        //            } 
+        //        }
+        //    }
+        //    return (List<KeyDto>)patterns;
+        //}
     }
 }
