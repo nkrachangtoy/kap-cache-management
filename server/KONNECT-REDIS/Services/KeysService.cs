@@ -202,6 +202,17 @@ namespace KONNECT_REDIS.Services
             {
                 var keyString = key.ToString();
                 var splitterArray = keyString.Split("#");
+                
+                foreach (var pattern in splitterArray)
+                {
+                    var n = splitterArray.Count();
+                    var i = 0;
+                    while (n > i)
+                    {
+                        Store all strings with hash tags fewer than n in an array and store that array in a Collection
+                        i++;
+                    } 
+                }
             }
             return (List<KeyDto>)patterns;
         }
