@@ -17,7 +17,7 @@ namespace KONNECT_REDIS.Services
         private readonly IDatabase _db;
         private readonly IServer _server;
         private readonly IEnumerable<RedisKey> _keys;
-        private static readonly Regex regex = new Regex(@"^[0-9]+$");
+        private readonly Regex _regex;
 
         public KeysService(IConnectionMultiplexer multiplexer)
         {
@@ -25,6 +25,7 @@ namespace KONNECT_REDIS.Services
             _db = _multiplexer.GetDatabase();
             _server = _multiplexer.GetServer("redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com", 12388);
             _keys = _server.Keys(0, pattern: "*", pageSize: 100000);
+            _regex = new Regex(@"^[0-9]+$");
         }
 
         /// <summary>
@@ -205,7 +206,7 @@ namespace KONNECT_REDIS.Services
                     string patternField = "{GUID}";
                     keyListFields.Add(patternField);
                 }
-                else if (regex.IsMatch(pattern))
+                else if (_regex.IsMatch(pattern))
                 {
                     string patternField = "{Int_ID}";
                     keyListFields.Add(patternField);
