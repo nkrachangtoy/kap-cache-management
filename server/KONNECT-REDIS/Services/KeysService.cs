@@ -200,18 +200,18 @@ namespace KONNECT_REDIS.Services
                 
                 if (Guid.TryParse(pattern, out var guid))
                 {
-                    string pattern1stField = "{GUID}";
-                    keyListFields.Add(pattern1stField);
+                    string patternField = "{GUID}";
+                    keyListFields.Add(patternField);
                 }
                 else if (regex.IsMatch(pattern))
                 {
-                    string pattern1stField = "{Int_ID}";
-                    keyListFields.Add(pattern1stField);
+                    string patternField = "{Int_ID}";
+                    keyListFields.Add(patternField);
                 }
                 else
                 {
-                    string pattern1stField = "{String_ID}";
-                    keyListFields.Add(pattern1stField);
+                    string patternField = "{String_ID}";
+                    keyListFields.Add(patternField);
                 }
             }
 
