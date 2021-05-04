@@ -192,26 +192,25 @@ namespace KONNECT_REDIS.Services
                 foreach (string keyPattern in keyField)
                 {
                     keyListFields.Add(keyPattern);
-                }
-            }
-
-            foreach (var pattern in keyListFields.Distinct().ToList())
-            {
-
-                if (Guid.TryParse(pattern, out var guid))
-                {
-                    string patternField = "{GUID}";
-                    keyListFields.Add(patternField);
-                }
-                else if (_regex.IsMatch(pattern))
-                {
-                    string patternField = "{Int_ID}";
-                    keyListFields.Add(patternField);
-                }
-                else
-                {
-                    string patternField = "{String_ID}";
-                    keyListFields.Add(patternField);
+                    foreach (var pattern in keyListFields.Distinct().ToList())
+                    {
+                        if (Guid.TryParse(pattern, out var guid))
+                        {
+                            string patternField = "{GUID}";
+                            keyListFields.Add(patternField);
+                        }
+                        else if (_regex.IsMatch(pattern))
+                        {
+                            string patternField = "{Int_ID}";
+                            keyListFields.Add(patternField);
+                        }
+                        else
+                        {
+                            string patternField = "{String_ID}";
+                            keyListFields.Add(patternField);
+                        }
+                    }
+                    keyListFields.Remove(keyPattern);
                 }
             }
             return keyListFields;
