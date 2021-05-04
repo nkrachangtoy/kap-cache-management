@@ -62,7 +62,7 @@ const SideDrawer: React.FC<DrawerProps> = ({
           <h3>Bulk Select:</h3> {selectedRows.length} items selected
         </div>
         <hr />
-        <div>
+        <div className="sideDrawer__listItems">
           {selectedRows.map((key: any, i: number) => (
             <p key={i}>{key}</p>
           ))}

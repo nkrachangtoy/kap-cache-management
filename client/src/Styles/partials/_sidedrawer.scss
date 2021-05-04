@@ -27,6 +27,10 @@
     justify-content: space-between;
     align-items: center;
   }
+  &__listItems {
+    height: 50%;
+    overflow-y: scroll;
+  }
   &__warning {
     color: red;
     margin-top: 0;

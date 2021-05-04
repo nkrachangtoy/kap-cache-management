@@ -153,6 +153,11 @@ pre {
           align-items: center;
 }
 
+.sideDrawer__listItems {
+  height: 50%;
+  overflow-y: scroll;
+}
+
 .sideDrawer__warning {
   color: red;
   margin-top: 0;
