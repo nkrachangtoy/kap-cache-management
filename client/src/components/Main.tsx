@@ -1,17 +1,7 @@
-import React, { useEffect, useState } from "react";
 import Grid from "./Grid";
 import Pagination from "./Pagination";
-import {
-  deleteKeyBySelection,
-  getAllKeys,
-  getKeyValue,
-  postNewKeyValue,
-  searchKeys,
-} from "../network/network";
 import Search from "./Search";
-import { getPage } from "../network/network";
 import SideDrawer from "./SideDrawer";
-import { deleteKeyByQuery } from "./../network/network";
 import AddKeyForm from "./AddKeyForm";
 // Material UI
 import AddIcon from "@material-ui/icons/Add";
@@ -40,132 +30,55 @@ interface IKeyValue {
   valueString: string;
 }
 
-const Main = () => {
-  const [rowData, setRowData] = useState<IRowData | object>({});
-  const [pageNum, setPageNum] = useState<number>(1);
-  const [selectedRows, setSelectedRows] = useState<Array<string>>([]);
-  const [deleteQuery, setDeleteQuery] = useState<string>("");
-  const [keyValue, setKeyValue] = useState<IKeyValue>({
-    keyName: "",
-    valueString: "",
-  });
-  const [newKey, setNewKey] = useState<IKeyValue>({
-    keyName: "",
-    valueString: "",
-  });
-  const [open, setOpen] = useState<boolean>(false);
-  const [openDrawer, setOpenDrawer] = useState(false);
+interface MainProps {
+  rowData: IRowData | object;
+  pageNum: number;
+  openDrawer: boolean;
+  selectedRows: Array<string>;
+  keyValue: IKeyValue;
+  setKeyValue: (keyValue: IKeyValue) => void;
+  deleteQuery: string;
+  setDeleteQuery: () => void;
+  handlePageNext: () => void;
+  handlePageBack: () => void;
+  handleSearch: () => void;
+  handleGetSelectedRows: () => void;
+  handleGetValue: () => void;
+  handleDeleteByQuery: () => void;
+  handleDeleteBySelection: () => void;
+  handleAddNewKey: () => void;
+  handleGetAllKeys: () => void;
+  handleReset: () => void;
+  handleOpen: () => void;
+  handleClose: () => void;
+  toggleDrawer: () => void;
+  handleCloseDrawer: () => void;
+}
 
-  const handlePageNext = async () => {
-    const data = await getPage(pageNum + 1);
-    setPageNum(pageNum + 1);
-    setRowData(data);
-  };
-
-  const handlePageBack = async () => {
-    if (pageNum !== 1) {
-      setPageNum(pageNum - 1);
-      const data = await getPage(pageNum - 1);
-      setRowData(data);
-    }
-  };
-
-  const handleSearch = async (query: string) => {
-    const data = await searchKeys(query);
-    setRowData(data);
-    setPageNum(1);
-  };
-
-  const handleGetSelectedRows = async (row: Array<object>) => {
-    //Need to concantenate the fields before sending API call
-    let keys: Array<string> = [];
-    row?.map((key: object) => {
-      const joinedKey = Object.values(key).join("#");
-      keys.push(joinedKey);
-    });
-    console.log("concantenated keys array>>", keys);
-    setSelectedRows(keys);
-
-    if (row?.length === 1) {
-      await handleGetValue(keys[0]);
-    }
-  };
-
-  //this can be called elsewhere later on
-  const handleGetValue = async (key: string) => {
-    const data = await getKeyValue(key);
-    const keyValuePair = {
-      keyName: key,
-      valueString: data,
-    };
-    setKeyValue(keyValuePair);
-  };
-
-  const handleDeleteByQuery = async () => {
-    const data = await deleteKeyByQuery(deleteQuery);
-    await handleGetAllKeys();
-    console.log(`delete query: ${deleteQuery}, result:`, data);
-  };
-
-  const handleDeleteBySelection = async () => {
-    console.log("selected Rows for deletion", selectedRows);
-    await deleteKeyBySelection(selectedRows);
-    await handleGetAllKeys();
-  };
-
-  const handleAddNewKey = async () => {
-    const data = await postNewKeyValue(newKey);
-    data &&
-      setNewKey({
-        keyName: "",
-        valueString: "",
-      });
-    await handleGetAllKeys();
-  };
-
-  const handleGetAllKeys = async () => {
-    const result = await getAllKeys();
-    setRowData(result);
-    console.log("ROW DATA", result);
-  };
-
-  const handleReset = async () => {
-    await handleGetAllKeys();
-    setPageNum(1);
-    setSelectedRows([]); // this doesnt update the grid
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const toggleDrawer = () => {
-    setOpenDrawer(!openDrawer);
-  };
-  const handleCloseDrawer = () => {
-    setOpenDrawer(false);
-  };
-
-  useEffect(() => {
-    (async () => {
-      await handleGetAllKeys();
-    })();
-  }, []);
-
-  const modalBody = (
-    <div className="modal">
-      <AddKeyForm
-        handleAddNewKey={handleAddNewKey}
-        newKey={newKey}
-        setNewKey={setNewKey}
-      />
-    </div>
-  );
-
+const Main: React.FC<MainProps> = ({
+  rowData,
+  pageNum,
+  openDrawer,
+  selectedRows,
+  keyValue,
+  setKeyValue,
+  deleteQuery,
+  setDeleteQuery,
+  handlePageNext,
+  handlePageBack,
+  handleSearch,
+  handleGetSelectedRows,
+  handleGetValue,
+  handleDeleteByQuery,
+  handleDeleteBySelection,
+  handleAddNewKey,
+  handleGetAllKeys,
+  handleReset,
+  handleOpen,
+  handleClose,
+  toggleDrawer,
+  handleCloseDrawer,
+}) => {
   return (
     <div className="mainContainer">
       <div className="mainContainer__toolbar">
