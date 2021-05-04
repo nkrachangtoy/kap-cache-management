@@ -193,14 +193,14 @@ namespace KONNECT_REDIS.Services
                 {
                     keyListFields.Add(keyPattern);
                 }
-                
+
             }
 
             List<string> keyListFieldDistinct = keyListFields.Distinct().ToList();
-            
+
             foreach (var pattern in keyListFieldDistinct)
             {
-                
+
                 if (Guid.TryParse(pattern, out var guid))
                 {
                     string patternField = "{GUID}";
@@ -220,29 +220,5 @@ namespace KONNECT_REDIS.Services
 
             return keyListFields;
         }
-
-
-        //public List<KeyDto> KeyPatterns(IEnumerable<RedisKey> keys)
-        //{
-        //    var patterns = _keys;
-
-        //    foreach (var key in patterns)
-        //    {
-        //        var keyString = key.ToString();
-        //        var splitterArray = keyString.Split("#");
-
-        //        foreach (var pattern in splitterArray)
-        //        {
-        //            var n = splitterArray.Count();
-        //            var i = 0;
-        //            while (n > i)
-        //            {
-
-        //                i++;
-        //            } 
-        //        }
-        //    }
-        //    return (List<KeyDto>)patterns;
-        //}
     }
 }
