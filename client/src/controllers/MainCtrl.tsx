@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Main from "../components/Main";
+import AddKeyForm from "../components/AddKeyForm";
 import {
   deleteKeyBySelection,
   getAllKeys,
@@ -34,6 +35,8 @@ const MainCtrl = () => {
   const [pageNum, setPageNum] = useState<number>(1);
   const [selectedRows, setSelectedRows] = useState<Array<string>>([]);
   const [deleteQuery, setDeleteQuery] = useState<string>("");
+  const [open, setOpen] = useState<boolean>(false);
+  const [openDrawer, setOpenDrawer] = useState(false);
   const [keyValue, setKeyValue] = useState<IKeyValue>({
     keyName: "",
     valueString: "",
@@ -42,8 +45,6 @@ const MainCtrl = () => {
     keyName: "",
     valueString: "",
   });
-  const [open, setOpen] = useState<boolean>(false);
-  const [openDrawer, setOpenDrawer] = useState(false);
 
   const handlePageNext = async () => {
     const data = await getPage(pageNum + 1);
@@ -139,6 +140,16 @@ const MainCtrl = () => {
     setOpenDrawer(false);
   };
 
+  const modalBody = (
+    <div className="modal">
+      <AddKeyForm
+        handleAddNewKey={handleAddNewKey}
+        newKey={newKey}
+        setNewKey={setNewKey}
+      />
+    </div>
+  );
+
   useEffect(() => {
     (async () => {
       await handleGetAllKeys();
@@ -147,6 +158,7 @@ const MainCtrl = () => {
 
   return (
     <Main
+      open={open}
       rowData={rowData}
       pageNum={pageNum}
       openDrawer={openDrawer}
@@ -169,6 +181,7 @@ const MainCtrl = () => {
       handleClose={handleClose}
       toggleDrawer={toggleDrawer}
       handleCloseDrawer={handleCloseDrawer}
+      modalBody={modalBody}
     />
   );
 };

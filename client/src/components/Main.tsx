@@ -2,7 +2,7 @@ import Grid from "./Grid";
 import Pagination from "./Pagination";
 import Search from "./Search";
 import SideDrawer from "./SideDrawer";
-import AddKeyForm from "./AddKeyForm";
+
 // Material UI
 import AddIcon from "@material-ui/icons/Add";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -31,6 +31,7 @@ interface IKeyValue {
 }
 
 interface MainProps {
+  open: boolean;
   rowData: IRowData | object;
   pageNum: number;
   openDrawer: boolean;
@@ -38,12 +39,12 @@ interface MainProps {
   keyValue: IKeyValue;
   setKeyValue: (keyValue: IKeyValue) => void;
   deleteQuery: string;
-  setDeleteQuery: () => void;
+  setDeleteQuery: (query: string) => void;
   handlePageNext: () => void;
   handlePageBack: () => void;
-  handleSearch: () => void;
-  handleGetSelectedRows: () => void;
-  handleGetValue: () => void;
+  handleSearch: (query: string) => void;
+  handleGetSelectedRows: (row: Array<object>) => void;
+  handleGetValue: (key: string) => void;
   handleDeleteByQuery: () => void;
   handleDeleteBySelection: () => void;
   handleAddNewKey: () => void;
@@ -53,9 +54,11 @@ interface MainProps {
   handleClose: () => void;
   toggleDrawer: () => void;
   handleCloseDrawer: () => void;
+  modalBody: any;
 }
 
 const Main: React.FC<MainProps> = ({
+  open,
   rowData,
   pageNum,
   openDrawer,
@@ -78,6 +81,7 @@ const Main: React.FC<MainProps> = ({
   handleClose,
   toggleDrawer,
   handleCloseDrawer,
+  modalBody,
 }) => {
   return (
     <div className="mainContainer">
