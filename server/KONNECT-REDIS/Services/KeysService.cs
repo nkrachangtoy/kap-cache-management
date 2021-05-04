@@ -179,43 +179,43 @@ namespace KONNECT_REDIS.Services
         /// Retrieve list of unique keys
         /// </summary>
         /// <returns>Array of unique keys</returns>
-        public ICollection<string> GetUnique1stFields()
+        public ICollection<string> GetUniqueFields()
         {
-            List<string> keyList1stField = new List<string>();
+            List<string> keyListFields = new List<string>();
 
             foreach (var key in _keys)
             {
-                var key1stField = key.ToString().Split("#");
-                foreach (string keyPattern in key1stField)
+                var keyField = key.ToString().Split("#");
+                foreach (string keyPattern in keyField)
                 {
-                    keyList1stField.Add(keyPattern);
+                    keyListFields.Add(keyPattern);
                 }
                 
             }
 
-            List<string> keyList1stFieldDistinct = keyList1stField.Distinct().ToList();
+            List<string> keyListFieldDistinct = keyListFields.Distinct().ToList();
             
-            foreach (var pattern in keyList1stFieldDistinct)
+            foreach (var pattern in keyListFieldDistinct)
             {
                 
                 if (Guid.TryParse(pattern, out var guid))
                 {
                     string pattern1stField = "{GUID}";
-                    keyList1stField.Add(pattern1stField);
+                    keyListFields.Add(pattern1stField);
                 }
                 else if (regex.IsMatch(pattern))
                 {
                     string pattern1stField = "{Int_ID}";
-                    keyList1stField.Add(pattern1stField);
+                    keyListFields.Add(pattern1stField);
                 }
                 else
                 {
                     string pattern1stField = "{String_ID}";
-                    keyList1stField.Add(pattern1stField);
+                    keyListFields.Add(pattern1stField);
                 }
             }
 
-            return keyList1stField;
+            return keyListFields;
         }
 
 

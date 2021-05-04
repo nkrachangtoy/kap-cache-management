@@ -27,6 +27,6 @@ namespace KONNECT_REDIS.Services.IServices
         // ==============================
         // Get Patterns
         // ==============================
-        ICollection<string> GetUnique1stFields();
+        ICollection<string> GetUniqueFields();
     }
 }
