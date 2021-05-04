@@ -99,8 +99,9 @@ export const postNewKeyValue = async (keyValue: IKeyValue) => {
     console.log("NEWKEY", postObj);
     const response = await axios.post(`${BASE_URL}`, postObj);
     console.log("Post response >>", response);
-    response.status === 200 &&
-      alert(`Successfully added new key: ${JSON.stringify(response.data)}`);
+    // response.status === 200 &&
+    //   alert(`Successfully added new key: ${JSON.stringify(response.data)}`);
+    // response.status === 200;
     return response.data;
   } catch (e) {
     console.log(`Error: ${e}`);

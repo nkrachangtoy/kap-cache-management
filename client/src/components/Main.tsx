@@ -162,6 +162,7 @@ const Main = () => {
         handleAddNewKey={handleAddNewKey}
         newKey={newKey}
         setNewKey={setNewKey}
+        handleClose={handleClose}
       />
     </div>
   );
