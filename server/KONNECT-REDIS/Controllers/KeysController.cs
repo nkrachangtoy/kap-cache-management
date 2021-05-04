@@ -289,5 +289,31 @@ namespace KONNECT_REDIS.Controllers
                 return BadRequest(e);
             }
         }
+
+        [HttpGet("availablePatterns")]
+        [ProducesResponseType(200, Type = typeof(List<string>))]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult GetUniquePatterns()
+        {
+            try
+            {
+                var res = _keysService.GetUniqueFields();
+
+                if (res == null)
+                {
+                    return NotFound();
+                }
+                var results = new { Patterns = res };
+
+                return Ok(results);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
     }
 }
