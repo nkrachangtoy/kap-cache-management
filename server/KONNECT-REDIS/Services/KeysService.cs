@@ -17,7 +17,7 @@ namespace KONNECT_REDIS.Services
         private readonly IDatabase _db;
         private readonly IServer _server;
         private readonly IEnumerable<RedisKey> _keys;
-        private static readonly Regex regex = new Regex(@"^\d+$");
+        private static readonly Regex regex = new Regex(@"^[0-9]+$");
 
         public KeysService(IConnectionMultiplexer multiplexer)
         {
