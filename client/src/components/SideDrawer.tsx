@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AddKeyForm from "./AddKeyForm";
 import DeleteByQueryForm from "./DeleteByQueryForm";
 
@@ -28,6 +28,8 @@ const SideDrawer: React.FC<DrawerProps> = ({
   setDeleteQuery,
   handleDeleteBySelection,
 }) => {
+  const [confirmDelete, showConfirmDelete] = useState<boolean>(false);
+
   // ===== IF A SINGLE ROW IS SELECTED ===== //
   //         display the key's value
   if (selectedRows?.length === 1) {
@@ -68,7 +70,32 @@ const SideDrawer: React.FC<DrawerProps> = ({
           ))}
         </div>
         <br />
-        <button onClick={handleDeleteBySelection}>Delete all</button>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            showConfirmDelete(!confirmDelete);
+          }}
+        >
+          Delete all
+        </button>
+        {confirmDelete && (
+          <div>
+            <p style={{ color: "red" }}>
+              This action cannot be undone. Please confirm this batch delete.
+            </p>
+            <div>
+              <button onClick={handleDeleteBySelection}>Confirm</button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  showConfirmDelete(!confirmDelete);
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     );
   } else {

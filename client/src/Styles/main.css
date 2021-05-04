@@ -155,7 +155,7 @@ pre {
 
 .sideDrawer__listItems {
   height: 50%;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .sideDrawer__warning {

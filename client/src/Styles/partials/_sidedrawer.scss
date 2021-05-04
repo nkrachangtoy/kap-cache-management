@@ -29,7 +29,7 @@
   }
   &__listItems {
     height: 50%;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
   &__warning {
     color: red;
