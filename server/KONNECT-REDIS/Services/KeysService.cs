@@ -193,12 +193,9 @@ namespace KONNECT_REDIS.Services
                 {
                     keyListFields.Add(keyPattern);
                 }
-
             }
 
-            List<string> keyListFieldDistinct = keyListFields.Distinct().ToList();
-
-            foreach (var pattern in keyListFieldDistinct)
+            foreach (var pattern in keyListFields.Distinct().ToList())
             {
 
                 if (Guid.TryParse(pattern, out var guid))
@@ -217,7 +214,6 @@ namespace KONNECT_REDIS.Services
                     keyListFields.Add(patternField);
                 }
             }
-
             return keyListFields;
         }
     }
