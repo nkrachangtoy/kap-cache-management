@@ -17,6 +17,7 @@ namespace KONNECT_REDIS.Services
         private readonly IDatabase _db;
         private readonly IServer _server;
         private readonly IEnumerable<RedisKey> _keys;
+        private static readonly Regex regex = new Regex(@"^\d+$");
 
         public KeysService(IConnectionMultiplexer multiplexer)
         {
@@ -193,7 +194,7 @@ namespace KONNECT_REDIS.Services
             }
 
             List<string> keyList1stFieldDistinct = keyList1stField.Distinct().ToList();
-
+            
             foreach (var pattern in keyList1stFieldDistinct)
             {
                 
@@ -202,7 +203,7 @@ namespace KONNECT_REDIS.Services
                     string pattern1stField = "{GUID}";
                     keyList1stField.Add(pattern1stField);
                 }
-                else if (Regex.IsMatch(pattern, @"^\d+$"))
+                else if (regex.IsMatch(pattern))
                 {
                     string pattern1stField = "{Int_ID}";
                     keyList1stField.Add(pattern1stField);
