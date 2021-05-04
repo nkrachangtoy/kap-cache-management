@@ -215,60 +215,6 @@ namespace KONNECT_REDIS.Controllers
         }
 
         /// <summary>
-        /// Retrieve list of unique keys
-        /// </summary>
-        /// <returns>Array of unique keys</returns>
-        [HttpGet("unique")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetUnique1stFields()
-        {
-            try
-            {
-                var res = _keysService.GetUnique1stFields();
-
-                if(res == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(res);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e);
-            }
-        }
-
-        /// <summary>
-        /// Retrieve list of unique keys
-        /// </summary>
-        /// <returns>Array of unique keys</returns>
-        [HttpGet("uniqueNext")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetUniqueNextFields([FromQuery]string field, int index)
-        {
-            try
-            {
-                var res = _keysService.GetUniqueNextFields(field, index);
-
-                if (res == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(res);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e);
-            }
-        }
-
-        /// <summary>
         /// Creates a key value pair
         /// key == keys2delete
         /// value == keys to be deleted
@@ -329,6 +275,66 @@ namespace KONNECT_REDIS.Controllers
                 var message = new { success = true, message = $"Successfully deleted items" };
 
                 return Ok(message);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
+
+
+
+
+
+
+
+        /// <summary>
+        /// Retrieve list of unique keys
+        /// </summary>
+        /// <returns>Array of unique keys</returns>
+        [HttpGet("unique")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult GetUnique1stFields()
+        {
+            try
+            {
+                var res = _keysService.GetUnique1stFields();
+
+                if (res == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(res);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
+
+        /// <summary>
+        /// Retrieve list of unique keys
+        /// </summary>
+        /// <returns>Array of unique keys</returns>
+        [HttpGet("uniqueNext")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult GetUniqueNextFields([FromQuery] string field, int index)
+        {
+            try
+            {
+                var res = _keysService.GetUniqueNextFields(field, index);
+
+                if (res == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(res);
             }
             catch (Exception e)
             {
