@@ -84,7 +84,7 @@ namespace KONNECT_REDIS.Services
         /// <returns>Number of deleted keys and pattern they followed, or throws an error</returns>
         public long BatchDeleteKeysByQuery(string pattern)
         {
-            var keys = _keys.ToArray();
+            var keys = _server.Keys(0, pattern: pattern, pageSize: 100000).ToArray();
             return _db.KeyDelete(keys);
         }
 

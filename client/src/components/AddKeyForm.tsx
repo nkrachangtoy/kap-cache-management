@@ -1,91 +1,96 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
+import CircularProgress from '@material-ui/core/CircularProgress';
+import CheckIcon from '@material-ui/icons/Check';
+
 
 interface IKeyValue {
   keyName: string;
-  subset: string;
-  orgId: string;
   valueString: string;
 }
 
 interface AddKeyFormProps {
   handleAddNewKey: () => void;
-  keyValue: IKeyValue;
-  setKeyValue: (keyValue: IKeyValue) => void;
+  newKey: IKeyValue;
+  setNewKey: (keyValue: IKeyValue) => void;
+  handleClose: () => void;
 }
 
 const AddKeyForm: React.FC<AddKeyFormProps> = ({
   handleAddNewKey,
-  keyValue,
-  setKeyValue,
+  newKey,
+  setNewKey,
+  handleClose,
 }) => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
+  const timer = useRef<number>();
+
+
+  const handleButtonClick = () => {
+    handleAddNewKey();
+    if (!loading) {
+      setSuccess(false);
+      setLoading(true);
+      timer.current = window.setTimeout(() => {
+        setSuccess(true);
+        setLoading(false);
+        handleClose();
+      }, 2000);
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(timer.current);
+    };
+  }, []);
+
   return (
-    <div>
-      <h4>Add New Key</h4>
-      <hr />
+    <div className="addKeyForm">
+      <span className="addKeyForm__title">Add New Key</span>
       <form
-        className="sideDrawer__form"
+        className="addKeyForm__form"
         onSubmit={(e) => {
           e.preventDefault();
-          console.log("New KeyValue Pair >>", keyValue);
-          handleAddNewKey();
+          console.log("New KeyValue Pair >>", newKey);
         }}
       >
-        <div className="sideDrawer__formField">
-          <label htmlFor="keyName" className="sideDrawer__formLabel">
+        <div className="addKeyForm__inputContainer">
+          <label htmlFor="keyName" className="addKeyForm__formLabel">
             Key Name:
           </label>
           <input
             id="keyName"
+            className="addKeyForm__inputForm"
             type="text"
-            value={keyValue.keyName}
-            onChange={(e) =>
-              setKeyValue({ ...keyValue, keyName: e.target.value })
-            }
+            value={newKey.keyName}
+            onChange={(e) => setNewKey({ ...newKey, keyName: e.target.value })}
             required
           />
         </div>
-        <div className="sideDrawer__formField">
-          <label htmlFor="subset" className="sideDrawer__formLabel">
-            Subset:
-          </label>
-          <input
-            id="subset"
-            type="text"
-            value={keyValue.subset}
-            onChange={(e) =>
-              setKeyValue({ ...keyValue, subset: e.target.value })
-            }
-          />
-        </div>
-        <div className="sideDrawer__formField">
-          <label htmlFor="orgId" className="sideDrawer__formLabel">
-            OrgId:
-          </label>
-          <input
-            id="orgId"
-            type="text"
-            value={keyValue.orgId}
-            onChange={(e) =>
-              setKeyValue({ ...keyValue, orgId: e.target.value })
-            }
-            required
-          />
-        </div>
-        <div className="sideDrawer__formField">
-          <label htmlFor="value" className="sideDrawer__formLabel">
+        <div className="addKeyForm__inputContainer">
+          <label htmlFor="value" className="addKeyForm__formLabel">
             Value:
           </label>
           <textarea
             id="value"
+            className="addKeyForm__textArea"
             rows={4}
             required
-            value={keyValue.valueString}
+            value={newKey.valueString}
             onChange={(e) =>
-              setKeyValue({ ...keyValue, valueString: e.target.value })
+              setNewKey({ ...newKey, valueString: e.target.value })
             }
           ></textarea>
         </div>
-        <button type="submit">Add New Key</button>
+        <div className="addKeyForm__buttonsContainer">
+          <div className="addKeyForm__buttonWrapper">
+            <button type="submit" className="addKeyForm__button addKeyForm__button--submit" onClick={handleButtonClick} disabled={loading}>Submit</button>
+            { success ? <CheckIcon style={{fontSize: "16px"}} className="addKeyForm__checkIcon"/> : <></>}
+            { loading && <CircularProgress size={14} style={{color: "white"}} className="addKeyForm__spinner"/>}
+          </div>  
+          <button type="submit" className="addKeyForm__button addKeyForm__button--cancel" onClick={handleClose}>Cancel</button>
+        </div>
       </form>
     </div>
   );

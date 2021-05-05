@@ -1,0 +1,424 @@
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.App {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.mainContainer {
+  width: 100%;
+  padding: 20px;
+}
+
+.mainContainer__contentWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: calc(100% - 44px - 10px);
+}
+
+.mainContainer__gridWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+}
+
+.mainContainer__toolbar {
+  padding: 10px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border-bottom: 2px solid grey;
+  margin-bottom: 8px;
+}
+
+.mainContainer__actions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.mainContainer__header {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.mainContainer__button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: white;
+  background-color: #0484d3;
+  border-radius: 5px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  margin-right: 16px;
+}
+
+.sideDrawer {
+  width: 30%;
+  height: 100%;
+  padding: 10px;
+  border: 1px solid grey;
+  position: fixed;
+  background-color: white;
+  -webkit-box-shadow: -5px 0px 5px 1px rgba(0, 0, 0, 0.23);
+          box-shadow: -5px 0px 5px 1px rgba(0, 0, 0, 0.23);
+  right: 0;
+  overflow-y: scroll;
+}
+
+.sideDrawer__form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sideDrawer__formField {
+  width: 70%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin: 3px 0;
+}
+
+.sideDrawer__formLabel {
+  margin-right: 3px;
+}
+
+.sideDrawer__heading {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sideDrawer__warning {
+  color: red;
+  margin-top: 0;
+  font-size: 0.8rem;
+}
+
+.sideDrawer__valueCodeBlock {
+  background-color: #eee;
+  border: 1px solid #999;
+  display: block;
+  padding: 10px;
+  overflow: auto;
+}
+
+.sidenav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100vh;
+  width: 70px;
+  background-color: #0484d3;
+}
+
+.sidenav__icon {
+  margin: 20% 0 20% 0;
+  color: white;
+}
+
+.grid {
+  height: 90%;
+}
+
+.pagination {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.pagination__fields {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.pagination__button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  color: #0484d3;
+}
+
+.pagination__button:active {
+  color: #2828cc;
+}
+
+.pagination__text {
+  color: black;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.pagination__text--page-num {
+  margin: 0 4px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.pagination__results {
+  margin-right: 8px;
+}
+
+.search {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+
+.search__button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: absolute;
+  left: 4px;
+}
+
+.search__input {
+  padding: 9px 18px 9px 36px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+.search__icon {
+  cursor: pointer;
+  position: absolute;
+  right: 8px;
+  font-size: 18px;
+  color: #afafaf;
+}
+
+.modal {
+  position: absolute;
+  top: 30%;
+  left: 40%;
+  width: 600px;
+  background-color: white;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.4);
+          box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.4);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.addKeyForm {
+  margin: 1rem 0;
+}
+
+.addKeyForm__form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 1rem;
+}
+
+.addKeyForm__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.addKeyForm__inputContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.addKeyForm__formLabel {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-right: 1rem;
+}
+
+.addKeyForm__inputForm {
+  border: 1.5px solid #999;
+  border-radius: 2px;
+  width: 200px;
+  padding: 4px;
+  outline: none;
+}
+
+.addKeyForm__buttonsContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.addKeyForm__buttonWrapper {
+  position: relative;
+}
+
+.addKeyForm__spinner {
+  position: absolute;
+  z-index: 99;
+  top: 5px;
+  left: 60%;
+}
+
+.addKeyForm__checkIcon {
+  color: white;
+  position: absolute;
+  z-index: 99;
+  top: 4px;
+  left: 62%;
+}
+
+.addKeyForm__button {
+  width: 7rem;
+  color: #e8f4fb;
+  border: none;
+  border-radius: 2px;
+  padding: 5px 0;
+  opacity: 0.85;
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+.addKeyForm__button:hover, .addKeyForm__button:active {
+  opacity: 1;
+}
+
+.addKeyForm__button:hover {
+  -webkit-box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.addKeyForm__button--submit {
+  background-color: #0484d3;
+  margin-right: 1.5rem;
+}
+
+.addKeyForm__button--cancel {
+  background-color: #323232;
+}
+/*# sourceMappingURL=main.css.map */

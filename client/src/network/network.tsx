@@ -1,10 +1,8 @@
 import axios from "axios";
-const BASE_URL = "https://localhost:44371/api/Keys";
+const BASE_URL = "https://localhost:44371/api/keys";
 
 interface IKeyValue {
   keyName: string;
-  subset: string;
-  orgId: string;
   valueString: string;
 }
 
@@ -38,12 +36,12 @@ export const searchKeys = async (query: string) => {
   }
 };
 
-export const getKeyValue = async (row: any) => {
+export const getKeyValue = async (key: any) => {
   try {
-    const response = await axios.get(
-      `${BASE_URL}/value?KeyName=${row[0].keyName}&Subset=${row[0].subset}&OrgId=${row[0].orgId}`
-    );
-    console.log(`value of ${row[0].keyName}...>>>`, response.data.data);
+    const replaced = key.replace(/[#]/g, "%23");
+    console.log("REPLACED", replaced);
+    const response = await axios.get(`${BASE_URL}/value?KeyName=${replaced}`);
+    console.log(`value of ${key}...>>>`, response.data.data);
     return response.data.data;
   } catch (e) {
     console.log(`Error: ${e}`);
@@ -68,14 +66,23 @@ export const deleteKeyByQuery = async (query: string) => {
 
 export const deleteKeyBySelection = async (selection: any) => {
   try {
-    const response = await axios({
-      method: "delete",
-      url: `${BASE_URL}/removeSelected`,
-      data: selection,
-      headers: { "Content-Type": "application/json" },
+    //POST req to create selection
+    let keyNameObjects: Array<object> = [];
+    selection.map((key: string) => {
+      const obj = {
+        keyName: key,
+      };
+      keyNameObjects.push(obj);
     });
-    response.data.success && alert(response.data.message);
-    console.log("Delete by Selection Response:", response);
+    const postResponse = await axios.post(
+      `${BASE_URL}/selections`,
+      keyNameObjects
+    );
+
+    //DELETE req to delete selection from redis
+    const delResponse = await axios.delete(`${BASE_URL}/deleteSelections`);
+    delResponse.data.success && alert(delResponse.data.message);
+    console.log("Delete by Selection Response:", delResponse.data);
   } catch (e) {
     alert(`Error: ${e}`);
   }
@@ -85,17 +92,16 @@ export const postNewKeyValue = async (keyValue: IKeyValue) => {
   try {
     const postObj = {
       keyName: keyValue.keyName,
-      subset: keyValue.subset,
-      orgId: keyValue.orgId,
       value: {
         data: keyValue.valueString,
       },
     };
-    console.log(postObj);
+    console.log("NEWKEY", postObj);
     const response = await axios.post(`${BASE_URL}`, postObj);
     console.log("Post response >>", response);
-    response.status === 200 &&
-      alert(`Successfully added new key: ${JSON.stringify(response.data)}`);
+    // response.status === 200 &&
+    //   alert(`Successfully added new key: ${JSON.stringify(response.data)}`);
+    // response.status === 200;
     return response.data;
   } catch (e) {
     console.log(`Error: ${e}`);
