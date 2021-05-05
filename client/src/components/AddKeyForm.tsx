@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CheckIcon from '@material-ui/icons/Check';
+import Snackbar from '@material-ui/core/Snackbar';
+
 
 
 interface IKeyValue {
@@ -14,6 +16,7 @@ interface AddKeyFormProps {
   setNewKey: (keyValue: IKeyValue) => void;
   handleClose: () => void;
 }
+
 
 const AddKeyForm: React.FC<AddKeyFormProps> = ({
   handleAddNewKey,
@@ -34,7 +37,6 @@ const AddKeyForm: React.FC<AddKeyFormProps> = ({
       timer.current = window.setTimeout(() => {
         setSuccess(true);
         setLoading(false);
-        handleClose();
       }, 2000);
     }
   };
@@ -92,6 +94,7 @@ const AddKeyForm: React.FC<AddKeyFormProps> = ({
           <button type="submit" className="addKeyForm__button addKeyForm__button--cancel" onClick={handleClose}>Cancel</button>
         </div>
       </form>
+      <Snackbar open={success} autoHideDuration={1500} onClose={handleClose} message="Successfully added new key!" anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}/>
     </div>
   );
 };
