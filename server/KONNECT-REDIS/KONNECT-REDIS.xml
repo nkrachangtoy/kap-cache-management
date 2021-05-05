@@ -21,6 +21,19 @@
             /// <param name="pageSize">Page size</param>
             <returns></returns>
         </member>
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.GetValue(KONNECT_REDIS.Models.Dtos.KeyDto)">
+            <summary>
+            Retrieve value of key
+            </summary>
+            <param name="key"></param>
+            <returns>value of key in string form</returns>
+        </member>
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.FilterKeys(System.String,System.Int32)">
+            <summary>
+            Retrieve a list of unique keys by field
+            </summary>
+            <returns>Array of unique keys</returns>
+        </member>
         <member name="M:KONNECT_REDIS.Controllers.KeysController.BatchDeleteKeysByQuery(System.String)">
             <summary>
             Delete multiple keys by Redis key pattern
@@ -35,13 +48,6 @@
             <param name="key"></param>
             <returns>True/False if key delete was success</returns>
         </member>
-        <member name="M:KONNECT_REDIS.Controllers.KeysController.GetValue(KONNECT_REDIS.Models.Dtos.KeyDto)">
-            <summary>
-            get value of key
-            </summary>
-            <param name="key"></param>
-            <returns>value of key in string form</returns>
-        </member>
         <member name="M:KONNECT_REDIS.Controllers.KeysController.SetKeyValue(KONNECT_REDIS.Models.Key)">
             <summary>
             Create new key value pair
@@ -51,9 +57,9 @@
         </member>
         <member name="M:KONNECT_REDIS.Controllers.KeysController.CreateCollectionKeysToDelete(System.Collections.Generic.List{KONNECT_REDIS.Models.Dtos.KeyDto})">
             <summary>
-            Creates a key value pair
-            key == keys2delete
-            value == keys to be deleted
+            Creates a key value pair ||
+            key: keys2delete ||
+            value: keys to be deleted
             </summary>
             <param name="keys"></param>
             <returns>True or false whether creation was succesful or not</returns>
@@ -64,18 +70,6 @@
             </summary>
             <param name="selection">Selected keys</param>
             <returns>True or false whether delete was successful</returns>
-        </member>
-        <member name="M:KONNECT_REDIS.Controllers.KeysController.GetUnique1stFields">
-            <summary>
-            Retrieve list of unique keys
-            </summary>
-            <returns>Array of unique keys</returns>
-        </member>
-        <member name="M:KONNECT_REDIS.Controllers.KeysController.GetUniqueNextFields(System.String,System.Int32)">
-            <summary>
-            Retrieve list of unique keys (next field)
-            </summary>
-            <returns>Array of unique keys</returns>
         </member>
         <member name="M:KONNECT_REDIS.Services.KeysService.GetAllKeys(System.Nullable{System.Int32},System.Int32)">
             <summary>
