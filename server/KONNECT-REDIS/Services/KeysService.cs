@@ -145,7 +145,6 @@ namespace KONNECT_REDIS.Services
 
             return _db.StringSet("keys2delete", keyString);
         }
-
         /// <summary>
         /// Delete a multiple keys by select
         /// </summary>
@@ -169,10 +168,6 @@ namespace KONNECT_REDIS.Services
             return result;
         }
 
-
-
-
-
         // ==============================
         // Pattern Dropdowns
         // ==============================
@@ -195,7 +190,6 @@ namespace KONNECT_REDIS.Services
 
             return keyList1stFieldDistinct;
         }
-
         /// <summary>
         /// Retrieve list of unique keys (next field)
         /// </summary>

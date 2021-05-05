@@ -65,15 +65,9 @@
             <param name="selection">Selected keys</param>
             <returns>True or false whether delete was successful</returns>
         </member>
-        <member name="M:KONNECT_REDIS.Controllers.KeysController.GetUnique1stFields">
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.FilterKeys(System.String,System.Int32)">
             <summary>
             Retrieve list of unique keys
-            </summary>
-            <returns>Array of unique keys</returns>
-        </member>
-        <member name="M:KONNECT_REDIS.Controllers.KeysController.GetUniqueNextFields(System.String,System.Int32)">
-            <summary>
-            Retrieve list of unique keys (next field)
             </summary>
             <returns>Array of unique keys</returns>
         </member>

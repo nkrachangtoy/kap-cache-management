@@ -282,53 +282,39 @@ namespace KONNECT_REDIS.Controllers
             }
         }
 
+
         /// <summary>
         /// Retrieve list of unique keys
         /// </summary>
         /// <returns>Array of unique keys</returns>
-        [HttpGet("unique")]
+        [HttpGet("filter")]
         [ProducesResponseType(200)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetUnique1stFields()
+        public IActionResult FilterKeys([FromQuery] string field, int index = 1)
         {
             try
             {
-                var res = _keysService.GetUnique1stFields();
+                if(field == null || field.Equals(""))
+                {
+                    var res1 = _keysService.GetUnique1stFields();
 
-                if (res == null)
+                    if (res1 == null)
+                    {
+                        return NotFound();
+                    }
+
+                    return Ok(res1);
+                }
+
+                var res2 = _keysService.GetUniqueNextFields(field, index);
+
+                if (res2 == null)
                 {
                     return NotFound();
                 }
 
-                return Ok(res);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e);
-            }
-        }
-
-        /// <summary>
-        /// Retrieve list of unique keys (next field)
-        /// </summary>
-        /// <returns>Array of unique keys</returns>
-        [HttpGet("uniqueNext")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetUniqueNextFields([FromQuery] string field, int index = 1)
-        {
-            try
-            {
-                var res = _keysService.GetUniqueNextFields(field, index);
-
-                if (res == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(res);
+                return Ok(res2);
             }
             catch (Exception e)
             {
