@@ -122,7 +122,6 @@ namespace KONNECT_REDIS.Services
             return _db.StringSet(key.KeyName, key.Value.Data);
         }
 
-
         // =======================================================
         // Delete By Select
         // =======================================================
@@ -137,12 +136,10 @@ namespace KONNECT_REDIS.Services
         {
             var keyNames = new List<string>();
         
-
             foreach (var key in keys)
             {
                 keyNames.Add(key.KeyName);
             }
-
 
             var keyString = string.Join(",", keyNames);
 
@@ -170,6 +167,61 @@ namespace KONNECT_REDIS.Services
             _db.KeyDelete("keys2delete");
 
             return result;
+        }
+
+
+
+
+
+        // ==============================
+        // Pattern Dropdowns
+        // ==============================
+        /// <summary>
+        /// Retrieve list of unique keys
+        /// </summary>
+        /// <returns>Array of unique keys</returns>
+        public ICollection<string> GetUnique1stFields()
+        {
+            List<string> keyList1stField = new List<string>();
+
+            foreach (var key in _keys)
+            {
+                var key1stField = key.ToString().Split("#")[0];
+
+                keyList1stField.Add(key1stField);
+            }
+
+            List<string> keyList1stFieldDistinct = keyList1stField.Distinct().ToList();
+
+            return keyList1stFieldDistinct;
+        }
+
+        /// <summary>
+        /// Retrieve list of unique keys (next field)
+        /// </summary>
+        /// <returns>Array of unique keys</returns>
+        public ICollection<string> GetUniqueNextFields(string field, int index)
+        {
+            List<string> keyListNextField = new List<string>();
+
+            var keys = _server.Keys(0, pattern: $"{field}*", pageSize: 100000);
+
+            foreach (var key in keys)
+            {
+                var count = key.ToString().Split("#").ToArray().Length;
+
+                if (index <= (count - 1))
+                {
+                    var keyNextField = key.ToString().Split("#")[index];
+                    keyListNextField.Add(keyNextField);
+                }
+                else
+                {
+                    keyListNextField.Add(null);
+                }
+            }
+
+            return keyListNextField.Distinct().ToList();
         }
     }
 }
