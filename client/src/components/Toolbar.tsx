@@ -1,0 +1,45 @@
+import AddIcon from "@material-ui/icons/Add";
+import Tooltip from "@material-ui/core/Tooltip";
+import FilterListIcon from "@material-ui/icons/FilterList";
+import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
+import Search from "./Search";
+
+interface ToolbarProps {
+  handleOpen: () => void;
+  toggleDrawer: () => void;
+  handleSearch: (query: string) => void;
+  handleReset: () => void;
+}
+
+const Toolbar: React.FC<ToolbarProps> = ({
+  handleOpen,
+  toggleDrawer,
+  handleSearch,
+  handleReset,
+}) => {
+  return (
+    <div className="mainContainer__toolbar">
+      <span className="mainContainer__header">Results</span>
+      <div className="mainContainer__actions">
+        <Tooltip title="Create" placement="top">
+          <button className="mainContainer__button" onClick={handleOpen}>
+            <AddIcon />
+          </button>
+        </Tooltip>
+        <Tooltip title="Delete" placement="top">
+          <button className="mainContainer__button" onClick={toggleDrawer}>
+            <DeleteOutlineIcon />
+          </button>
+        </Tooltip>
+        <Tooltip title="Filter" placement="top">
+          <button className="mainContainer__button" onClick={toggleDrawer}>
+            <FilterListIcon />
+          </button>
+        </Tooltip>
+        <Search handleSearch={handleSearch} handleReset={handleReset} />
+      </div>
+    </div>
+  );
+};
+
+export default Toolbar;

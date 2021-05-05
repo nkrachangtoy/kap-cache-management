@@ -1,15 +1,12 @@
 import Grid from "./Grid";
 import Pagination from "./Pagination";
-import Search from "./Search";
 import SideDrawer from "./SideDrawer";
 
 // Material UI
-import AddIcon from "@material-ui/icons/Add";
-import Tooltip from "@material-ui/core/Tooltip";
-import FilterListIcon from "@material-ui/icons/FilterList";
-import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
+
 import Drawer from "@material-ui/core/Drawer";
 import Modal from "@material-ui/core/Modal";
+import Toolbar from "./Toolbar";
 
 interface IRowData {
   keys: Array<IKey>;
@@ -85,27 +82,12 @@ const Main: React.FC<MainProps> = ({
 }) => {
   return (
     <div className="mainContainer">
-      <div className="mainContainer__toolbar">
-        <span className="mainContainer__header">Results</span>
-        <div className="mainContainer__actions">
-          <Tooltip title="Create" placement="top">
-            <button className="mainContainer__button" onClick={handleOpen}>
-              <AddIcon />
-            </button>
-          </Tooltip>
-          <Tooltip title="Delete" placement="top">
-            <button className="mainContainer__button" onClick={toggleDrawer}>
-              <DeleteOutlineIcon />
-            </button>
-          </Tooltip>
-          <Tooltip title="Filter" placement="top">
-            <button className="mainContainer__button" onClick={toggleDrawer}>
-              <FilterListIcon />
-            </button>
-          </Tooltip>
-          <Search handleSearch={handleSearch} handleReset={handleReset} />
-        </div>
-      </div>
+      <Toolbar
+        handleOpen={handleOpen}
+        toggleDrawer={toggleDrawer}
+        handleSearch={handleSearch}
+        handleReset={handleReset}
+      />
       <div className="mainContainer__contentWrapper">
         <div className="mainContainer__gridWrapper">
           <Grid
