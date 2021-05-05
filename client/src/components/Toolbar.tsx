@@ -18,21 +18,21 @@ const Toolbar: React.FC<ToolbarProps> = ({
   handleReset,
 }) => {
   return (
-    <div className="mainContainer__toolbar">
-      <span className="mainContainer__header">Results</span>
-      <div className="mainContainer__actions">
+    <div className="toolbar">
+      <span className="toolbar__header">Results</span>
+      <div className="toolbar__actions">
         <Tooltip title="Create" placement="top">
-          <button className="mainContainer__button" onClick={handleOpen}>
+          <button className="toolbar__button" onClick={handleOpen}>
             <AddIcon />
           </button>
         </Tooltip>
         <Tooltip title="Delete" placement="top">
-          <button className="mainContainer__button" onClick={toggleDrawer}>
+          <button className="toolbar__button" onClick={toggleDrawer}>
             <DeleteOutlineIcon />
           </button>
         </Tooltip>
         <Tooltip title="Filter" placement="top">
-          <button className="mainContainer__button" onClick={toggleDrawer}>
+          <button className="toolbar__button" onClick={toggleDrawer}>
             <FilterListIcon />
           </button>
         </Tooltip>

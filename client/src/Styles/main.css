@@ -52,54 +52,6 @@ pre {
   width: 100%;
 }
 
-.mainContainer__toolbar {
-  padding: 10px 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  border-bottom: 2px solid grey;
-  margin-bottom: 8px;
-}
-
-.mainContainer__actions {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.mainContainer__header {
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.mainContainer__button {
-  background-color: transparent;
-  border: none;
-  padding: 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  color: white;
-  background-color: #0484d3;
-  border-radius: 5px;
-  width: 32px;
-  height: 32px;
-  cursor: pointer;
-  margin-right: 16px;
-}
-
 .sideDrawer {
   width: 30%;
   height: 100%;
@@ -478,5 +430,53 @@ pre {
 
 .addKeyForm__button--cancel {
   background-color: #323232;
+}
+
+.toolbar {
+  padding: 10px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border-bottom: 2px solid grey;
+  margin-bottom: 8px;
+}
+
+.toolbar__actions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.toolbar__header {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.toolbar__button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: white;
+  background-color: #0484d3;
+  border-radius: 5px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  margin-right: 16px;
 }
 /*# sourceMappingURL=main.css.map */
