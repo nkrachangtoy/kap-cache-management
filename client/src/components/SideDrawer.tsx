@@ -70,34 +70,40 @@ const SideDrawer: React.FC<DrawerProps> = ({
           ))}
         </div>
         <br />
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            showConfirmDelete(!confirmDelete);
-          }}
-        >
-          Delete all
-        </button>
+        {!confirmDelete && (
+          <div className="sideDrawer__buttonBlock">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                showConfirmDelete(!confirmDelete);
+              }}
+              className="sideDrawer__button-delete"
+            >
+              Delete all
+            </button>
+          </div>
+        )}
+
         {confirmDelete && (
           <div>
             <p style={{ color: "red" }}>
               This action cannot be undone. Please confirm this batch delete.
             </p>
-            <div>
-              <button
-                className="sideDrawer__button"
-                onClick={handleDeleteBySelection}
-              >
-                Confirm
-              </button>
+            <div className="sideDrawer__buttonBlock">
               <button
                 onClick={(e) => {
                   e.preventDefault();
                   showConfirmDelete(!confirmDelete);
                 }}
-                className="sideDrawer__button"
+                className="sideDrawer__button-cancel"
               >
                 Cancel
+              </button>
+              <button
+                className="sideDrawer__button-delete"
+                onClick={handleDeleteBySelection}
+              >
+                Confirm
               </button>
             </div>
           </div>

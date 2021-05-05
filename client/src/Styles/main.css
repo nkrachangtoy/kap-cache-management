@@ -113,25 +113,56 @@ pre {
   overflow-y: scroll;
 }
 
-.sideDrawer__button {
-  background-color: transparent;
+.sideDrawer__button-delete {
+  width: 7rem;
+  color: #e8f4fb;
   border: none;
-  padding: 0;
+  border-radius: 2px;
+  padding: 5px 0;
+  opacity: 0.85;
+  font-size: 0.85rem;
+  font-weight: 400;
+  background-color: #0484d3;
+  color: white;
+  margin: 0 5px;
+}
+
+.sideDrawer__button-delete:hover, .sideDrawer__button-delete:active {
+  opacity: 1;
+}
+
+.sideDrawer__button-cancel {
+  width: 7rem;
+  color: #e8f4fb;
+  border: none;
+  border-radius: 2px;
+  padding: 5px 0;
+  opacity: 0.85;
+  font-size: 0.85rem;
+  font-weight: 400;
+  background-color: #df4759;
+  color: white;
+  margin: 0 5px;
+}
+
+.sideDrawer__button-cancel:hover, .sideDrawer__button-cancel:active {
+  opacity: 1;
+}
+
+.sideDrawer__buttonBlock {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  color: white;
-  background-color: #0484d3;
-  border-radius: 5px;
-  height: 32px;
-  cursor: pointer;
-  margin-right: 16px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .sideDrawer__form {

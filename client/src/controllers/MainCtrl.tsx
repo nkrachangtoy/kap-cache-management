@@ -147,6 +147,7 @@ const MainCtrl = () => {
         handleAddNewKey={handleAddNewKey}
         newKey={newKey}
         setNewKey={setNewKey}
+        handleClose={handleClose}
       />
     </div>
   );
@@ -164,9 +165,10 @@ const MainCtrl = () => {
       pageNum={pageNum}
       openDrawer={openDrawer}
       selectedRows={selectedRows}
-      keyValue={keyValue}
-      setKeyValue={setKeyValue}
       deleteQuery={deleteQuery}
+      keyValue={keyValue}
+      modalBody={modalBody}
+      setKeyValue={setKeyValue}
       setDeleteQuery={setDeleteQuery}
       handlePageNext={handlePageNext}
       handlePageBack={handlePageBack}
@@ -182,7 +184,6 @@ const MainCtrl = () => {
       handleClose={handleClose}
       toggleDrawer={toggleDrawer}
       handleCloseDrawer={handleCloseDrawer}
-      modalBody={modalBody}
     />
   );
 };

@@ -37,8 +37,9 @@ interface MainProps {
   openDrawer: boolean;
   selectedRows: Array<string>;
   keyValue: IKeyValue;
-  setKeyValue: (keyValue: IKeyValue) => void;
   deleteQuery: string;
+  modalBody: any;
+  setKeyValue: (keyValue: IKeyValue) => void;
   setDeleteQuery: (query: string) => void;
   handlePageNext: () => void;
   handlePageBack: () => void;
@@ -54,7 +55,6 @@ interface MainProps {
   handleClose: () => void;
   toggleDrawer: () => void;
   handleCloseDrawer: () => void;
-  modalBody: any;
 }
 
 const Main: React.FC<MainProps> = ({
@@ -64,8 +64,9 @@ const Main: React.FC<MainProps> = ({
   openDrawer,
   selectedRows,
   keyValue,
-  setKeyValue,
   deleteQuery,
+  modalBody,
+  setKeyValue,
   setDeleteQuery,
   handlePageNext,
   handlePageBack,
@@ -81,7 +82,6 @@ const Main: React.FC<MainProps> = ({
   handleClose,
   toggleDrawer,
   handleCloseDrawer,
-  modalBody,
 }) => {
   return (
     <div className="mainContainer">

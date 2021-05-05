@@ -9,9 +9,21 @@
   right: 0;
   overflow-y: scroll;
   &__button {
-    @include defaultButton;
-    color: white;
-    background-color: $primary;
+    &-delete {
+      @include defaultButton;
+      background-color: $primary;
+      color: white;
+      margin: 0 5px;
+    }
+    &-cancel {
+      @include defaultButton;
+      background-color: $danger;
+      color: white;
+      margin: 0 5px;
+    }
+  }
+  &__buttonBlock {
+    @include flex-direction-justify-align(row, center, center);
   }
   &__form {
     display: flex;
