@@ -101,6 +101,7 @@ const MainCtrl = () => {
     console.log("selected Rows for deletion", selectedRows);
     await deleteKeyBySelection(selectedRows);
     await handleGetAllKeys();
+    setOpenDrawer(false);
   };
 
   const handleAddNewKey = async () => {

@@ -94,7 +94,7 @@ const Main: React.FC<MainProps> = ({
             </button>
           </Tooltip>
           <Tooltip title="Delete" placement="top">
-            <button className="mainContainer__button">
+            <button className="mainContainer__button" onClick={toggleDrawer}>
               <DeleteOutlineIcon />
             </button>
           </Tooltip>

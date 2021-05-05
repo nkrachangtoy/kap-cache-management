@@ -84,12 +84,18 @@ const SideDrawer: React.FC<DrawerProps> = ({
               This action cannot be undone. Please confirm this batch delete.
             </p>
             <div>
-              <button onClick={handleDeleteBySelection}>Confirm</button>
+              <button
+                className="sideDrawer__button"
+                onClick={handleDeleteBySelection}
+              >
+                Confirm
+              </button>
               <button
                 onClick={(e) => {
                   e.preventDefault();
                   showConfirmDelete(!confirmDelete);
                 }}
+                className="sideDrawer__button"
               >
                 Cancel
               </button>
