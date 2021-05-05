@@ -183,33 +183,31 @@ namespace KONNECT_REDIS.Services
         public ICollection<string> GetUniqueFields()
         {
             List<string> keyListFields = new List<string>();
+            //string[] keys = { "First#Key#Example", "Second#Key", "2", "a53ae105-f06b-4663-bdcd-a66785bdb753" };
 
-            string[] keys = { "First#Key#Example", "Second#Key", "2" };
-
-            foreach (var key in keys)
+            foreach (var key in _keys)
             {
                 var keyField = key.ToString().Split("#");
                 foreach (string keyPattern in keyField)
                 {
                     keyListFields.Add(keyPattern);
+                    string patternField = "";
                     foreach (var pattern in keyListFields.Distinct().ToList())
                     {
-                        if (Guid.TryParse(pattern, out var guid))
+                        if (Guid.TryParse(pattern, out _))
                         {
-                            string patternField = "{GUID}";
-                            keyListFields.Add(patternField);
+                            patternField = "{GUID}";
                         }
                         else if (_regex.IsMatch(pattern))
                         {
-                            string patternField = "{Int_ID}";
-                            keyListFields.Add(patternField);
+                            patternField = "{Int_ID}";
                         }
                         else
                         {
-                            string patternField = "{String_ID}";
-                            keyListFields.Add(patternField);
+                            patternField = "{String_ID}";
                         }
                     }
+                    keyListFields.Add(string.Concat(patternField));
                     keyListFields.Remove(keyPattern);
                 }
             }
