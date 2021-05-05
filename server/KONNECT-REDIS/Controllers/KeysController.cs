@@ -282,12 +282,6 @@ namespace KONNECT_REDIS.Controllers
             }
         }
 
-
-
-
-
-
-
         /// <summary>
         /// Retrieve list of unique keys
         /// </summary>
@@ -316,14 +310,14 @@ namespace KONNECT_REDIS.Controllers
         }
 
         /// <summary>
-        /// Retrieve list of unique keys
+        /// Retrieve list of unique keys (next field)
         /// </summary>
         /// <returns>Array of unique keys</returns>
         [HttpGet("uniqueNext")]
         [ProducesResponseType(200)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetUniqueNextFields([FromQuery] string field, int index)
+        public IActionResult GetUniqueNextFields([FromQuery] string field, int index = 1)
         {
             try
             {

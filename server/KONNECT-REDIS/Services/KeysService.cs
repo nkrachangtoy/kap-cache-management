@@ -173,7 +173,9 @@ namespace KONNECT_REDIS.Services
 
 
 
-
+        // ==============================
+        // Pattern Dropdowns
+        // ==============================
         /// <summary>
         /// Retrieve list of unique keys
         /// </summary>
@@ -194,6 +196,10 @@ namespace KONNECT_REDIS.Services
             return keyList1stFieldDistinct;
         }
 
+        /// <summary>
+        /// Retrieve list of unique keys (next field)
+        /// </summary>
+        /// <returns>Array of unique keys</returns>
         public ICollection<string> GetUniqueNextFields(string field, int index)
         {
             List<string> keyListNextField = new List<string>();

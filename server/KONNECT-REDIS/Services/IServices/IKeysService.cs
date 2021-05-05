@@ -16,7 +16,6 @@ namespace KONNECT_REDIS.Services.IServices
         bool DeleteKey(KeyDto key);
         Value GetValue(KeyDto key);
         bool SetKeyValue(Key key);
-        
 
         // ==============================
         // Delete By Select
@@ -26,7 +25,9 @@ namespace KONNECT_REDIS.Services.IServices
 
 
 
-
+        // ==============================
+        // Pattern Dropdowns
+        // ==============================
         ICollection<string> GetUnique1stFields();
         ICollection<string> GetUniqueNextFields(string field, int index);
     }
