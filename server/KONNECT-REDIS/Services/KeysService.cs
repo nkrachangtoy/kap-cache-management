@@ -217,7 +217,7 @@ namespace KONNECT_REDIS.Services
                 }
                 else
                 {
-                    keyListNextField.Add("no more :)");
+                    keyListNextField.Add(null);
                 }
             }
 
