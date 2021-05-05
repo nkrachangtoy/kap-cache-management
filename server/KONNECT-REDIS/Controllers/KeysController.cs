@@ -87,6 +87,73 @@ namespace KONNECT_REDIS.Controllers
         }
 
         /// <summary>
+        /// Retrieve value of key
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns>value of key in string form</returns>
+        [HttpGet("value")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult GetValue([FromQuery] KeyDto key)
+        {
+            try
+            {
+                var res = _keysService.GetValue(key);
+
+                if (res == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(res);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
+
+        /// <summary>
+        /// Retrieve a list of unique keys by field
+        /// </summary>
+        /// <returns>Array of unique keys</returns>
+        [HttpGet("filter")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult FilterKeys([FromQuery] string field, int index = 1)
+        {
+            try
+            {
+                if (field == null || field.Equals(""))
+                {
+                    var res1 = _keysService.GetUnique1stFields();
+
+                    if (res1 == null)
+                    {
+                        return NotFound();
+                    }
+
+                    return Ok(res1);
+                }
+
+                var res2 = _keysService.GetUniqueNextFields(field, index);
+
+                if (res2 == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(res2);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
+
+        /// <summary>
         /// Delete multiple keys by Redis key pattern
         /// </summary>
         /// <param name="pattern">A Redis key pattern</param>
@@ -153,34 +220,6 @@ namespace KONNECT_REDIS.Controllers
         }
 
         /// <summary>
-        /// get value of key
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns>value of key in string form</returns>
-        [HttpGet("value")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetValue([FromQuery] KeyDto key)
-        {
-            try
-            {
-                var res = _keysService.GetValue(key);
-
-                if (res == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(res);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e);
-            }
-        }
-
-        /// <summary>
         /// Create new key value pair
         /// </summary>
         /// <param name="key"></param>
@@ -215,9 +254,9 @@ namespace KONNECT_REDIS.Controllers
         }
 
         /// <summary>
-        /// Creates a key value pair
-        /// key == keys2delete
-        /// value == keys to be deleted
+        /// Creates a key value pair ||
+        /// key: keys2delete ||
+        /// value: keys to be deleted
         /// </summary>
         /// <param name="keys"></param>
         /// <returns>True or false whether creation was succesful or not</returns>
@@ -283,43 +322,5 @@ namespace KONNECT_REDIS.Controllers
         }
 
 
-        /// <summary>
-        /// Retrieve list of unique keys
-        /// </summary>
-        /// <returns>Array of unique keys</returns>
-        [HttpGet("filter")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult FilterKeys([FromQuery] string field, int index = 1)
-        {
-            try
-            {
-                if(field == null || field.Equals(""))
-                {
-                    var res1 = _keysService.GetUnique1stFields();
-
-                    if (res1 == null)
-                    {
-                        return NotFound();
-                    }
-
-                    return Ok(res1);
-                }
-
-                var res2 = _keysService.GetUniqueNextFields(field, index);
-
-                if (res2 == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(res2);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e);
-            }
-        }
     }
 }
