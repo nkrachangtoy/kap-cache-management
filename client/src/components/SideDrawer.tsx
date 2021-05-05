@@ -41,7 +41,6 @@ const SideDrawer: React.FC<DrawerProps> = ({
           <strong>Key Name: </strong>
           {selectedRows[0]}
         </p>
-
         <div>
           <strong>Value:</strong>
           <div className="sideDrawer_valueCodeBlock">
@@ -50,9 +49,46 @@ const SideDrawer: React.FC<DrawerProps> = ({
             </pre>
           </div>
         </div>
-        {selectedRows[0] && (
-          <button onClick={handleDeleteBySelection}>Delete</button>
+        {!confirmDelete && (
+          <div className="sideDrawer__buttonBlock">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                showConfirmDelete(!confirmDelete);
+              }}
+              className="sideDrawer__button-delete"
+            >
+              Delete
+            </button>
+          </div>
         )}
+        {confirmDelete && (
+          <div>
+            <p className="sideDrawer__warning">
+              This action cannot be undone. Please confirm this delete.
+            </p>
+            <div className="sideDrawer__buttonBlock">
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  showConfirmDelete(!confirmDelete);
+                }}
+                className="sideDrawer__button-cancel"
+              >
+                Cancel
+              </button>
+              <button
+                className="sideDrawer__button-delete"
+                onClick={handleDeleteBySelection}
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        )}
+        {/* {selectedRows[0] && (
+          <button onClick={handleDeleteBySelection}>Delete</button>
+        )} */}
       </div>
     );
   } else if (selectedRows?.length > 1) {
@@ -86,7 +122,7 @@ const SideDrawer: React.FC<DrawerProps> = ({
 
         {confirmDelete && (
           <div>
-            <p style={{ color: "red" }}>
+            <p className="sideDrawer__warning">
               This action cannot be undone. Please confirm this batch delete.
             </p>
             <div className="sideDrawer__buttonBlock">
