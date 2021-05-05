@@ -137,9 +137,6 @@ const MainCtrl = () => {
   const toggleDrawer = () => {
     setOpenDrawer(!openDrawer);
   };
-  const handleCloseDrawer = () => {
-    setOpenDrawer(false);
-  };
 
   const modalBody = (
     <div className="modal">
@@ -183,7 +180,6 @@ const MainCtrl = () => {
       handleOpen={handleOpen}
       handleClose={handleClose}
       toggleDrawer={toggleDrawer}
-      handleCloseDrawer={handleCloseDrawer}
     />
   );
 };

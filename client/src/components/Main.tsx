@@ -51,7 +51,6 @@ interface MainProps {
   handleOpen: () => void;
   handleClose: () => void;
   toggleDrawer: () => void;
-  handleCloseDrawer: () => void;
 }
 
 const Main: React.FC<MainProps> = ({
@@ -78,7 +77,6 @@ const Main: React.FC<MainProps> = ({
   handleOpen,
   handleClose,
   toggleDrawer,
-  handleCloseDrawer,
 }) => {
   return (
     <div className="mainContainer">
@@ -101,7 +99,7 @@ const Main: React.FC<MainProps> = ({
             rowData={rowData}
           />
         </div>
-        <Drawer open={openDrawer} onClose={handleCloseDrawer}>
+        <Drawer open={openDrawer} onClose={toggleDrawer}>
           <SideDrawer
             selectedRows={selectedRows}
             handleDeleteByQuery={handleDeleteByQuery}

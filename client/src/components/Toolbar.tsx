@@ -21,6 +21,11 @@ const Toolbar: React.FC<ToolbarProps> = ({
     <div className="toolbar">
       <span className="toolbar__header">Results</span>
       <div className="toolbar__actions">
+        <Tooltip title="Patterns" placement="top">
+          <button className="toolbar__button" onClick={handleOpen}>
+            #
+          </button>
+        </Tooltip>
         <Tooltip title="Create" placement="top">
           <button className="toolbar__button" onClick={handleOpen}>
             <AddIcon />
