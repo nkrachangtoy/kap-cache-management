@@ -65,6 +65,18 @@
             <param name="selection">Selected keys</param>
             <returns>True or false whether delete was successful</returns>
         </member>
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.GetUnique1stFields">
+            <summary>
+            Retrieve list of unique keys
+            </summary>
+            <returns>Array of unique keys</returns>
+        </member>
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.GetUniqueNextFields(System.String,System.Int32)">
+            <summary>
+            Retrieve list of unique keys (next field)
+            </summary>
+            <returns>Array of unique keys</returns>
+        </member>
         <member name="M:KONNECT_REDIS.Services.KeysService.GetAllKeys(System.Nullable{System.Int32},System.Int32)">
             <summary>
             Retrieve All keys
@@ -125,6 +137,18 @@
             </summary>
             <param name="selection">Selected keys</param>
             <returns>True or false whether delete was successful</returns>
+        </member>
+        <member name="M:KONNECT_REDIS.Services.KeysService.GetUnique1stFields">
+            <summary>
+            Retrieve list of unique keys
+            </summary>
+            <returns>Array of unique keys</returns>
+        </member>
+        <member name="M:KONNECT_REDIS.Services.KeysService.GetUniqueNextFields(System.String,System.Int32)">
+            <summary>
+            Retrieve list of unique keys (next field)
+            </summary>
+            <returns>Array of unique keys</returns>
         </member>
     </members>
 </doc>
