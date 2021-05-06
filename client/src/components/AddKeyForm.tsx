@@ -78,23 +78,10 @@ const AddKeyForm: React.FC<AddKeyFormProps> = ({
           <label htmlFor="value" className="addKeyForm__formLabel">
             Value:
           </label>
-          <textarea
-            id="value"
-            className="addKeyForm__textArea"
-            rows={10}
-            // rows={4}
-            required
+          <ControlledEditor
             value={newKey.valueString}
-            onChange={(e) =>
-              setNewKey({ ...newKey, valueString: e.target.value })
-            }
-          ></textarea>
-          {/* <ControlledEditor
-            value={newKey.valueString}
-            onBeforeChange={(e) =>
-              setNewKey({ ...newKey, valueString: e.target.value })}
-            onChange={(e) =>
-              setNewKey({ ...newKey, valueString: e.target.value })}
+            onBeforeChange={(editor,data,value) => setNewKey({...newKey, valueString: value})}
+            onChange={(editor,data,value) => setNewKey({...newKey, valueString: value})}
             className="addKeyForm__codeMirror"
             options={{
               lineWrapping: true,
@@ -103,7 +90,7 @@ const AddKeyForm: React.FC<AddKeyFormProps> = ({
               lineNumbers: true,
               theme: 'ttcn',
             }}
-          /> */}
+          />
         </div>
         <div className="addKeyForm__buttonsContainer">
           <div className="addKeyForm__buttonWrapper">
