@@ -481,7 +481,7 @@ pre {
 }
 
 .patternsDrawer {
-  width: 30%;
+  width: 60%;
   height: 100%;
   padding: 10px;
   border: 1px solid grey;
@@ -491,5 +491,10 @@ pre {
           box-shadow: -5px 0px 5px 1px rgba(0, 0, 0, 0.23);
   right: 0;
   overflow-y: scroll;
+}
+
+.patternsDrawer__tab {
+  background-color: #0484d3;
+  color: white;
 }
 /*# sourceMappingURL=main.css.map */
