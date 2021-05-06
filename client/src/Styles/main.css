@@ -378,10 +378,6 @@ pre {
   padding-left: 0.5rem;
 }
 
-.addKeyForm__inputForm:focus-visible {
-  border: 1.5px solid #999;
-}
-
 .addKeyForm__textArea {
   width: 300px;
   height: 120px;
