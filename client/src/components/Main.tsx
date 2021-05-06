@@ -1,25 +1,13 @@
-import React, { useEffect, useState } from "react";
 import Grid from "./Grid";
 import Pagination from "./Pagination";
-import {
-  deleteKeyBySelection,
-  getAllKeys,
-  getKeyValue,
-  postNewKeyValue,
-  searchKeys,
-} from "../network/network";
-import Search from "./Search";
-import { getPage } from "../network/network";
 import SideDrawer from "./SideDrawer";
-import { deleteKeyByQuery } from "./../network/network";
-import AddKeyForm from "./AddKeyForm";
+
 // Material UI
-import AddIcon from "@material-ui/icons/Add";
-import Tooltip from "@material-ui/core/Tooltip";
-import FilterListIcon from "@material-ui/icons/FilterList";
-import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
+
 import Drawer from "@material-ui/core/Drawer";
 import Modal from "@material-ui/core/Modal";
+import Toolbar from "./Toolbar";
+import Patterns from "./Patterns";
 
 interface IRowData {
   keys: Array<IKey>;
@@ -40,156 +28,68 @@ interface IKeyValue {
   valueString: string;
 }
 
-const Main = () => {
-  const [rowData, setRowData] = useState<IRowData | object>({});
-  const [pageNum, setPageNum] = useState<number>(1);
-  const [selectedRows, setSelectedRows] = useState<Array<string>>([]);
-  const [deleteQuery, setDeleteQuery] = useState<string>("");
-  const [keyValue, setKeyValue] = useState<IKeyValue>({
-    keyName: "",
-    valueString: "",
-  });
-  const [newKey, setNewKey] = useState<IKeyValue>({
-    keyName: "",
-    valueString: "",
-  });
-  const [open, setOpen] = useState<boolean>(false);
-  const [openDrawer, setOpenDrawer] = useState(false);
+interface MainProps {
+  open: boolean;
+  rowData: IRowData | object;
+  pageNum: number;
+  openDrawer: boolean;
+  selectedRows: Array<string>;
+  keyValue: IKeyValue;
+  deleteQuery: string;
+  modalBody: any;
+  openPatterns: boolean;
+  setOpenPatterns: (open: boolean) => void;
+  setKeyValue: (keyValue: IKeyValue) => void;
+  setDeleteQuery: (query: string) => void;
+  handlePageNext: () => void;
+  handlePageBack: () => void;
+  handleSearch: (query: string) => void;
+  handleGetSelectedRows: (row: Array<object>) => void;
+  handleGetValue: (key: string) => void;
+  handleDeleteByQuery: () => void;
+  handleDeleteBySelection: () => void;
+  handleAddNewKey: () => void;
+  handleReset: () => void;
+  handleOpen: () => void;
+  handleClose: () => void;
+  toggleDrawer: () => void;
+}
 
-  const handlePageNext = async () => {
-    const data = await getPage(pageNum + 1);
-    setPageNum(pageNum + 1);
-    setRowData(data);
-  };
-
-  const handlePageBack = async () => {
-    if (pageNum !== 1) {
-      setPageNum(pageNum - 1);
-      const data = await getPage(pageNum - 1);
-      setRowData(data);
-    }
-  };
-
-  const handleSearch = async (query: string) => {
-    const data = await searchKeys(query);
-    setRowData(data);
-    setPageNum(1);
-  };
-
-  const handleGetSelectedRows = async (row: Array<object>) => {
-    //Need to concantenate the fields before sending API call
-    let keys: Array<string> = [];
-    row?.map((key: object) => {
-      const joinedKey = Object.values(key).join("#");
-      keys.push(joinedKey);
-    });
-    console.log("concantenated keys array>>", keys);
-    setSelectedRows(keys);
-
-    if (row?.length === 1) {
-      await handleGetValue(keys[0]);
-    }
-  };
-
-  //this can be called elsewhere later on
-  const handleGetValue = async (key: string) => {
-    const data = await getKeyValue(key);
-    const keyValuePair = {
-      keyName: key,
-      valueString: data,
-    };
-    setKeyValue(keyValuePair);
-  };
-
-  const handleDeleteByQuery = async () => {
-    const data = await deleteKeyByQuery(deleteQuery);
-    await handleGetAllKeys();
-    console.log(`delete query: ${deleteQuery}, result:`, data);
-  };
-
-  const handleDeleteBySelection = async () => {
-    console.log("selected Rows for deletion", selectedRows);
-    await deleteKeyBySelection(selectedRows);
-    await handleGetAllKeys();
-  };
-
-  const handleAddNewKey = async () => {
-    const data = await postNewKeyValue(newKey);
-    data &&
-      setNewKey({
-        keyName: "",
-        valueString: "",
-      });
-    await handleGetAllKeys();
-  };
-
-  const handleGetAllKeys = async () => {
-    const result = await getAllKeys();
-    setRowData(result);
-    console.log("ROW DATA", result);
-  };
-
-  const handleReset = async () => {
-    await handleGetAllKeys();
-    setPageNum(1);
-    setSelectedRows([]); // this doesnt update the grid
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const toggleDrawer = () => {
-    setOpenDrawer(!openDrawer);
-  };
-  const handleCloseDrawer = () => {
-    setOpenDrawer(false);
-  };
-
-  useEffect(() => {
-    (async () => {
-      await handleGetAllKeys();
-    })();
-  }, []);
-
-  const modalBody = (
-    <div className="modal">
-      <AddKeyForm
-        handleAddNewKey={handleAddNewKey}
-        newKey={newKey}
-        setNewKey={setNewKey}
-        handleClose={handleClose}
-      />
-    </div>
-  );
-
+const Main: React.FC<MainProps> = ({
+  open,
+  rowData,
+  pageNum,
+  openDrawer,
+  selectedRows,
+  keyValue,
+  deleteQuery,
+  modalBody,
+  openPatterns,
+  setOpenPatterns,
+  setKeyValue,
+  setDeleteQuery,
+  handlePageNext,
+  handlePageBack,
+  handleSearch,
+  handleGetSelectedRows,
+  handleGetValue,
+  handleDeleteByQuery,
+  handleDeleteBySelection,
+  handleAddNewKey,
+  handleReset,
+  handleOpen,
+  handleClose,
+  toggleDrawer,
+}) => {
   return (
     <div className="mainContainer">
-      <div className="mainContainer__toolbar">
-        <span className="mainContainer__header">Results</span>
-        <div className="mainContainer__actions">
-          <Tooltip title="Create" placement="top">
-            <button className="mainContainer__button" onClick={handleOpen}>
-              <AddIcon />
-            </button>
-          </Tooltip>
-          <Tooltip title="Delete" placement="top">
-            <button className="mainContainer__button">
-              <DeleteOutlineIcon />
-            </button>
-          </Tooltip>
-          <Tooltip title="Filter" placement="top">
-            <button className="mainContainer__button" onClick={toggleDrawer}>
-              <FilterListIcon />
-            </button>
-          </Tooltip>
-          <Search handleSearch={handleSearch} handleReset={handleReset} />
-        </div>
-      </div>
+      <Toolbar
+        handleOpen={handleOpen}
+        toggleDrawer={toggleDrawer}
+        handleSearch={handleSearch}
+        handleReset={handleReset}
+        setOpenPatterns={setOpenPatterns}
+      />
       <div className="mainContainer__contentWrapper">
         <div className="mainContainer__gridWrapper">
           <Grid
@@ -203,7 +103,7 @@ const Main = () => {
             rowData={rowData}
           />
         </div>
-        <Drawer open={openDrawer} onClose={handleCloseDrawer}>
+        <Drawer open={openDrawer} onClose={toggleDrawer}>
           <SideDrawer
             selectedRows={selectedRows}
             handleDeleteByQuery={handleDeleteByQuery}
@@ -214,6 +114,9 @@ const Main = () => {
             setDeleteQuery={setDeleteQuery}
             handleDeleteBySelection={handleDeleteBySelection}
           />
+        </Drawer>
+        <Drawer open={openPatterns} onClose={() => setOpenPatterns(false)}>
+          <Patterns />
         </Drawer>
       </div>
       <Modal open={open} onClose={handleClose}>

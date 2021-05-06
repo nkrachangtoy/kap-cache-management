@@ -1,0 +1,15 @@
+.patternsDrawer {
+  width: 60%;
+  height: 100%;
+  padding: 10px;
+  border: 1px solid grey;
+  position: fixed;
+  background-color: white;
+  box-shadow: -5px 0px 5px 1px rgba(0, 0, 0, 0.23);
+  right: 0;
+  overflow-y: scroll;
+  &__tab {
+    background-color: $primary;
+    color: white;
+  }
+}

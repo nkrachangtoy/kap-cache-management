@@ -52,54 +52,6 @@ pre {
   width: 100%;
 }
 
-.mainContainer__toolbar {
-  padding: 10px 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  border-bottom: 2px solid grey;
-  margin-bottom: 8px;
-}
-
-.mainContainer__actions {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.mainContainer__header {
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.mainContainer__button {
-  background-color: transparent;
-  border: none;
-  padding: 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  color: white;
-  background-color: #0484d3;
-  border-radius: 5px;
-  width: 32px;
-  height: 32px;
-  cursor: pointer;
-  margin-right: 16px;
-}
-
 .sideDrawer {
   width: 30%;
   height: 100%;
@@ -111,6 +63,58 @@ pre {
           box-shadow: -5px 0px 5px 1px rgba(0, 0, 0, 0.23);
   right: 0;
   overflow-y: scroll;
+}
+
+.sideDrawer__button-delete {
+  width: 7rem;
+  color: #e8f4fb;
+  border: none;
+  border-radius: 2px;
+  padding: 5px 0;
+  opacity: 0.85;
+  font-size: 0.85rem;
+  font-weight: 400;
+  background-color: #0484d3;
+  color: white;
+  margin: 0 5px;
+}
+
+.sideDrawer__button-delete:hover, .sideDrawer__button-delete:active {
+  opacity: 1;
+}
+
+.sideDrawer__button-cancel {
+  width: 7rem;
+  color: #e8f4fb;
+  border: none;
+  border-radius: 2px;
+  padding: 5px 0;
+  opacity: 0.85;
+  font-size: 0.85rem;
+  font-weight: 400;
+  background-color: #df4759;
+  color: white;
+  margin: 0 5px;
+}
+
+.sideDrawer__button-cancel:hover, .sideDrawer__button-cancel:active {
+  opacity: 1;
+}
+
+.sideDrawer__buttonBlock {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .sideDrawer__form {
@@ -153,10 +157,16 @@ pre {
           align-items: center;
 }
 
+.sideDrawer__listItems {
+  height: 50%;
+  overflow-y: auto;
+}
+
 .sideDrawer__warning {
   color: red;
   margin-top: 0;
   font-size: 0.8rem;
+  text-align: center;
 }
 
 .sideDrawer__valueCodeBlock {
@@ -368,10 +378,6 @@ pre {
   padding-left: 0.5rem;
 }
 
-.addKeyForm__inputForm:focus-visible {
-  border: 1.5px solid #999;
-}
-
 .addKeyForm__textArea {
   width: 300px;
   height: 120px;
@@ -449,5 +455,71 @@ pre {
 
 .addKeyForm__button--cancel {
   background-color: #323232;
+}
+
+.toolbar {
+  padding: 10px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border-bottom: 2px solid grey;
+  margin-bottom: 8px;
+}
+
+.toolbar__actions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.toolbar__header {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.toolbar__button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: white;
+  background-color: #0484d3;
+  border-radius: 5px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  margin-right: 16px;
+}
+
+.patternsDrawer {
+  width: 60%;
+  height: 100%;
+  padding: 10px;
+  border: 1px solid grey;
+  position: fixed;
+  background-color: white;
+  -webkit-box-shadow: -5px 0px 5px 1px rgba(0, 0, 0, 0.23);
+          box-shadow: -5px 0px 5px 1px rgba(0, 0, 0, 0.23);
+  right: 0;
+  overflow-y: scroll;
+}
+
+.patternsDrawer__tab {
+  background-color: #0484d3;
+  color: white;
 }
 /*# sourceMappingURL=main.css.map */
