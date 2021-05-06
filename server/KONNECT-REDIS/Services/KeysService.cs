@@ -2,6 +2,7 @@
 using KONNECT_REDIS.Models.Dtos;
 using KONNECT_REDIS.Services.IServices;
 using KONNECT_REDIS.utils;
+using Microsoft.Extensions.Configuration;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
@@ -16,12 +17,14 @@ namespace KONNECT_REDIS.Services
         private readonly IDatabase _db;
         private readonly IServer _server;
         private readonly IEnumerable<RedisKey> _keys;
+        public IConfiguration Configuration { get; }
 
-        public KeysService(IConnectionMultiplexer multiplexer)
+        public KeysService(IConnectionMultiplexer multiplexer, IConfiguration configuration)
         {
             _multiplexer = multiplexer;
+            Configuration = configuration;
             _db = _multiplexer.GetDatabase();
-            _server = _multiplexer.GetServer("redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com", 12388);
+            _server = _multiplexer.GetServer(Configuration["REDIS_ENDPOINT"], 12388);
             _keys = _server.Keys(0, pattern: "*", pageSize: 100000);
         }
 

@@ -36,7 +36,7 @@ namespace KONNECT_REDIS
             // Configure Redis Connection
             var options = new ConfigurationOptions
             {
-                EndPoints = { Configuration["REDIS_ENDPOINT"] },
+                EndPoints = { $"{Configuration["REDIS_ENDPOINT"]}:12388" },
                 Password = Configuration["REDIS_PASSWORD"],
                 AllowAdmin = true,
                 AbortOnConnectFail = false,
