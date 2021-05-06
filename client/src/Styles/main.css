@@ -479,4 +479,17 @@ pre {
   cursor: pointer;
   margin-right: 16px;
 }
+
+.patternsDrawer {
+  width: 30%;
+  height: 100%;
+  padding: 10px;
+  border: 1px solid grey;
+  position: fixed;
+  background-color: white;
+  -webkit-box-shadow: -5px 0px 5px 1px rgba(0, 0, 0, 0.23);
+          box-shadow: -5px 0px 5px 1px rgba(0, 0, 0, 0.23);
+  right: 0;
+  overflow-y: scroll;
+}
 /*# sourceMappingURL=main.css.map */

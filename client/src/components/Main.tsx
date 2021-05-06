@@ -7,6 +7,7 @@ import SideDrawer from "./SideDrawer";
 import Drawer from "@material-ui/core/Drawer";
 import Modal from "@material-ui/core/Modal";
 import Toolbar from "./Toolbar";
+import Patterns from "./Patterns";
 
 interface IRowData {
   keys: Array<IKey>;
@@ -36,6 +37,8 @@ interface MainProps {
   keyValue: IKeyValue;
   deleteQuery: string;
   modalBody: any;
+  openPatterns: boolean;
+  setOpenPatterns: (open: boolean) => void;
   setKeyValue: (keyValue: IKeyValue) => void;
   setDeleteQuery: (query: string) => void;
   handlePageNext: () => void;
@@ -46,7 +49,6 @@ interface MainProps {
   handleDeleteByQuery: () => void;
   handleDeleteBySelection: () => void;
   handleAddNewKey: () => void;
-  handleGetAllKeys: () => void;
   handleReset: () => void;
   handleOpen: () => void;
   handleClose: () => void;
@@ -62,6 +64,8 @@ const Main: React.FC<MainProps> = ({
   keyValue,
   deleteQuery,
   modalBody,
+  openPatterns,
+  setOpenPatterns,
   setKeyValue,
   setDeleteQuery,
   handlePageNext,
@@ -72,7 +76,6 @@ const Main: React.FC<MainProps> = ({
   handleDeleteByQuery,
   handleDeleteBySelection,
   handleAddNewKey,
-  handleGetAllKeys,
   handleReset,
   handleOpen,
   handleClose,
@@ -85,6 +88,7 @@ const Main: React.FC<MainProps> = ({
         toggleDrawer={toggleDrawer}
         handleSearch={handleSearch}
         handleReset={handleReset}
+        setOpenPatterns={setOpenPatterns}
       />
       <div className="mainContainer__contentWrapper">
         <div className="mainContainer__gridWrapper">
@@ -110,6 +114,9 @@ const Main: React.FC<MainProps> = ({
             setDeleteQuery={setDeleteQuery}
             handleDeleteBySelection={handleDeleteBySelection}
           />
+        </Drawer>
+        <Drawer open={openPatterns} onClose={() => setOpenPatterns(false)}>
+          <Patterns />
         </Drawer>
       </div>
       <Modal open={open} onClose={handleClose}>

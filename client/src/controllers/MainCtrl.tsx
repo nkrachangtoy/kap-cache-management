@@ -37,6 +37,7 @@ const MainCtrl = () => {
   const [deleteQuery, setDeleteQuery] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [openPatterns, setOpenPatterns] = useState(false);
   const [keyValue, setKeyValue] = useState<IKeyValue>({
     keyName: "",
     valueString: "",
@@ -165,6 +166,8 @@ const MainCtrl = () => {
       deleteQuery={deleteQuery}
       keyValue={keyValue}
       modalBody={modalBody}
+      openPatterns={openPatterns}
+      setOpenPatterns={setOpenPatterns}
       setKeyValue={setKeyValue}
       setDeleteQuery={setDeleteQuery}
       handlePageNext={handlePageNext}
@@ -175,7 +178,6 @@ const MainCtrl = () => {
       handleDeleteByQuery={handleDeleteByQuery}
       handleDeleteBySelection={handleDeleteBySelection}
       handleAddNewKey={handleAddNewKey}
-      handleGetAllKeys={handleGetAllKeys}
       handleReset={handleReset}
       handleOpen={handleOpen}
       handleClose={handleClose}

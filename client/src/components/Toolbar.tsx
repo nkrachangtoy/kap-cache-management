@@ -9,6 +9,7 @@ interface ToolbarProps {
   toggleDrawer: () => void;
   handleSearch: (query: string) => void;
   handleReset: () => void;
+  setOpenPatterns: (open: boolean) => void;
 }
 
 const Toolbar: React.FC<ToolbarProps> = ({
@@ -16,13 +17,17 @@ const Toolbar: React.FC<ToolbarProps> = ({
   toggleDrawer,
   handleSearch,
   handleReset,
+  setOpenPatterns,
 }) => {
   return (
     <div className="toolbar">
       <span className="toolbar__header">Results</span>
       <div className="toolbar__actions">
         <Tooltip title="Patterns" placement="top">
-          <button className="toolbar__button" onClick={handleOpen}>
+          <button
+            className="toolbar__button"
+            onClick={() => setOpenPatterns(true)}
+          >
             #
           </button>
         </Tooltip>
