@@ -13,3 +13,12 @@
     color: white;
   }
 }
+
+.viewPatterns {
+  @include flex-direction-justify-align(column, center, center);
+  height: 100%;
+  &__button {
+    @include defaultButton;
+    background-color: $primary;
+  }
+}

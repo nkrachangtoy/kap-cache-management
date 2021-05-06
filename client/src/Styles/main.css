@@ -522,4 +522,37 @@ pre {
   background-color: #0484d3;
   color: white;
 }
+
+.viewPatterns {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
+}
+
+.viewPatterns__button {
+  width: 7rem;
+  color: #e8f4fb;
+  border: none;
+  border-radius: 2px;
+  padding: 5px 0;
+  opacity: 0.85;
+  font-size: 0.85rem;
+  font-weight: 400;
+  background-color: #0484d3;
+}
+
+.viewPatterns__button:hover, .viewPatterns__button:active {
+  opacity: 1;
+}
 /*# sourceMappingURL=main.css.map */
