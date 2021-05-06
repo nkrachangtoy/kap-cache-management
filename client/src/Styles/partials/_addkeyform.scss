@@ -1,7 +1,7 @@
 .addKeyForm {
   margin: 1rem 0;
   &__form {
-    @include flex-direction-justify-align(column, center, center);
+    @include flex-direction-justify-align(column, center, flex-end);
     margin-top: 1rem;
   }
   &__title {
@@ -17,8 +17,28 @@
   }
   &__inputForm {
     @include input;
+    padding-left: 0.5rem;
   }
   &__textArea {
+    width: 300px;
+    height: 120px;
+    border-radius: 2px;
+    resize: none;
+    overflow-y: scroll;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    white-space: pre-wrap;
+    line-height: 1.5em;
+    word-wrap: break-word;
+    &:focus-visible {
+      outline: none;
+    }
+  }
+  &__codeMirror {
+    border-radius: 2px;
+    border: 1px solid $bordercolor;
+    width: 300px;
+    overflow-y: scroll;
   }
   &__buttonsContainer {
     display: flex;

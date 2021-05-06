@@ -34,12 +34,9 @@
 @mixin input {
   border: 1.5px solid $bordercolor;
   border-radius: 2px;
-  width: 200px;
+  width: 300px;
   padding: 4px;
   outline: none;
-  // &:focus-visible {
-  //   // border: 1.5px solid green;
-  // }
 }
 
 @mixin flex-direction-justify-align(

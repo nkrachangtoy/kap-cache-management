@@ -1,6 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CheckIcon from '@material-ui/icons/Check';
+import Snackbar from '@material-ui/core/Snackbar';
+// CodeMirror //
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/mode/javascript/javascript';
+import 'codemirror/theme/ttcn.css';
+import { Controlled as ControlledEditor } from 'react-codemirror2';
+
 
 
 interface IKeyValue {
@@ -34,7 +41,6 @@ const AddKeyForm: React.FC<AddKeyFormProps> = ({
       timer.current = window.setTimeout(() => {
         setSuccess(true);
         setLoading(false);
-        handleClose();
       }, 2000);
     }
   };
@@ -72,16 +78,19 @@ const AddKeyForm: React.FC<AddKeyFormProps> = ({
           <label htmlFor="value" className="addKeyForm__formLabel">
             Value:
           </label>
-          <textarea
-            id="value"
-            className="addKeyForm__textArea"
-            rows={4}
-            required
+          <ControlledEditor
             value={newKey.valueString}
-            onChange={(e) =>
-              setNewKey({ ...newKey, valueString: e.target.value })
-            }
-          ></textarea>
+            onBeforeChange={(editor,data,value) => setNewKey({...newKey, valueString: value})}
+            onChange={(editor,data,value) => setNewKey({...newKey, valueString: value})}
+            className="addKeyForm__codeMirror"
+            options={{
+              lineWrapping: true,
+              lint: true,
+              mode: 'javascript',
+              lineNumbers: true,
+              theme: 'ttcn',
+            }}
+          />
         </div>
         <div className="addKeyForm__buttonsContainer">
           <div className="addKeyForm__buttonWrapper">
@@ -92,6 +101,7 @@ const AddKeyForm: React.FC<AddKeyFormProps> = ({
           <button type="submit" className="addKeyForm__button addKeyForm__button--cancel" onClick={handleClose}>Cancel</button>
         </div>
       </form>
+      <Snackbar open={success} autoHideDuration={1500} onClose={handleClose} message="Successfully added new key!" anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}/>
     </div>
   );
 };

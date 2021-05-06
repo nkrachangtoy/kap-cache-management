@@ -345,9 +345,9 @@ pre {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
   margin-top: 1rem;
 }
 
@@ -372,9 +372,38 @@ pre {
 .addKeyForm__inputForm {
   border: 1.5px solid #999;
   border-radius: 2px;
-  width: 200px;
+  width: 300px;
   padding: 4px;
   outline: none;
+  padding-left: 0.5rem;
+}
+
+.addKeyForm__inputForm:focus-visible {
+  border: 1.5px solid #999;
+}
+
+.addKeyForm__textArea {
+  width: 300px;
+  height: 120px;
+  border-radius: 2px;
+  resize: none;
+  overflow-y: scroll;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  white-space: pre-wrap;
+  line-height: 1.5em;
+  word-wrap: break-word;
+}
+
+.addKeyForm__textArea:focus-visible {
+  outline: none;
+}
+
+.addKeyForm__codeMirror {
+  border-radius: 2px;
+  border: 1px solid #999;
+  width: 300px;
+  overflow-y: scroll;
 }
 
 .addKeyForm__buttonsContainer {
