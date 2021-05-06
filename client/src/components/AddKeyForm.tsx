@@ -77,7 +77,8 @@ const AddKeyForm: React.FC<AddKeyFormProps> = ({
           <textarea
             id="value"
             className="addKeyForm__textArea"
-            rows={4}
+            rows={10}
+            // rows={4}
             required
             value={newKey.valueString}
             onChange={(e) =>
