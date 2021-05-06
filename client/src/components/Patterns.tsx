@@ -4,6 +4,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
 
 const Patterns: React.FC = () => {
   const [value, setValue] = React.useState(0);
@@ -48,7 +49,14 @@ const Patterns: React.FC = () => {
       </AppBar>
       {/* View Patterns */}
       <TabPanel value={value} index={0}>
-        Item One
+        <div>
+          <p>
+            This feature will generate the available key patterns within the
+            Redis cache.
+          </p>
+          <p>This process may take a few minutes to complete</p>
+          <Button>Proceed</Button>
+        </div>
       </TabPanel>
       {/* Filter By Pattern  */}
       <TabPanel value={value} index={1}>

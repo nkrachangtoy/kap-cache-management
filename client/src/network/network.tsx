@@ -68,16 +68,14 @@ export const deleteKeyBySelection = async (selection: any) => {
   try {
     //POST req to create selection
     let keyNameObjects: Array<object> = [];
-    selection.map((key: string) => {
+    selection.forEach((key: string) => {
       const obj = {
         keyName: key,
       };
       keyNameObjects.push(obj);
     });
-    const postResponse = await axios.post(
-      `${BASE_URL}/selections`,
-      keyNameObjects
-    );
+
+    await axios.post(`${BASE_URL}/selections`, keyNameObjects);
 
     //DELETE req to delete selection from redis
     const delResponse = await axios.delete(`${BASE_URL}/deleteSelections`);

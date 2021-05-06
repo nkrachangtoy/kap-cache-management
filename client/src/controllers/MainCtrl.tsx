@@ -70,7 +70,7 @@ const MainCtrl = () => {
   const handleGetSelectedRows = async (row: Array<object>) => {
     //Need to concantenate the fields before sending API call
     let keys: Array<string> = [];
-    row?.map((key: object) => {
+    row?.forEach((key: object) => {
       const joinedKey = Object.values(key).join("#");
       keys.push(joinedKey);
     });
