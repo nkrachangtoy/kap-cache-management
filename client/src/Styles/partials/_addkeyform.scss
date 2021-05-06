@@ -34,6 +34,12 @@
       outline: none;
     }
   }
+  &__codeMirror {
+    border-radius: 2px;
+    border: 1px solid $bordercolor;
+    width: 300px;
+    overflow-y: scroll;
+  }
   &__buttonsContainer {
     display: flex;
     margin-bottom: 1rem;

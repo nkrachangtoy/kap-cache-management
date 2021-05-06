@@ -5,7 +5,8 @@ import Snackbar from '@material-ui/core/Snackbar';
 // CodeMirror //
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/mode/javascript/javascript';
-import 'codemirror/theme/material.css';
+import 'codemirror/theme/ttcn.css';
+import { Controlled as ControlledEditor } from 'react-codemirror2';
 
 
 
@@ -20,7 +21,6 @@ interface AddKeyFormProps {
   setNewKey: (keyValue: IKeyValue) => void;
   handleClose: () => void;
 }
-
 
 const AddKeyForm: React.FC<AddKeyFormProps> = ({
   handleAddNewKey,
@@ -89,6 +89,21 @@ const AddKeyForm: React.FC<AddKeyFormProps> = ({
               setNewKey({ ...newKey, valueString: e.target.value })
             }
           ></textarea>
+          {/* <ControlledEditor
+            value={newKey.valueString}
+            onBeforeChange={(e) =>
+              setNewKey({ ...newKey, valueString: e.target.value })}
+            onChange={(e) =>
+              setNewKey({ ...newKey, valueString: e.target.value })}
+            className="addKeyForm__codeMirror"
+            options={{
+              lineWrapping: true,
+              lint: true,
+              mode: 'javascript',
+              lineNumbers: true,
+              theme: 'ttcn',
+            }}
+          /> */}
         </div>
         <div className="addKeyForm__buttonsContainer">
           <div className="addKeyForm__buttonWrapper">

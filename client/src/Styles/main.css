@@ -389,6 +389,13 @@ pre {
   outline: none;
 }
 
+.addKeyForm__codeMirror {
+  border-radius: 2px;
+  border: 1px solid #999;
+  width: 300px;
+  overflow-y: scroll;
+}
+
 .addKeyForm__buttonsContainer {
   display: -webkit-box;
   display: -ms-flexbox;

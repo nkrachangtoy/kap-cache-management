@@ -1,7 +1,5 @@
 import React from "react";
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 
 interface PaginationProps {
   pageNum: number;
