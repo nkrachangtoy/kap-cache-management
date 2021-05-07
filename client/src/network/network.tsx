@@ -106,12 +106,27 @@ export const postNewKeyValue = async (keyValue: IKeyValue) => {
   }
 };
 
-export const fetchFilters = async (fieldNum: number, query?: string) => {
+export const fetchFilters = async (
+  fieldNum: number,
+  filterSelections?: any
+) => {
+  console.log("FILTER SELECTIONSS", filterSelections);
+  let query;
+  if (filterSelections.filter0) {
+    const values = Object.values(filterSelections);
+    query = values.join("#");
+    console.log("QUERY", query);
+  }
+
   try {
-    const response = await axios.get(
-      //`${BASE_URL}/filter?index=${fieldNum}&field=${query}`
-      `${BASE_URL}/filter?index=${fieldNum}`
-    );
+    let response;
+    if (query) {
+      response = await axios.get(
+        `${BASE_URL}/filter?index=${fieldNum}&field=${query}`
+      );
+    } else {
+      response = await axios.get(`${BASE_URL}/filter?index=${fieldNum}`);
+    }
     console.log("FETCH FILTERS RESPONSE", response.data);
     return response.data;
   } catch (e) {

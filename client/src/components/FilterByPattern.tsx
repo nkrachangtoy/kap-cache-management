@@ -7,17 +7,13 @@ import Select from "@material-ui/core/Select";
 import { fetchFilters } from "../network/network";
 
 const FilterByPattern: React.FC = () => {
-  const [filterSelection, setFilterSelection] = useState<any>({
-    filter0: "",
-    filter1: "",
-    filter2: "",
-  });
+  const [filterSelection, setFilterSelection] = useState<any>({});
   const [selectOpen, setSelectOpen] = useState<boolean>(false);
   const [availablePatterns, setAvailablePatterns] = useState<any>({});
 
-  const handleFetchFilters = async (fieldNum: number, query?: string) => {
+  const handleFetchFilters = async (fieldNum: number) => {
     console.log("reached");
-    const data = await fetchFilters(fieldNum, query);
+    const data = await fetchFilters(fieldNum, filterSelection);
     setAvailablePatterns({ ...availablePatterns, [`field${fieldNum}`]: data });
     setSelectOpen(true);
   };
@@ -29,7 +25,7 @@ const FilterByPattern: React.FC = () => {
   return (
     <div className="filterPatterns">
       <Grid container>
-        <Grid xs={4} item>
+        <Grid xs={6} item>
           <div>
             <FormControl>
               <InputLabel id="field0">Field 0</InputLabel>
@@ -51,8 +47,10 @@ const FilterByPattern: React.FC = () => {
                   setSelectOpen(false);
                 }}
               >
-                {availablePatterns?.field0?.map((pattern: any) => (
-                  <MenuItem value={pattern}>{pattern}</MenuItem>
+                {availablePatterns?.field0?.map((pattern: any, i) => (
+                  <MenuItem value={pattern} key={i}>
+                    {pattern}
+                  </MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -77,15 +75,17 @@ const FilterByPattern: React.FC = () => {
                     setSelectOpen(false);
                   }}
                 >
-                  {availablePatterns?.field1?.map((pattern) => (
-                    <MenuItem value={pattern}>{pattern}</MenuItem>
+                  {availablePatterns?.field1?.map((pattern, i) => (
+                    <MenuItem value={pattern} key={i}>
+                      {pattern}
+                    </MenuItem>
                   ))}
                 </Select>
               </FormControl>
             )}
           </div>
         </Grid>
-        <Grid xs={8} item>
+        <Grid xs={6} item>
           hi!
         </Grid>
       </Grid>
