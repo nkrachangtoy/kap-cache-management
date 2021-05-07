@@ -83,6 +83,35 @@ const FilterByPattern: React.FC = () => {
                 </Select>
               </FormControl>
             )}
+            {filterSelection.filter1 && (
+              <FormControl>
+                <InputLabel id="field2">Field 0</InputLabel>
+                <Select
+                  labelId="field2"
+                  id="field2"
+                  autoWidth={true}
+                  value={filterSelection.filter2}
+                  open={selectOpen}
+                  onOpen={(e) => {
+                    e.preventDefault();
+                    handleFetchFilters(2);
+                  }}
+                  onChange={(e) => {
+                    setFilterSelection({
+                      ...filterSelection,
+                      filter2: e.target.value,
+                    });
+                    setSelectOpen(false);
+                  }}
+                >
+                  {availablePatterns?.field2?.map((pattern, i) => (
+                    <MenuItem value={pattern} key={i}>
+                      {pattern}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            )}
           </div>
         </Grid>
         <Grid xs={6} item>
