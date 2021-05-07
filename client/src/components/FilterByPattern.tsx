@@ -2,16 +2,20 @@ import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import { fetchFilters } from "../network/network";
 
 const FilterByPattern = () => {
   const [filterSelection, setFilterSelection] = useState<any>({});
+  const [selectOpen, setSelectOpen] = useState<boolean>(false);
+  const [availablePatterns, setAvailablePatterns] = useState<Array<string>>([]);
 
-  //   const handleFetchFilters = async() => {
-  //     await
-  //   }
+  const handleFetchFilters = async (fieldNum: number, query?: string) => {
+    const data = await fetchFilters(fieldNum, query);
+    setAvailablePatterns(data);
+    setSelectOpen(true);
+  };
 
   useEffect(() => {
     console.log("FILTER SELECTION >>>", filterSelection);
@@ -23,23 +27,30 @@ const FilterByPattern = () => {
         <Grid xs={4} item>
           <div>
             <FormControl>
-              <InputLabel id="demo-simple-select-label">Field 1</InputLabel>
+              <InputLabel id="field0">Field 0</InputLabel>
               <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
+                labelId="field0"
+                id="field0"
                 autoWidth={true}
-                value={filterSelection.filter1}
+                value={filterSelection.filter0}
                 onChange={(e) =>
                   setFilterSelection({
                     ...filterSelection,
-                    filter1: e.target.value,
+                    filter0: e.target.value,
                   })
                 }
-                onOpen={handleFetchFilters}
+                open={selectOpen}
+                onOpen={(e) => {
+                  e.preventDefault();
+                  handleFetchFilters(0);
+                }}
               >
-                <MenuItem value={10}>Ten</MenuItem>
+                {availablePatterns?.map((pattern) => (
+                  <MenuItem value={pattern}>{pattern}</MenuItem>
+                ))}
+                {/* <MenuItem value={10}>Ten</MenuItem>
                 <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem> */}
               </Select>
             </FormControl>
           </div>
