@@ -109,7 +109,8 @@ export const postNewKeyValue = async (keyValue: IKeyValue) => {
 export const fetchFilters = async (fieldNum: number, query?: string) => {
   try {
     const response = await axios.get(
-      `${BASE_URL}/filter?index=${fieldNum}&field=${query}`
+      //`${BASE_URL}/filter?index=${fieldNum}&field=${query}`
+      `${BASE_URL}/filter?index=${fieldNum}`
     );
     console.log("FETCH FILTERS RESPONSE", response.data);
     return response.data;

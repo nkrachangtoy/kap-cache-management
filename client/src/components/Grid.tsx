@@ -143,7 +143,7 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
 
   useEffect(() => {
     findNumColumns(rowData);
-  }, [rowData, findNumColumns]);
+  }, [rowData]);
 
   useEffect(() => {
     console.log("num of fields: ", numFields);
