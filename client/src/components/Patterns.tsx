@@ -50,8 +50,12 @@ const Patterns: React.FC = () => {
           <Tab label="Filter By Pattern" id="filter-by-pattern" />
         </Tabs>
       </AppBar>
-      {/* View Patterns */}
+      {/* Filter By Pattern  */}
       <TabPanel value={value} index={0}>
+        <FilterByPattern />
+      </TabPanel>
+      {/* View Patterns */}
+      <TabPanel value={value} index={1}>
         <div className="viewPatterns">
           <p>
             This feature will generate the available key patterns within the
@@ -62,10 +66,6 @@ const Patterns: React.FC = () => {
           </p>
           <Button className="viewPatterns__button">Proceed</Button>
         </div>
-      </TabPanel>
-      {/* Filter By Pattern  */}
-      <TabPanel value={value} index={1}>
-        <FilterByPattern />
       </TabPanel>
     </div>
   );

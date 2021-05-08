@@ -125,7 +125,7 @@ export const fetchFilters = async (
         `${BASE_URL}/filter?index=${fieldNum}&field=${query}`
       );
     } else {
-      response = await axios.get(`${BASE_URL}/filter?index=${fieldNum}`);
+      response = await axios.get(`${BASE_URL}/filter`);
     }
     console.log("FETCH FILTERS RESPONSE", response.data);
     return response.data;
