@@ -122,7 +122,7 @@ export const fetchFilters = async (
     let response;
     if (query) {
       response = await axios.get(
-        `${BASE_URL}/filter?index=${fieldNum}&field=${query}`
+        `${BASE_URL}/filter?index=${fieldNum + 1}&field=${query}`
       );
     } else {
       response = await axios.get(`${BASE_URL}/filter`);

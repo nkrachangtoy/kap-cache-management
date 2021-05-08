@@ -10,9 +10,8 @@ import { List, ListItem } from "@material-ui/core";
 
 const FilterByPattern: React.FC = () => {
   const [filterSelection, setFilterSelection] = useState<any>({});
-  const [selectOpen, setSelectOpen] = useState<boolean>(false);
   const [availablePatterns, setAvailablePatterns] = useState<any>({
-    field0: ["placeholder"],
+    field0: ["Select a filter"],
   });
   const [activeFilter, setActiveFilter] = useState<number>(0);
 
@@ -20,7 +19,6 @@ const FilterByPattern: React.FC = () => {
     setActiveFilter(fieldNum);
     const data = await fetchFilters(fieldNum, filterSelection);
     setAvailablePatterns({ ...availablePatterns, [`field${fieldNum}`]: data });
-    setSelectOpen(true);
   };
 
   useEffect(() => {
@@ -40,7 +38,9 @@ const FilterByPattern: React.FC = () => {
                 key={i}
                 onClick={() => handleFetchFilters(i)}
               >
-                {field}
+                {filterSelection?.[`field${i}`]
+                  ? filterSelection?.[`field${i}`]
+                  : field}
               </ListItem>
             ))}
           </List>
@@ -60,12 +60,16 @@ const FilterByPattern: React.FC = () => {
               <ListItem
                 key={i}
                 button
-                onClick={() =>
+                onClick={() => {
                   setFilterSelection({
                     ...filterSelection,
                     [`field${activeFilter}`]: pattern,
-                  })
-                }
+                  });
+                  setAvailablePatterns({
+                    ...availablePatterns,
+                    [`field${activeFilter + 1}`]: [`field${activeFilter + 1}`],
+                  });
+                }}
               >
                 {pattern}
               </ListItem>
