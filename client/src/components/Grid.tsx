@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
+import { ValueCache } from "ag-grid-community";
 
 interface IColumnDef {
   headerName: string;
@@ -10,8 +11,10 @@ interface IColumnDef {
   filter?: boolean;
   headerCheckboxSelection?: boolean;
   checkboxSelection?: boolean;
-  flex: number;
   lockPosition?: boolean;
+  flex: number;
+  cellRenderParams?: object;
+  cellRenderer?: string;
 }
 
 interface IRowData {
@@ -21,12 +24,18 @@ interface IRowData {
   totalPages: number;
 }
 
+interface IKeyValue{
+  keyName: string;
+  valueString: string;
+}
+
 interface GridProps {
   rowData: any;
   handleGetSelectedRows: (row: Array<IRowData>) => void;
+  keyValue: IKeyValue;
 }
 
-const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
+const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows, keyValue }) => {
   const [gridApi, setGridApi] = useState<null | any>(null);
   // const [gridColumnApi, setGridColumnApi] = useState(null);
   const [numFields, setNumFields] = useState<number>(1);
@@ -43,7 +52,7 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
       field: "field0",
       sortable: true,
       filter: true,
-      flex: 2,
+      flex: 1,
     },
   ]);
 
@@ -104,14 +113,16 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
           sortable: true,
           filter: true,
           flex: 2,
-        };
+        }
+        ;
         columns.push(column);
         i++;
       } while (i < numFields);
-
-      console.log("column definitions>>", columns);
       setColumnDefs(columns);
+      console.log("column definitions>>", columns);
     }
+
+    
   };
 
   /**

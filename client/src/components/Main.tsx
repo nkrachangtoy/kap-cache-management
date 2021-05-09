@@ -95,6 +95,7 @@ const Main: React.FC<MainProps> = ({
           <Grid
             rowData={rowData}
             handleGetSelectedRows={handleGetSelectedRows}
+            keyValue={keyValue}
           />
           <Pagination
             pageNum={pageNum}
