@@ -23,7 +23,7 @@ const FilterByPattern: React.FC = () => {
 
   useEffect(() => {
     console.log("FILTER SELECTION >>>", filterSelection);
-    console.log("object keys", Object.keys(availablePatterns));
+    console.log("object keys", availablePatterns);
   }, [filterSelection]);
 
   return (
@@ -49,6 +49,7 @@ const FilterByPattern: React.FC = () => {
             color="primary"
             onClick={() => {
               setFilterSelection({});
+              setAvailablePatterns({ field0: ["Select a filter"] });
             }}
           >
             Reset
@@ -56,8 +57,8 @@ const FilterByPattern: React.FC = () => {
         </Grid>
         <Grid item xs={6}>
           <List>
-            {availablePatterns?.[`field${activeFilter}`] !== [null] ? (
-              availablePatterns?.[`field${activeFilter}`]?.map((pattern, i) => (
+            {availablePatterns?.[`field${activeFilter}`]?.map((pattern, i) =>
+              pattern ? (
                 <ListItem
                   key={i}
                   button
@@ -76,39 +77,11 @@ const FilterByPattern: React.FC = () => {
                 >
                   {pattern}
                 </ListItem>
-              ))
-            ) : (
-              <p>No other fields</p>
+              ) : (
+                <p>No other fields!</p>
+              )
             )}
           </List>
-
-          {/* <FormControl className="filterPatterns__select">
-            <InputLabel id="field0">Field 0</InputLabel>
-            <Select
-              labelId="field0"
-              id="field0"
-              autoWidth={true}
-              value={filterSelection.filter0}
-              open={selectOpen}
-              onOpen={(e) => {
-                e.preventDefault();
-                handleFetchFilters(0);
-              }}
-              onChange={(e) => {
-                setFilterSelection({
-                  ...filterSelection,
-                  filter0: e.target.value,
-                });
-                setSelectOpen(false);
-              }}
-            >
-              {availablePatterns?.field0?.map((pattern: any, i) => (
-                <MenuItem value={pattern} key={i}>
-                  {pattern}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl> */}
         </Grid>
       </Grid>
     </div>
