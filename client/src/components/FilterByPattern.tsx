@@ -1,29 +1,31 @@
 import React, { useState, useEffect } from "react";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import Button from "@material-ui/core/Button";
 import { fetchFilters } from "../network/network";
-import Grid from "@material-ui/core/Grid";
-import { List, ListItem } from "@material-ui/core";
+import {
+  List,
+  ListItem,
+  Grid,
+  Button,
+  CircularProgress,
+} from "@material-ui/core";
 
 const FilterByPattern: React.FC = () => {
   const [filterSelection, setFilterSelection] = useState<any>({});
   const [activeFilter, setActiveFilter] = useState<number>(0);
-  const [showPatterns, setShowPatterns] = useState(false);
+  const [showPatterns, setShowPatterns] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [availablePatterns, setAvailablePatterns] = useState<any>({
     field0: ["Select a filter"],
   });
 
   const handleFetchFilters = async (fieldNum: number) => {
+    setLoading(true);
     setActiveFilter(fieldNum);
     const data = await fetchFilters(fieldNum, filterSelection);
     setAvailablePatterns({
       ...availablePatterns,
       [`field${fieldNum}`]: data,
     });
-
+    setLoading(false);
     setShowPatterns(true);
   };
 
@@ -63,6 +65,7 @@ const FilterByPattern: React.FC = () => {
         </Grid>
         <Grid item xs={6}>
           {/* ===== PATTERNS AVAILABLE TO BE SELECTED ===== */}
+          {loading && <CircularProgress />}
           {showPatterns && (
             <List>
               {availablePatterns?.[`field${activeFilter}`]?.map(
