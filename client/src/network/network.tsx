@@ -41,7 +41,7 @@ export const getKeyValue = async (key: any) => {
     const replaced = key.replace(/[#]/g, "%23");
     console.log("REPLACED", replaced);
     const response = await axios.get(`${BASE_URL}/value?KeyName=${replaced}`);
-    console.log(`value of ${key}...>>>`, response.data.data);
+    // console.log(`value of ${key}...>>>`, response.data.data);
     return response.data.data;
   } catch (e) {
     console.log(`Error: ${e}`);

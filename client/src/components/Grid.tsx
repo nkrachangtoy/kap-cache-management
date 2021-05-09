@@ -24,27 +24,28 @@ interface IRowData {
   totalPages: number;
 }
 
-interface IKeyValue{
-  keyName: string;
-  valueString: string;
-}
-
 interface GridProps {
   rowData: any;
   handleGetSelectedRows: (row: Array<IRowData>) => void;
-  keyValue: IKeyValue;
+  handleGetValue: (key: string) => void;
 }
 
-const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows, keyValue }) => {
+const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows, handleGetValue }) => {
   const [gridApi, setGridApi] = useState<null | any>(null);
   // const [gridColumnApi, setGridColumnApi] = useState(null);
   const [numFields, setNumFields] = useState<number>(1);
   const [destructuredKeys, setDestructuredKeys] = useState<null | any>(null);
+  const [keyValues, setKeyValues] = useState<null | any>(null);
   const [columnDefs, setColumnDefs] = useState<Array<IColumnDef>>([
     {
       headerName: "Select",
       checkboxSelection: true,
       headerCheckboxSelection: true,
+      flex: 1,
+    },
+    {
+      headerName: "Value",
+      lockPosition: true,
       flex: 1,
     },
     {
@@ -103,6 +104,11 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows, keyValue })
         lockPosition: true,
         flex: 1,
       },
+      {
+        headerName: "Value",
+        lockPosition: true,
+        flex: 1,
+      }
     ];
 
     if (numFields > 1) {
@@ -116,13 +122,11 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows, keyValue })
         }
         ;
         columns.push(column);
+        setColumnDefs(columns);
+        console.log("column definitions>>", columns);
         i++;
       } while (i < numFields);
-      setColumnDefs(columns);
-      console.log("column definitions>>", columns);
     }
-
-    
   };
 
   /**
@@ -131,7 +135,7 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows, keyValue })
    * @return Array of key objects
    */
 
-  const destructureKeys = (rowData: any) => {
+  const destructureKeys =  (rowData: any) => {
     let splitKeys: Array<object> = [];
     rowData?.keys?.map((key: any) => {
       const splitArr = key?.keyName?.split("#");
@@ -146,9 +150,23 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows, keyValue })
       //console.log("Split Object >> ", splitObj);
       splitKeys.push(splitObj);
     });
+
     console.log("Split Keys Array >> ", splitKeys);
     setDestructuredKeys(splitKeys);
   };
+
+  const getKeyVal = (rowData: any) => {
+    let keyVals: Array<object> = [];
+    rowData?.keys?.map((key: any) => {
+      const keyValArr = handleGetValue(key?.keyName);
+      let keyValObj: object = {};
+      keyValObj = {...keyValObj, [`value`]: [keyValArr]}
+      keyVals.push(keyValObj);
+    });
+
+    console.log("Key's Value >>", keyVals);
+    setKeyValues(keyVals)
+  }
 
   useEffect(() => {
     findNumColumns(rowData);
@@ -157,6 +175,7 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows, keyValue })
   useEffect(() => {
     console.log("num of fields: ", numFields);
     makeColumns();
+    getKeyVal(rowData);
     destructureKeys(rowData);
   }, [numFields]);
 
