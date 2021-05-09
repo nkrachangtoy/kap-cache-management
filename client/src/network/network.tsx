@@ -110,7 +110,7 @@ export const fetchFilters = async (
   fieldNum: number,
   filterSelections?: any
 ) => {
-  console.log("FILTER SELECTIONSS", filterSelections);
+  console.log("FILTER SELECTIONS", filterSelections);
   let query;
   if (filterSelections.field0) {
     const values = Object.values(filterSelections);
@@ -121,12 +121,10 @@ export const fetchFilters = async (
   try {
     let response;
     if (query) {
-      console.log("hit case 1");
       response = await axios.get(
         `${BASE_URL}/filter?index=${fieldNum}&field=${query}`
       );
     } else {
-      console.log("hit case 2");
       response = await axios.get(`${BASE_URL}/filter`);
     }
     console.log("FETCH FILTERS RESPONSE", response.data);

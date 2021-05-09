@@ -10,15 +10,21 @@ import { List, ListItem } from "@material-ui/core";
 
 const FilterByPattern: React.FC = () => {
   const [filterSelection, setFilterSelection] = useState<any>({});
+  const [activeFilter, setActiveFilter] = useState<number>(0);
+  const [showPatterns, setShowPatterns] = useState(false);
   const [availablePatterns, setAvailablePatterns] = useState<any>({
     field0: ["Select a filter"],
   });
-  const [activeFilter, setActiveFilter] = useState<number>(0);
 
   const handleFetchFilters = async (fieldNum: number) => {
     setActiveFilter(fieldNum);
     const data = await fetchFilters(fieldNum, filterSelection);
-    setAvailablePatterns({ ...availablePatterns, [`field${fieldNum}`]: data });
+    setAvailablePatterns({
+      ...availablePatterns,
+      [`field${fieldNum}`]: data,
+    });
+
+    setShowPatterns(true);
   };
 
   useEffect(() => {
@@ -28,6 +34,7 @@ const FilterByPattern: React.FC = () => {
 
   return (
     <div className="filterPatterns">
+      {/* ===== LIST OF FIELDS AND SELECTED PATTERNS ===== */}
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <List>
@@ -45,8 +52,7 @@ const FilterByPattern: React.FC = () => {
             ))}
           </List>
           <Button
-            variant="contained"
-            color="primary"
+            className="filterPatterns__buttons"
             onClick={() => {
               setFilterSelection({});
               setAvailablePatterns({ field0: ["Select a filter"] });
@@ -56,32 +62,40 @@ const FilterByPattern: React.FC = () => {
           </Button>
         </Grid>
         <Grid item xs={6}>
-          <List>
-            {availablePatterns?.[`field${activeFilter}`]?.map((pattern, i) =>
-              pattern ? (
-                <ListItem
-                  key={i}
-                  button
-                  onClick={() => {
-                    setFilterSelection({
-                      ...filterSelection,
-                      [`field${activeFilter}`]: pattern,
-                    });
-                    setAvailablePatterns({
-                      ...availablePatterns,
-                      [`field${activeFilter + 1}`]: [
-                        `field${activeFilter + 1}`,
-                      ],
-                    });
-                  }}
-                >
-                  {pattern}
-                </ListItem>
-              ) : (
-                <p>No other fields!</p>
-              )
-            )}
-          </List>
+          {/* ===== PATTERNS AVAILABLE TO BE SELECTED ===== */}
+          {showPatterns && (
+            <List>
+              {availablePatterns?.[`field${activeFilter}`]?.map(
+                (pattern: string, i: number) =>
+                  pattern ? (
+                    <ListItem
+                      key={i}
+                      button
+                      onClick={() => {
+                        setFilterSelection({
+                          ...filterSelection,
+                          [`field${activeFilter}`]: pattern,
+                        });
+                        setAvailablePatterns({
+                          ...availablePatterns,
+                          [`field${activeFilter + 1}`]: "loading...",
+                        });
+                        setShowPatterns(false);
+                      }}
+                    >
+                      {pattern}
+                    </ListItem>
+                  ) : (
+                    <div>
+                      <p>No other patterns found.</p>
+                      <Button className="filterPatterns__buttons">
+                        See Value
+                      </Button>
+                    </div>
+                  )
+              )}
+            </List>
+          )}
         </Grid>
       </Grid>
     </div>

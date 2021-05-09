@@ -46,8 +46,8 @@ const Patterns: React.FC = () => {
           className="patternsDrawer__tab"
           indicatorColor="primary"
         >
-          <Tab label="View Patterns" id="view-patterns" />
-          <Tab label="Filter By Pattern" id="filter-by-pattern" />
+          <Tab label="Filter By Pattern" id="view-patterns" />
+          <Tab label="View Patterns" id="filter-by-pattern" />
         </Tabs>
       </AppBar>
       {/* Filter By Pattern  */}
