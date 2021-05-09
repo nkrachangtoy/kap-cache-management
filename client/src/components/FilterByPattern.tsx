@@ -56,24 +56,30 @@ const FilterByPattern: React.FC = () => {
         </Grid>
         <Grid item xs={6}>
           <List>
-            {availablePatterns?.[`field${activeFilter}`]?.map((pattern, i) => (
-              <ListItem
-                key={i}
-                button
-                onClick={() => {
-                  setFilterSelection({
-                    ...filterSelection,
-                    [`field${activeFilter}`]: pattern,
-                  });
-                  setAvailablePatterns({
-                    ...availablePatterns,
-                    [`field${activeFilter + 1}`]: [`field${activeFilter + 1}`],
-                  });
-                }}
-              >
-                {pattern}
-              </ListItem>
-            ))}
+            {availablePatterns?.[`field${activeFilter}`] !== [null] ? (
+              availablePatterns?.[`field${activeFilter}`]?.map((pattern, i) => (
+                <ListItem
+                  key={i}
+                  button
+                  onClick={() => {
+                    setFilterSelection({
+                      ...filterSelection,
+                      [`field${activeFilter}`]: pattern,
+                    });
+                    setAvailablePatterns({
+                      ...availablePatterns,
+                      [`field${activeFilter + 1}`]: [
+                        `field${activeFilter + 1}`,
+                      ],
+                    });
+                  }}
+                >
+                  {pattern}
+                </ListItem>
+              ))
+            ) : (
+              <p>No other fields</p>
+            )}
           </List>
 
           {/* <FormControl className="filterPatterns__select">
