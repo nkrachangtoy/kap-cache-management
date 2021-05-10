@@ -133,3 +133,15 @@ export const fetchFilters = async (
     console.log(`Error: ${e}`);
   }
 };
+
+export const getPatterns = async () => {
+  try {
+    // REPLACE WITH URL AT LATER TIME
+    //const response = await axios.get(`${BASE_URL}/Query?${REPLACE}`);
+    const response = await axios.get(`${BASE_URL}/filter`);
+    console.log(`SAMPLE patterns available>>>`, response.data);
+    return response.data;
+  } catch (e) {
+    console.log(`Error: ${e}`);
+  }
+};
