@@ -49,7 +49,9 @@ namespace KONNECT_REDIS
 
             services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-            //Configure Swagger
+            //=============================================================================
+            // UNCOMMENT THIS BLOCK DURING LOCAL DEV FOR DOCUMENTATION (SWAGGER CONFIG)
+            //=============================================================================
             //services.AddSwaggerGen(options =>
             //{
             //    options.SwaggerDoc("KonnectAPI",
@@ -61,6 +63,9 @@ namespace KONNECT_REDIS
             //        });
             //    options.IncludeXmlComments("KONNECT-REDIS.xml");
             //});
+            //=============================================================================
+            // UNCOMMENT THIS BLOCK DURING LOCAL DEV FOR DOCUMENTATION (SWAGGER CONFIG)
+            //=============================================================================
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,6 +78,9 @@ namespace KONNECT_REDIS
 
             app.UseHttpsRedirection();
 
+            //=============================================================================
+            // UNCOMMENT THIS BLOCK DURING LOCAL DEV FOR DOCUMENTATION (SWAGGER CONFIG)
+            //=============================================================================
             //app.UseSwagger();
 
             //app.UseSwaggerUI(options =>
@@ -80,6 +88,9 @@ namespace KONNECT_REDIS
             //    options.SwaggerEndpoint("/swagger/KonnectAPI/swagger.json", "Konnect - Redis Cache - API");
             //    options.RoutePrefix = "";
             //});
+            //=============================================================================
+            // UNCOMMENT THIS BLOCK DURING LOCAL DEV FOR DOCUMENTATION (SWAGGER CONFIG)
+            //=============================================================================
 
             app.UseRouting();
 
