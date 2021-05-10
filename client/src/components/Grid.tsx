@@ -74,6 +74,7 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
       if (split?.length > numFields) {
         n = split?.length;
       }
+      return split;
     });
     setNumFields(n);
   };
@@ -134,6 +135,7 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
 
       //console.log("Split Object >> ", splitObj);
       splitKeys.push(splitObj);
+      return splitObj;
     });
     console.log("Split Keys Array >> ", splitKeys);
     setDestructuredKeys(splitKeys);
@@ -147,6 +149,7 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
     console.log("num of fields: ", numFields);
     makeColumns();
     destructureKeys(rowData);
+    //eslint-disable-next-line
   }, [numFields]);
 
   return (
