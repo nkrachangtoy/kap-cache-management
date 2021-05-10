@@ -36,8 +36,8 @@ namespace KONNECT_REDIS
             // Configure Redis Connection
             var options = new ConfigurationOptions
             {
-                EndPoints = { "redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com:12388" },
-                Password = "KoreKonnect123!",
+                EndPoints = { $"{Configuration["REDIS_ENDPOINT"]}:12388" },
+                Password = Configuration["REDIS_PASSWORD"],
                 AllowAdmin = true,
                 AbortOnConnectFail = false,
             };

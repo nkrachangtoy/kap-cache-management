@@ -68,16 +68,14 @@ export const deleteKeyBySelection = async (selection: any) => {
   try {
     //POST req to create selection
     let keyNameObjects: Array<object> = [];
-    selection.map((key: string) => {
+    selection.forEach((key: string) => {
       const obj = {
         keyName: key,
       };
       keyNameObjects.push(obj);
     });
-    const postResponse = await axios.post(
-      `${BASE_URL}/selections`,
-      keyNameObjects
-    );
+
+    await axios.post(`${BASE_URL}/selections`, keyNameObjects);
 
     //DELETE req to delete selection from redis
     const delResponse = await axios.delete(`${BASE_URL}/deleteSelections`);
@@ -102,6 +100,46 @@ export const postNewKeyValue = async (keyValue: IKeyValue) => {
     // response.status === 200 &&
     //   alert(`Successfully added new key: ${JSON.stringify(response.data)}`);
     // response.status === 200;
+    return response.data;
+  } catch (e) {
+    console.log(`Error: ${e}`);
+  }
+};
+
+export const fetchFilters = async (
+  fieldNum: number,
+  filterSelections?: any
+) => {
+  console.log("FILTER SELECTIONS", filterSelections);
+  let query;
+  if (filterSelections.field0) {
+    const values = Object.values(filterSelections);
+    query = values.join("#");
+    console.log("QUERY", query);
+  }
+
+  try {
+    let response;
+    if (query) {
+      response = await axios.get(
+        `${BASE_URL}/filter?index=${fieldNum}&field=${query}`
+      );
+    } else {
+      response = await axios.get(`${BASE_URL}/filter`);
+    }
+    console.log("FETCH FILTERS RESPONSE", response.data);
+    return response.data;
+  } catch (e) {
+    console.log(`Error: ${e}`);
+  }
+};
+
+export const getPatterns = async () => {
+  try {
+    // REPLACE WITH URL AT LATER TIME
+    //const response = await axios.get(`${BASE_URL}/Query?${REPLACE}`);
+    const response = await axios.get(`${BASE_URL}/filter`);
+    console.log(`SAMPLE patterns available>>>`, response.data);
     return response.data;
   } catch (e) {
     console.log(`Error: ${e}`);
