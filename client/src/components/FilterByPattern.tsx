@@ -10,12 +10,10 @@ import {
 
 const FilterByPattern: React.FC = () => {
   const [filterSelection, setFilterSelection] = useState<any>({});
-  const [activeFilter, setActiveFilter] = useState<number>(0);
+  const [activeFilter, setActiveFilter] = useState<number>(-1);
   const [showPatterns, setShowPatterns] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [availablePatterns, setAvailablePatterns] = useState<any>({
-    field0: ["Select a filter"],
-  });
+  const [availablePatterns, setAvailablePatterns] = useState<any>(null);
 
   const handleFetchFilters = async (fieldNum: number) => {
     setLoading(true);
@@ -29,6 +27,18 @@ const FilterByPattern: React.FC = () => {
     setShowPatterns(true);
   };
 
+  const handleReset = async () => {
+    setFilterSelection({});
+    setAvailablePatterns(null);
+    setActiveFilter(-1);
+  };
+
+  // useEffect(() => {
+  //   (async () => {
+  //     await handleFetchFilters(0);
+  //   })();
+  // }, []);
+
   useEffect(() => {
     console.log("FILTER SELECTION >>>", filterSelection);
     console.log("object keys", availablePatterns);
@@ -39,32 +49,42 @@ const FilterByPattern: React.FC = () => {
       {/* ===== LIST OF FIELDS AND SELECTED PATTERNS ===== */}
       <Grid container spacing={2}>
         <Grid item xs={6}>
+          <h1>Filter By Pattern</h1>
+          <h4>Selected Patterns:</h4>
           <List>
-            {Object.keys(availablePatterns).map((field, i) => (
-              <ListItem
-                button
-                style={{ backgroundColor: "lightgrey" }}
-                key={i}
-                onClick={() => handleFetchFilters(i)}
-              >
-                {filterSelection?.[`field${i}`]
-                  ? filterSelection?.[`field${i}`]
-                  : field}
+            {availablePatterns ? (
+              Object.keys(availablePatterns).map((field, i) => (
+                <ListItem
+                  button
+                  style={{ backgroundColor: "lightgrey" }}
+                  key={i}
+                  onClick={() => handleFetchFilters(i)}
+                >
+                  {filterSelection?.[`field${i}`] && (
+                    <span className="filterPatterns__selected">
+                      {filterSelection?.[`field${i}`]}
+                    </span>
+                  )}
+                </ListItem>
+              ))
+            ) : (
+              <ListItem style={{ backgroundColor: "lightgrey" }}>
+                <span className="filterPatterns__selectNext">
+                  none selected
+                </span>
               </ListItem>
-            ))}
+            )}
           </List>
-          <Button
-            className="filterPatterns__buttons"
-            onClick={() => {
-              setFilterSelection({});
-              setAvailablePatterns({ field0: ["Select a filter"] });
-            }}
-          >
+          <Button className="filterPatterns__buttons" onClick={handleReset}>
             Reset
+          </Button>
+          <Button onClick={() => handleFetchFilters(activeFilter + 1)}>
+            Select Next Field
           </Button>
         </Grid>
         <Grid item xs={6}>
           {/* ===== PATTERNS AVAILABLE TO BE SELECTED ===== */}
+          <h4>ActiveFilter #: {activeFilter}</h4>
           {loading && <CircularProgress />}
           {showPatterns && (
             <List>

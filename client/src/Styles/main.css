@@ -585,4 +585,13 @@ pre {
 .filterPatterns__buttons:hover, .filterPatterns__buttons:active {
   opacity: 1;
 }
+
+.filterPatterns__selected {
+  font-weight: bold;
+}
+
+.filterPatterns__selectNext {
+  font-weight: lighter;
+  color: grey;
+}
 /*# sourceMappingURL=main.css.map */

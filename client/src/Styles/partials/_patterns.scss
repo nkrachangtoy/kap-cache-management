@@ -33,4 +33,11 @@
     color: white;
     margin: 0 5px;
   }
+  &__selected {
+    font-weight: bold;
+  }
+  &__selectNext {
+    font-weight: lighter;
+    color: grey;
+  }
 }
