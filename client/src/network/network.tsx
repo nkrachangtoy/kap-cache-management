@@ -1,5 +1,6 @@
 import axios from "axios";
-const BASE_URL = "https://localhost:44371/api/keys";
+//const BASE_URL = "https://localhost:44371/api/keys";
+const BASE_URL = "https://konnect-redis.azurewebsites.net/api/keys";
 
 interface IKeyValue {
   keyName: string;

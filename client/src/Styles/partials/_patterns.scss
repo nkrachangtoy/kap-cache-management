@@ -33,6 +33,17 @@
     color: white;
     margin: 0 5px;
   }
+  &__selectedListItem:hover::after {
+    //background-color: green !important;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    font: normal normal normal 14px/1 inherit;
+    font-size: inherit;
+    text-rendering: auto;
+    content: "x";
+    text-decoration: none;
+  }
   &__selected {
     font-weight: bold;
   }

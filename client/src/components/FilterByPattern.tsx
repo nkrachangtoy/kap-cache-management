@@ -16,22 +16,17 @@ const FilterByPattern: React.FC = () => {
   const [availablePatterns, setAvailablePatterns] = useState<any>(null);
 
   const handleFetchFilters = async (fieldNum: number) => {
-    //set conditional, if field has been selected before, overwrite, not add to query
-
-    //if filterSelection.field[`${fieldNum}`] exists, delete that and all following queries before fetching
+    //conditional: if field has been selected before, delete all fields in filterSelection following
+    // required so that it doesn't get sent as a query to Redis
     if (filterSelection[`field${fieldNum}`] !== null) {
       let i = fieldNum;
       while (i <= Object.keys(filterSelection).length + 1) {
-        console.log(
-          "while loop ...> field about to be deleted:",
-          filterSelection[`field${i}`]
-        );
         delete filterSelection[`field${i}`];
         i++;
       }
-      filterSelection[`field${fieldNum}`] = null;
     }
 
+    //fetch filters based on the current ActiveFilter
     setLoading(true);
     setActiveFilter(fieldNum);
     const data = await fetchFilters(fieldNum, filterSelection);
@@ -49,16 +44,10 @@ const FilterByPattern: React.FC = () => {
     setActiveFilter(-1);
   };
 
-  // useEffect(() => {
-  //   (async () => {
-  //     await handleFetchFilters(0);
-  //   })();
-  // }, []);
-
   useEffect(() => {
     console.log("FILTER SELECTION >>>", filterSelection);
-    console.log("object keys", availablePatterns);
-  }, [filterSelection]);
+    console.log("AVAILABLE PATTERNS >>>", availablePatterns);
+  }, [filterSelection, availablePatterns]);
 
   return (
     <div className="filterPatterns">
@@ -72,7 +61,7 @@ const FilterByPattern: React.FC = () => {
               Object.keys(availablePatterns).map((field, i) => (
                 <ListItem
                   button
-                  style={{ backgroundColor: "lightgrey" }}
+                  className="filterPatterns__selectedListItem"
                   key={i}
                   onClick={() => handleFetchFilters(i)}
                 >
@@ -101,6 +90,7 @@ const FilterByPattern: React.FC = () => {
         <Grid item xs={6}>
           {/* ===== PATTERNS AVAILABLE TO BE SELECTED ===== */}
           <h4>ActiveFilter #: {activeFilter}</h4>
+
           {loading && <CircularProgress />}
           {showPatterns && (
             <List>
@@ -114,10 +104,6 @@ const FilterByPattern: React.FC = () => {
                         setFilterSelection({
                           ...filterSelection,
                           [`field${activeFilter}`]: pattern,
-                        });
-                        setAvailablePatterns({
-                          ...availablePatterns,
-                          [`field${activeFilter + 1}`]: null,
                         });
                         setShowPatterns(false);
                       }}
