@@ -49,8 +49,9 @@ namespace KONNECT_REDIS
 
             services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-            // Configure Swagger
-            //services.AddSwaggerGen(options => {
+            //Configure Swagger
+            //services.AddSwaggerGen(options =>
+            //{
             //    options.SwaggerDoc("KonnectAPI",
             //        new Microsoft.OpenApi.Models.OpenApiInfo()
             //        {
@@ -74,7 +75,8 @@ namespace KONNECT_REDIS
 
             //app.UseSwagger();
 
-            //app.UseSwaggerUI(options => {
+            //app.UseSwaggerUI(options =>
+            //{
             //    options.SwaggerEndpoint("/swagger/KonnectAPI/swagger.json", "Konnect - Redis Cache - API");
             //    options.RoutePrefix = "";
             //});
