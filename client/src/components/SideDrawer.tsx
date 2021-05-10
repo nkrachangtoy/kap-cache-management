@@ -20,9 +20,7 @@ interface DrawerProps {
 const SideDrawer: React.FC<DrawerProps> = ({
   selectedRows,
   handleDeleteByQuery,
-  handleAddNewKey,
   keyValue,
-  setKeyValue,
   deleteQuery,
   setDeleteQuery,
   handleDeleteBySelection,

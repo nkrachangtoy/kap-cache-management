@@ -2,12 +2,13 @@ import Grid from "./Grid";
 import Pagination from "./Pagination";
 import SideDrawer from "./SideDrawer";
 
-// Material UI
 
+// Components
 import Drawer from "@material-ui/core/Drawer";
 import Modal from "@material-ui/core/Modal";
 import Toolbar from "./Toolbar";
 import Patterns from "./Patterns";
+
 
 interface IRowData {
   keys: Array<IKey>;
@@ -37,6 +38,7 @@ interface MainProps {
   keyValue: IKeyValue;
   deleteQuery: string;
   modalBody: any;
+  keyValueModal: any;
   openPatterns: boolean;
   setOpenPatterns: (open: boolean) => void;
   setKeyValue: (keyValue: IKeyValue) => void;
@@ -64,6 +66,7 @@ const Main: React.FC<MainProps> = ({
   keyValue,
   deleteQuery,
   modalBody,
+  keyValueModal,
   openPatterns,
   setOpenPatterns,
   setKeyValue,
@@ -123,6 +126,9 @@ const Main: React.FC<MainProps> = ({
       <Modal open={open} onClose={handleClose}>
         {modalBody}
       </Modal>
+      <Modal open={open} onClose={handleClose}>
+        {keyValueModal}
+     </Modal>
     </div>
   );
 };

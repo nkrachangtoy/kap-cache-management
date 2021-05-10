@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
-import { ValueCache } from "ag-grid-community";
 
 interface IColumnDef {
   headerName: string;
@@ -35,7 +34,6 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows, handleGetVa
   // const [gridColumnApi, setGridColumnApi] = useState(null);
   const [numFields, setNumFields] = useState<number>(1);
   const [destructuredKeys, setDestructuredKeys] = useState<null | any>(null);
-  const [keyValues, setKeyValues] = useState<null | any>(null);
   const [columnDefs, setColumnDefs] = useState<Array<IColumnDef>>([
     {
       headerName: "Select",
@@ -43,11 +41,11 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows, handleGetVa
       headerCheckboxSelection: true,
       flex: 1,
     },
-    {
-      headerName: "Value",
-      lockPosition: true,
-      flex: 1,
-    },
+    // {
+    //   headerName: "Value",
+    //   lockPosition: true,
+    //   flex: 1,
+    // },
     {
       headerName: "Key Name",
       field: "field0",
@@ -157,19 +155,6 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows, handleGetVa
     setDestructuredKeys(splitKeys);
   };
 
-  const getKeyVal = (rowData: any) => {
-    let keyVals: Array<object> = [];
-    rowData?.keys?.map((key: any) => {
-      const keyValArr = handleGetValue(key?.keyName);
-      let keyValObj: object = {};
-      keyValObj = {...keyValObj, [`value`]: [keyValArr]}
-      keyVals.push(keyValObj);
-    });
-
-    console.log("Key's Value >>", keyVals);
-    setKeyValues(keyVals)
-  }
-
   useEffect(() => {
     findNumColumns(rowData);
   }, [rowData]);
@@ -177,7 +162,6 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows, handleGetVa
   useEffect(() => {
     console.log("num of fields: ", numFields);
     makeColumns();
-    getKeyVal(rowData);
     destructureKeys(rowData);
     //eslint-disable-next-line
   }, [numFields]);
@@ -195,10 +179,6 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows, handleGetVa
           setGridApi(params.api);
           console.log("PARAMS", params.api);
         }}
-        // onRowClicked={(event) => {
-        //   console.log("a row has been clicked>>", event.data);
-        //   handleGetSelectedRows(event.data);
-        // }}
         onRowSelected={handleSelected}
       />
     </div>
