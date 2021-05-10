@@ -13,3 +13,24 @@
     color: white;
   }
 }
+
+.viewPatterns {
+  @include flex-direction-justify-align(column, center, center);
+  height: 100%;
+  &__button {
+    @include defaultButton;
+    background-color: $primary;
+  }
+}
+
+.filterPatterns {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  &__buttons {
+    @include defaultButton;
+    background-color: $primary;
+    color: white;
+    margin: 0 5px;
+  }
+}

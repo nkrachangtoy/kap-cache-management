@@ -9,17 +9,15 @@
   right: 0;
   overflow-y: scroll;
   &__button {
+    color: white;
+    margin: 0 5px;
     &-delete {
       @include defaultButton;
       background-color: $primary;
-      color: white;
-      margin: 0 5px;
     }
     &-cancel {
       @include defaultButton;
       background-color: $danger;
-      color: white;
-      margin: 0 5px;
     }
   }
   &__buttonBlock {
