@@ -16,6 +16,13 @@ const FilterByPattern: React.FC = () => {
   const [availablePatterns, setAvailablePatterns] = useState<any>(null);
 
   const handleFetchFilters = async (fieldNum: number) => {
+    //set conditional, if field has been selected before, overwrite, not add to query
+
+    //if filterSelection.field[`${fieldNum}`] exists, delete that and all following queries before fetching
+    if (filterSelection[`field${fieldNum}`] !== null) {
+      filterSelection[`field${fieldNum}`] = null;
+    }
+
     setLoading(true);
     setActiveFilter(fieldNum);
     const data = await fetchFilters(fieldNum, filterSelection);
@@ -101,7 +108,7 @@ const FilterByPattern: React.FC = () => {
                         });
                         setAvailablePatterns({
                           ...availablePatterns,
-                          [`field${activeFilter + 1}`]: "loading...",
+                          [`field${activeFilter + 1}`]: null,
                         });
                         setShowPatterns(false);
                       }}
