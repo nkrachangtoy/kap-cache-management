@@ -182,35 +182,74 @@ namespace KONNECT_REDIS.Services
         /// Retrieve list of unique keys
         /// </summary>
         /// <returns>Array of unique keys</returns>
+        //        public ICollection<string> GetUniqueFields()
+        //        {
+        //            List<string> keyListFields = new List<string>();
+        //            string[] keys = { "First#Key#Example", "Second#Key", "2", "a53ae105-f06b-4663-bdcd-a66785bdb753" };
+        //            foreach (var key in keys)
+        //            {
+        //                foreach (var pattern in keyListFields.Distinct().ToList())
+        //                {
+        //                    _ = key.ToString().Split("#");
+        //                    keyListFields.Add(key);
+        //                    string patternField;
+        //                    if (Guid.TryParse(pattern, out _))
+        //                    {
+        //                        patternField = "{GUID}";
+
+        //                    }
+        //                    else if (_regex.IsMatch(pattern))
+        //                    {
+        //                        patternField = "{Int_ID}";
+        //                    }
+        //                    else
+        //                    {
+        //                        patternField = "{String_ID}";
+        //                    }
+        //                    keyListFields.Add(patternField);
+        //                }
+        //                keyListFields.Remove(key);
+        //                string patternType = string.Join("#", keyListFields.ToArray());
+        //                keyListFields.Add(patternType);
+        //            }
+        //            return keyListFields;
+        //        }
+        //    }
+        //}
+
         public ICollection<string> GetUniqueFields()
         {
             List<string> keyListFields = new List<string>();
             string[] keys = { "First#Key#Example", "Second#Key", "2", "a53ae105-f06b-4663-bdcd-a66785bdb753" };
+
             foreach (var key in keys)
             {
-                string patternField = "";
-                foreach (var pattern in keyListFields.Distinct().ToList())
+                var keyField = key.ToString().Split("#");
+                foreach (string keyPattern in keyField)
                 {
-                    _ = key.ToString().Split("#");
-                    keyListFields.Add(key);
-                    if (Guid.TryParse(pattern, out _))
+                    StringBuilder sb = new StringBuilder();
+                    keyListFields.Add(keyPattern);
+                    string patternField = "";
+                    foreach (var pattern in keyListFields.Distinct().ToList())
                     {
-                        patternField = "{GUID}";
-
+                        if (Guid.TryParse(pattern, out _))
+                        {
+                            patternField = "{GUID}";
+                        }
+                        else if (_regex.IsMatch(pattern))
+                        {
+                            patternField = "{Int_ID}";
+                        }
+                        else
+                        {
+                            patternField = "{String_ID}";
+                        }
+                        sb.Append(patternField);
+                        string newPattern = sb.ToString();
+                        keyListFields.Add(newPattern);
+                        keyListFields.Remove(keyPattern);
                     }
-                    else if (_regex.IsMatch(pattern))
-                    {
-                        patternField = "{Int_ID}";
-                    }
-                    else
-                    {
-                        patternField = "{String_ID}";
-                    }
-                    keyListFields.Add(patternField);
                 }
-                keyListFields.Remove(key);
-                string patternType = string.Join("#", keyListFields);
-                keyListFields.Add(patternType);
             }
             return keyListFields;
         }
