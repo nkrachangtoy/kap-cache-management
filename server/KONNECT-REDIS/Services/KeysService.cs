@@ -6,6 +6,7 @@ using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -13,6 +14,7 @@ namespace KONNECT_REDIS.Services
 {
     public class KeysService : IKeysService
     {
+        private const string guid = "{GUID}";
         private readonly IConnectionMultiplexer _multiplexer;
         private readonly IDatabase _db;
         private readonly IServer _server;
@@ -139,7 +141,7 @@ namespace KONNECT_REDIS.Services
         public bool CreateCollectionKeysToDelete(List<KeyDto> keys)
         {
             var keyNames = new List<string>();
-        
+
 
             foreach (var key in keys)
             {
@@ -159,15 +161,15 @@ namespace KONNECT_REDIS.Services
         /// <returns>True or false whether delete was successful</returns>
         public bool DeleteKeysBySelect(string selection)
         {
-           var keyListString =  _db.StringGet(selection);
+            var keyListString = _db.StringGet(selection);
 
-           var keyListArr = keyListString.ToString().Split(",");
+            var keyListArr = keyListString.ToString().Split(",");
 
             var result = false;
 
-            foreach(var value in keyListArr)
+            foreach (var value in keyListArr)
             {
-               result = _db.KeyDelete(value);
+                result = _db.KeyDelete(value);
             }
 
             _db.KeyDelete("keys2delete");
@@ -183,33 +185,32 @@ namespace KONNECT_REDIS.Services
         public ICollection<string> GetUniqueFields()
         {
             List<string> keyListFields = new List<string>();
-            //string[] keys = { "First#Key#Example", "Second#Key", "2", "a53ae105-f06b-4663-bdcd-a66785bdb753" };
-
-            foreach (var key in _keys)
+            string[] keys = { "First#Key#Example", "Second#Key", "2", "a53ae105-f06b-4663-bdcd-a66785bdb753" };
+            foreach (var key in keys)
             {
-                var keyField = key.ToString().Split("#");
-                foreach (string keyPattern in keyField)
+                string patternField = "";
+                foreach (var pattern in keyListFields.Distinct().ToList())
                 {
-                    keyListFields.Add(keyPattern);
-                    string patternField = "";
-                    foreach (var pattern in keyListFields.Distinct().ToList())
+                    _ = key.ToString().Split("#");
+                    keyListFields.Add(key);
+                    if (Guid.TryParse(pattern, out _))
                     {
-                        if (Guid.TryParse(pattern, out _))
-                        {
-                            patternField = "{GUID}";
-                        }
-                        else if (_regex.IsMatch(pattern))
-                        {
-                            patternField = "{Int_ID}";
-                        }
-                        else
-                        {
-                            patternField = "{String_ID}";
-                        }
+                        patternField = "{GUID}";
+
                     }
-                    keyListFields.Add(string.Concat(patternField));
-                    keyListFields.Remove(keyPattern);
+                    else if (_regex.IsMatch(pattern))
+                    {
+                        patternField = "{Int_ID}";
+                    }
+                    else
+                    {
+                        patternField = "{String_ID}";
+                    }
+                    keyListFields.Add(patternField);
                 }
+                keyListFields.Remove(key);
+                string patternType = string.Join("#", keyListFields);
+                keyListFields.Add(patternType);
             }
             return keyListFields;
         }
