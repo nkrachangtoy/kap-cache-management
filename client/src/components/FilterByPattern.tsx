@@ -20,6 +20,15 @@ const FilterByPattern: React.FC = () => {
 
     //if filterSelection.field[`${fieldNum}`] exists, delete that and all following queries before fetching
     if (filterSelection[`field${fieldNum}`] !== null) {
+      let i = fieldNum;
+      while (i <= Object.keys(filterSelection).length + 1) {
+        console.log(
+          "while loop ...> field about to be deleted:",
+          filterSelection[`field${i}`]
+        );
+        delete filterSelection[`field${i}`];
+        i++;
+      }
       filterSelection[`field${fieldNum}`] = null;
     }
 
