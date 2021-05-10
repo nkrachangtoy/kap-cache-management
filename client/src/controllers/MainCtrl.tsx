@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Main from "../components/Main";
 import AddKeyForm from "../components/AddKeyForm";
-import KeyValueModal from "../components/KeyValueModal";
+import BtnCellRenderer from "../components/BtnCellRenderer";
 import {
   deleteKeyBySelection,
   getAllKeys,
@@ -151,16 +151,6 @@ const MainCtrl = () => {
     </div>
   );
 
-  const keyValueModal = (
-    <div className="modal">
-      <KeyValueModal
-        selectedRows={selectedRows}
-        keyValue={keyValue}
-        handleClose={handleClose}
-      />
-    </div>
-  )
-
   useEffect(() => {
     (async () => {
       await handleGetAllKeys();
@@ -177,7 +167,7 @@ const MainCtrl = () => {
       deleteQuery={deleteQuery}
       keyValue={keyValue}
       modalBody={modalBody}
-      keyValueModal={keyValueModal}
+      btnCellRenderer={BtnCellRenderer}
       openPatterns={openPatterns}
       setOpenPatterns={setOpenPatterns}
       setKeyValue={setKeyValue}

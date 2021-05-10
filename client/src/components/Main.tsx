@@ -38,7 +38,7 @@ interface MainProps {
   keyValue: IKeyValue;
   deleteQuery: string;
   modalBody: any;
-  keyValueModal: any;
+  btnCellRenderer: any;
   openPatterns: boolean;
   setOpenPatterns: (open: boolean) => void;
   setKeyValue: (keyValue: IKeyValue) => void;
@@ -66,7 +66,7 @@ const Main: React.FC<MainProps> = ({
   keyValue,
   deleteQuery,
   modalBody,
-  keyValueModal,
+  btnCellRenderer,
   openPatterns,
   setOpenPatterns,
   setKeyValue,
@@ -99,6 +99,7 @@ const Main: React.FC<MainProps> = ({
             rowData={rowData}
             handleGetSelectedRows={handleGetSelectedRows}
             handleGetValue={handleGetValue}
+            btnCellRenderer={btnCellRenderer}
           />
           <Pagination
             pageNum={pageNum}
@@ -126,9 +127,6 @@ const Main: React.FC<MainProps> = ({
       <Modal open={open} onClose={handleClose}>
         {modalBody}
       </Modal>
-      <Modal open={open} onClose={handleClose}>
-        {keyValueModal}
-     </Modal>
     </div>
   );
 };

@@ -4,7 +4,7 @@ import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
 
 interface IColumnDef {
-  headerName: string;
+  headerName?: string;
   field?: string;
   sortable?: boolean;
   filter?: boolean;
@@ -12,8 +12,8 @@ interface IColumnDef {
   checkboxSelection?: boolean;
   lockPosition?: boolean;
   flex: number;
-  cellRenderParams?: object;
-  cellRenderer?: string;
+  cellRendererParams?: object;
+  cellRenderer?: any;
 }
 
 interface IRowData {
@@ -27,9 +27,10 @@ interface GridProps {
   rowData: any;
   handleGetSelectedRows: (row: Array<IRowData>) => void;
   handleGetValue: (key: string) => void;
+  btnCellRenderer: any;
 }
 
-const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows, handleGetValue }) => {
+const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows, handleGetValue, btnCellRenderer }) => {
   const [gridApi, setGridApi] = useState<null | any>(null);
   // const [gridColumnApi, setGridColumnApi] = useState(null);
   const [numFields, setNumFields] = useState<number>(1);
@@ -41,11 +42,16 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows, handleGetVa
       headerCheckboxSelection: true,
       flex: 1,
     },
-    // {
-    //   headerName: "Value",
-    //   lockPosition: true,
-    //   flex: 1,
-    // },
+    {
+      field: 'value',
+      cellRenderer: 'btnCellRenderer',
+      flex: 1,
+      cellRendererParams: {
+        clicked: function (field) {
+          alert(`${field} was clicked!  🖖`);
+        },
+      },
+    },
     {
       headerName: "Key Name",
       field: "field0",
@@ -92,6 +98,8 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows, handleGetVa
    * @return sets ColumnDefs state to Array<IColumnDef>
    */
 
+  const myCellRenderer = params => `<button onClick="alert('Button is clicked')">Click me!</button>`;
+
   const makeColumns = () => {
     let i: number = 0;
     let column: IColumnDef;
@@ -104,10 +112,11 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows, handleGetVa
         flex: 1,
       },
       {
-        headerName: "Value",
-        lockPosition: true,
+        field: 'value',
+        cellRenderer: myCellRenderer,
         flex: 1,
-      }
+        cellRendererParams: {text: 'hello'},
+        }
     ];
 
     if (numFields > 1) {
@@ -118,8 +127,7 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows, handleGetVa
           sortable: true,
           filter: true,
           flex: 2,
-        }
-        ;
+        };
         columns.push(column);
         setColumnDefs(columns);
         console.log("column definitions>>", columns);
