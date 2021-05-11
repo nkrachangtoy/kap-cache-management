@@ -66,13 +66,16 @@ const FilterByPattern: React.FC = () => {
   return (
     <div className="filterPatterns">
       {/* ===== LIST OF FIELDS AND SELECTED PATTERNS ===== */}
-      <Grid container spacing={2}>
-        <Grid item xs={6}>
-          <h1>Filter By Pattern</h1>
+      <div style={{ textAlign: "center" }}>
+        <h2>Filter By Pattern</h2>
+        <p>Select a pattern to continue filtering by field</p>
+      </div>
+      <Grid container spacing={5}>
+        <Grid item xs={4}>
+          <h4>Selected Patterns:</h4>
           <List>
             {filterSelection && (
               <>
-                {filterSelection.field0 && <h4>Selected Patterns:</h4>}
                 {Object.keys(filterSelection).map((field, i) => (
                   //filterSelection?.[`field${i}`] !== null &&
                   <ListItem
@@ -94,19 +97,23 @@ const FilterByPattern: React.FC = () => {
             )}
           </List>
 
-          {filterSelection.field0 ? (
-            <button className="filterPatterns__buttons" onClick={handleReset}>
-              Reset
-            </button>
-          ) : (
-            <>Select a filter to continue</>
+          {filterSelection.field0 && (
+            <div className="filterPatterns__buttonDiv">
+              <button className="filterPatterns__buttons" onClick={handleReset}>
+                Reset
+              </button>
+            </div>
           )}
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={8} className="filterPatterns__grid">
           {/* ===== PATTERNS AVAILABLE TO BE SELECTED ===== */}
-          <h4>ActiveFilter #: {activeFilter}</h4>
-
-          {loading && <CircularProgress />}
+          {/* <h4>ActiveFilter #: {activeFilter}</h4> */}
+          <h4>Available Patterns:</h4>
+          {loading && (
+            <div className="patternsDrawer__loader">
+              <CircularProgress style={{ color: "#0484d3" }} />
+            </div>
+          )}
           {showPatterns && (
             <List>
               {availablePatterns?.[`field${activeFilter}`]?.map(
@@ -122,7 +129,7 @@ const FilterByPattern: React.FC = () => {
                       {pattern}
                     </ListItem>
                   ) : (
-                    <div>
+                    <div className="filterPatterns__buttonDiv">
                       <p>No other patterns found.</p>
                       <button className="filterPatterns__buttons">
                         See Value
