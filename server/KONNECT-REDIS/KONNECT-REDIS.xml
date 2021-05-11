@@ -65,6 +65,12 @@
             <param name="selection">Selected keys</param>
             <returns>True or false whether delete was successful</returns>
         </member>
+        <member name="M:KONNECT_REDIS.Controllers.KeysController.GetUniquePatterns">
+            <summary>
+            Get available pattern types
+            </summary>
+            <returns> All unique pattern types of form String_Id, Int_Id, GUID, or {string contained in string descriptor} </returns>
+        </member>
         <member name="M:KONNECT_REDIS.Services.KeysService.GetAllKeys(System.Nullable{System.Int32},System.Int32)">
             <summary>
             Retrieve All keys
