@@ -12,6 +12,10 @@
     background-color: $primary;
     color: white;
   }
+  &__loader {
+    @include flex-direction-justify-align(column, center, center);
+    margin: 5rem;
+  }
 }
 
 .viewPatterns {
@@ -32,5 +36,31 @@
     background-color: $primary;
     color: white;
     margin: 0 5px;
+  }
+  &__buttonDiv {
+    @include flex-direction-justify-align(column, center, center);
+  }
+  &__selectedListItem {
+    background-color: lightgrey !important;
+    border-radius: 30px !important;
+    margin: 10px 0 !important;
+  }
+  &__selectedListItem::after {
+    //background-color: green !important;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    font: normal normal normal 14px/1 inherit;
+    font-size: inherit;
+    text-rendering: auto;
+    content: "x";
+    text-decoration: none;
+  }
+  &__selected {
+    font-weight: bold;
+  }
+  &__selectNext {
+    font-weight: lighter;
+    color: grey;
   }
 }

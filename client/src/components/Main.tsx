@@ -91,6 +91,7 @@ const Main: React.FC<MainProps> = ({
         toggleDrawer={toggleDrawer}
         handleSearch={handleSearch}
         handleReset={handleReset}
+        numSelected={selectedRows.length}
         setOpenPatterns={setOpenPatterns}
       />
       <div className="mainContainer__contentWrapper">

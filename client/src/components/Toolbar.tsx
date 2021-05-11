@@ -2,6 +2,7 @@ import AddIcon from "@material-ui/icons/Add";
 import Tooltip from "@material-ui/core/Tooltip";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
+import Badge from "@material-ui/core/Badge";
 import Search from "./Search";
 
 interface ToolbarProps {
@@ -10,9 +11,11 @@ interface ToolbarProps {
   handleSearch: (query: string) => void;
   handleReset: () => void;
   setOpenPatterns: (open: boolean) => void;
+  numSelected: number;
 }
 
 const Toolbar: React.FC<ToolbarProps> = ({
+  numSelected,
   handleOpen,
   toggleDrawer,
   handleSearch,
@@ -38,7 +41,16 @@ const Toolbar: React.FC<ToolbarProps> = ({
         </Tooltip>
         <Tooltip title="Delete" placement="top">
           <button className="toolbar__button" onClick={toggleDrawer}>
-            <DeleteOutlineIcon />
+            <Badge
+              badgeContent={numSelected}
+              color="primary"
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+            >
+              <DeleteOutlineIcon />
+            </Badge>
           </button>
         </Tooltip>
         <Tooltip title="Filter" placement="top">

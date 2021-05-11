@@ -524,6 +524,23 @@ pre {
   color: white;
 }
 
+.patternsDrawer__loader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 5rem;
+}
+
 .viewPatterns {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -584,5 +601,51 @@ pre {
 
 .filterPatterns__buttons:hover, .filterPatterns__buttons:active {
   opacity: 1;
+}
+
+.filterPatterns__buttonDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.filterPatterns__selectedListItem {
+  background-color: lightgrey !important;
+  border-radius: 30px !important;
+  margin: 10px 0 !important;
+}
+
+.filterPatterns__selectedListItem::after {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  font: normal normal normal 14px/1 inherit;
+  font-size: inherit;
+  text-rendering: auto;
+  content: "x";
+  text-decoration: none;
+}
+
+.filterPatterns__selected {
+  font-weight: bold;
+}
+
+.filterPatterns__selectNext {
+  font-weight: lighter;
+  color: grey;
 }
 /*# sourceMappingURL=main.css.map */

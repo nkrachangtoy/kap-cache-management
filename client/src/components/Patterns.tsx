@@ -78,7 +78,9 @@ const Patterns: React.FC = () => {
           </Button>
         </div>
         {loading ? (
-          <CircularProgress />
+          <div className="patternsDrawer__loader">
+            <CircularProgress style={{ color: "#0484d3" }} />
+          </div>
         ) : (
           <div>
             {patterns?.map((pattern, i) => (

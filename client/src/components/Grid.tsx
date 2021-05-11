@@ -197,6 +197,7 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows, handleGetVa
           console.log("PARAMS", params.api);
         }}
         onRowSelected={handleSelected}
+        suppressRowClickSelection={true}
       />
     </div>
   );
