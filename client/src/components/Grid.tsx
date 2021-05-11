@@ -23,11 +23,18 @@ interface IRowData {
   totalPages: number;
 }
 
+interface IKeyValue {
+  keyName: string;
+  valueString: string;
+}
+
+
 interface GridProps {
   rowData: any;
   handleGetSelectedRows: (row: Array<IRowData>) => void;
   handleGetValue: (key: string) => void;
   btnCellRenderer: any;
+  keyValue: IKeyValue;
 }
 
 const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows, handleGetValue, btnCellRenderer }) => {
@@ -46,11 +53,6 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows, handleGetVa
       field: 'value',
       cellRenderer: 'btnCellRenderer',
       flex: 1,
-      cellRendererParams: {
-        clicked: function (field) {
-          alert(`${field} was clicked!  🖖`);
-        },
-      },
     },
     {
       headerName: "Key Name",
@@ -98,7 +100,14 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows, handleGetVa
    * @return sets ColumnDefs state to Array<IColumnDef>
    */
 
-  const myCellRenderer = params => `<button onClick="alert('Button is clicked')">Click me!</button>`;
+  const myCellRenderer = params =>
+    `<button
+        onClick="
+          alert("Button is clicked!")
+        "
+      >
+        InfoBtn
+      </button>`;
 
   const makeColumns = () => {
     let i: number = 0;
