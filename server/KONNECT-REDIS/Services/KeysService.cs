@@ -190,7 +190,7 @@ namespace KONNECT_REDIS.Services
             {
                 StringBuilder sb = new StringBuilder();
                 var keyField = key.ToString().Split("#");
-                foreach (string keyPattern in keyField)
+                foreach (string keyPattern in keyField.Distinct())
                 {
                     keyListFields.Add(keyPattern);
                     string patternField = "";
@@ -217,7 +217,10 @@ namespace KONNECT_REDIS.Services
                     sb.Append(patternField += "#");
                 }
                 string newPattern = sb.ToString();
-                keyListFields.Add(newPattern);
+                if (!keyListFields.Contains(newPattern))
+                {
+                    keyListFields.Add(newPattern);
+                }
             }
             return keyListFields;
         }
