@@ -16,6 +16,7 @@ const FilterByPattern: React.FC = () => {
   const [availablePatterns, setAvailablePatterns] = useState<any>(null);
 
   const handleFetchFilters = async (fieldNum: number) => {
+    console.log("fieldNum accepted.......??? >>>", fieldNum);
     //conditional: if field has been selected before, delete all fields in filterSelection following
     // required so that it doesn't get sent as a query to Redis
     if (filterSelection[`field${fieldNum}`] !== null) {
@@ -38,6 +39,15 @@ const FilterByPattern: React.FC = () => {
     setShowPatterns(true);
   };
 
+  const handleFilterSelect = async (pattern: string) => {
+    setFilterSelection({
+      ...filterSelection,
+      [`field${activeFilter}`]: pattern,
+    });
+
+    //setShowPatterns(false);
+  };
+
   const handleReset = async () => {
     setFilterSelection({});
     setAvailablePatterns(null);
@@ -45,9 +55,13 @@ const FilterByPattern: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log("FILTER SELECTION >>>", filterSelection);
+    console.log("FILTER SELECTION useEffect >>>", filterSelection);
     console.log("AVAILABLE PATTERNS >>>", availablePatterns);
   }, [filterSelection, availablePatterns]);
+
+  useEffect(() => {
+    handleFetchFilters(activeFilter + 1);
+  }, [filterSelection]);
 
   return (
     <div className="filterPatterns">
@@ -55,37 +69,38 @@ const FilterByPattern: React.FC = () => {
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <h1>Filter By Pattern</h1>
-          <h4>Selected Patterns:</h4>
           <List>
-            {availablePatterns ? (
-              Object.keys(availablePatterns).map((field, i) => (
-                <ListItem
-                  button
-                  className="filterPatterns__selectedListItem"
-                  key={i}
-                  onClick={() => handleFetchFilters(i)}
-                >
-                  {filterSelection?.[`field${i}`] && (
+            {filterSelection && (
+              <>
+                {filterSelection.field0 && <h4>Selected Patterns:</h4>}
+                {Object.keys(filterSelection).map((field, i) => (
+                  //filterSelection?.[`field${i}`] !== null &&
+                  <ListItem
+                    button
+                    className="filterPatterns__selectedListItem"
+                    key={i}
+                    onClick={() => handleFetchFilters(i)}
+                  >
                     <span className="filterPatterns__selected">
                       {filterSelection?.[`field${i}`]}
                     </span>
-                  )}
-                </ListItem>
-              ))
-            ) : (
-              <ListItem style={{ backgroundColor: "lightgrey" }}>
-                <span className="filterPatterns__selectNext">
-                  none selected
-                </span>
-              </ListItem>
+
+                    {/* <span className="filterPatterns__selectNext">
+                        select a filter &gt; &gt;
+                      </span> */}
+                  </ListItem>
+                ))}
+              </>
             )}
           </List>
-          <Button className="filterPatterns__buttons" onClick={handleReset}>
-            Reset
-          </Button>
-          <Button onClick={() => handleFetchFilters(activeFilter + 1)}>
-            Select Next Field
-          </Button>
+
+          {filterSelection.field0 ? (
+            <button className="filterPatterns__buttons" onClick={handleReset}>
+              Reset
+            </button>
+          ) : (
+            <>Select a filter to continue</>
+          )}
         </Grid>
         <Grid item xs={6}>
           {/* ===== PATTERNS AVAILABLE TO BE SELECTED ===== */}
@@ -101,11 +116,7 @@ const FilterByPattern: React.FC = () => {
                       key={i}
                       button
                       onClick={() => {
-                        setFilterSelection({
-                          ...filterSelection,
-                          [`field${activeFilter}`]: pattern,
-                        });
-                        setShowPatterns(false);
+                        handleFilterSelect(pattern);
                       }}
                     >
                       {pattern}
@@ -113,9 +124,9 @@ const FilterByPattern: React.FC = () => {
                   ) : (
                     <div>
                       <p>No other patterns found.</p>
-                      <Button className="filterPatterns__buttons">
+                      <button className="filterPatterns__buttons">
                         See Value
-                      </Button>
+                      </button>
                     </div>
                   )
               )}

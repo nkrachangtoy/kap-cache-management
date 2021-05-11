@@ -586,7 +586,13 @@ pre {
   opacity: 1;
 }
 
-.filterPatterns__selectedListItem:hover::after {
+.filterPatterns__selectedListItem {
+  background-color: lightgrey !important;
+  border-radius: 30px !important;
+  margin: 10px 0 !important;
+}
+
+.filterPatterns__selectedListItem::after {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;

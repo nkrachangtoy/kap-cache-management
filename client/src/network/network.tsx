@@ -107,12 +107,10 @@ export const postNewKeyValue = async (keyValue: IKeyValue) => {
   }
 };
 
-export const fetchFilters = async (
-  fieldNum: number,
-  filterSelections?: any
-) => {
-  console.log("FILTER SELECTIONS", filterSelections);
+export const fetchFilters = async (fieldNum: number, filterSelections: any) => {
+  console.log("SELECTIONS in network", filterSelections);
   let query;
+  //if previous patterns selected, concantenate with '#'
   if (filterSelections.field0) {
     const values = Object.values(filterSelections);
     query = values.join("#");

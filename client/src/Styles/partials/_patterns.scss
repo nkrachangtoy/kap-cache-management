@@ -33,7 +33,12 @@
     color: white;
     margin: 0 5px;
   }
-  &__selectedListItem:hover::after {
+  &__selectedListItem {
+    background-color: lightgrey !important;
+    border-radius: 30px !important;
+    margin: 10px 0 !important;
+  }
+  &__selectedListItem::after {
     //background-color: green !important;
     width: 100%;
     display: flex;
@@ -50,5 +55,7 @@
   &__selectNext {
     font-weight: lighter;
     color: grey;
+  }
+  &__noneSelected {
   }
 }
