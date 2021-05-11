@@ -181,7 +181,7 @@ namespace KONNECT_REDIS.Services
         public ICollection<string> GetUnique1stFields()
         {
             List<string> keyList1stField = new List<string>();
-
+                 
             foreach (var key in _keys)
             {
                 var key1stField = key.ToString().Split("#")[0];
@@ -189,7 +189,7 @@ namespace KONNECT_REDIS.Services
                 keyList1stField.Add(key1stField);
             }
 
-            List<string> keyList1stFieldDistinct = keyList1stField.Distinct().ToList();
+            List<string> keyList1stFieldDistinct = keyList1stField.Distinct().OrderBy(k => k).ToList();
 
             return keyList1stFieldDistinct;
         }
@@ -210,6 +210,7 @@ namespace KONNECT_REDIS.Services
                 if (index <= (count - 1))
                 {
                     var keyNextField = key.ToString().Split("#")[index];
+
                     keyListNextField.Add(keyNextField);
                 }
                 else
@@ -218,7 +219,7 @@ namespace KONNECT_REDIS.Services
                 }
             }
 
-            return keyListNextField.Distinct().ToList();
+            return keyListNextField.Distinct().OrderBy(k => k).ToList();
         }
     }
 }
