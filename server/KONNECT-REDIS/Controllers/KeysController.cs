@@ -290,6 +290,10 @@ namespace KONNECT_REDIS.Controllers
             }
         }
 
+        /// <summary>
+        /// Get available pattern types
+        /// </summary>
+        /// <returns> All unique pattern types of form String_Id, Int_Id, GUID, or {string contained in string descriptor} </returns>
         [HttpGet("availablePatterns")]
         [ProducesResponseType(200, Type = typeof(List<string>))]
         [ProducesResponseType(404)]

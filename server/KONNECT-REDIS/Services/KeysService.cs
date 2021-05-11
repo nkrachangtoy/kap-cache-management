@@ -172,7 +172,7 @@ namespace KONNECT_REDIS.Services
                 result = _db.KeyDelete(value);
             }
 
-            _db.KeyDelete("keys2delete");
+            _ = _db.KeyDelete("keys2delete");
 
             return result;
         }
@@ -224,13 +224,13 @@ namespace KONNECT_REDIS.Services
 
             foreach (var key in keys)
             {
+                StringBuilder sb = new StringBuilder();
                 var keyField = key.ToString().Split("#");
                 foreach (string keyPattern in keyField)
                 {
-                    StringBuilder sb = new StringBuilder();
                     keyListFields.Add(keyPattern);
                     string patternField = "";
-                    foreach (var pattern in keyListFields.Distinct().ToList())
+                    foreach (var pattern in keyListFields.Distinct().ToArray())
                     {
                         if (Guid.TryParse(pattern, out _))
                         {
@@ -244,12 +244,12 @@ namespace KONNECT_REDIS.Services
                         {
                             patternField = "{String_ID}";
                         }
-                        sb.Append(patternField);
-                        string newPattern = sb.ToString();
-                        keyListFields.Add(newPattern);
-                        keyListFields.Remove(keyPattern);
+                        _ = keyListFields.Remove(keyPattern);
                     }
+                    sb.Append(patternField);
                 }
+                string newPattern = sb.ToString();
+                keyListFields.Add(newPattern);
             }
             return keyListFields;
         }
