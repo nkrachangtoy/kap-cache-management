@@ -74,7 +74,7 @@ const MainCtrl = () => {
       const joinedKey = Object.values(key).join("#");
       keys.push(joinedKey);
     });
-    console.log("concantenated keys array>>", keys);
+    //console.log("concantenated keys array>>", keys);
     setSelectedRows(keys);
 
     if (row?.length === 1) {

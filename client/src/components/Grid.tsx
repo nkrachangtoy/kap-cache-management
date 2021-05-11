@@ -143,6 +143,7 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
 
   useEffect(() => {
     findNumColumns(rowData);
+    // eslint-disable-next-line
   }, [rowData]);
 
   useEffect(() => {

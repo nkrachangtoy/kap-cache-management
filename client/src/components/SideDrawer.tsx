@@ -64,7 +64,7 @@ const SideDrawer: React.FC<DrawerProps> = ({
         {confirmDelete && (
           <div>
             <p className="sideDrawer__warning">
-              This action cannot be undone. Please confirm this delete.
+              This action cannot be undone. <br /> Please confirm this delete.
             </p>
             <div className="sideDrawer__buttonBlock">
               <button
@@ -85,9 +85,6 @@ const SideDrawer: React.FC<DrawerProps> = ({
             </div>
           </div>
         )}
-        {/* {selectedRows[0] && (
-          <button onClick={handleDeleteBySelection}>Delete</button>
-        )} */}
       </div>
     );
   } else if (selectedRows?.length > 1) {
@@ -122,7 +119,8 @@ const SideDrawer: React.FC<DrawerProps> = ({
         {confirmDelete && (
           <div>
             <p className="sideDrawer__warning">
-              This action cannot be undone. Please confirm this batch delete.
+              This action cannot be undone. <br /> Please confirm this batch
+              delete.
             </p>
             <div className="sideDrawer__buttonBlock">
               <button
@@ -150,8 +148,6 @@ const SideDrawer: React.FC<DrawerProps> = ({
     // allow delete by query & post new key
     return (
       <div className="sideDrawer">
-        <h3>Konnect Redis Cache</h3>
-        <hr />
         <DeleteByQueryForm
           handleDeleteByQuery={handleDeleteByQuery}
           deleteQuery={deleteQuery}
