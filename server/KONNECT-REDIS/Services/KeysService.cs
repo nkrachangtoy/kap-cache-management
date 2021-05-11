@@ -183,8 +183,6 @@ namespace KONNECT_REDIS.Services
             string[] stringDescriptors = { "IsFeatureActive", "KonnectOrganization", "KonnectOrganizationData", "KoreSetting", "tableauconfig", "UserCommentsOrganization", 
                 "ad_emit_events#", "autoschedule", "dealassetstatus", "deliverymodule", "enabletags", "enforceassetavailability", "eventsmodule", "extendedseason", 
                 "UnallocatedRevenueProperty" };
-            /* string[] keys = { "First#Key#Example", "Second#Key", "2", "a53ae105-f06b-4663-bdcd-a66785bdb753", "IsFeatureActive#enforceassetavailability#3", 
-                "IsFeatureActive#enabletags#2" }; */
 
             foreach (var key in _keys)
             {
