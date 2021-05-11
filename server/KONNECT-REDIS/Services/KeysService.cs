@@ -177,50 +177,14 @@ namespace KONNECT_REDIS.Services
             return result;
         }
 
-
-        /// <summary>
-        /// Retrieve list of unique keys
-        /// </summary>
-        /// <returns>Array of unique keys</returns>
-        //        public ICollection<string> GetUniqueFields()
-        //        {
-        //            List<string> keyListFields = new List<string>();
-        //            string[] keys = { "First#Key#Example", "Second#Key", "2", "a53ae105-f06b-4663-bdcd-a66785bdb753" };
-        //            foreach (var key in keys)
-        //            {
-        //                foreach (var pattern in keyListFields.Distinct().ToList())
-        //                {
-        //                    _ = key.ToString().Split("#");
-        //                    keyListFields.Add(key);
-        //                    string patternField;
-        //                    if (Guid.TryParse(pattern, out _))
-        //                    {
-        //                        patternField = "{GUID}";
-
-        //                    }
-        //                    else if (_regex.IsMatch(pattern))
-        //                    {
-        //                        patternField = "{Int_ID}";
-        //                    }
-        //                    else
-        //                    {
-        //                        patternField = "{String_ID}";
-        //                    }
-        //                    keyListFields.Add(patternField);
-        //                }
-        //                keyListFields.Remove(key);
-        //                string patternType = string.Join("#", keyListFields.ToArray());
-        //                keyListFields.Add(patternType);
-        //            }
-        //            return keyListFields;
-        //        }
-        //    }
-        //}
-
         public ICollection<string> GetUniqueFields()
         {
             List<string> keyListFields = new List<string>();
-            string[] keys = { "First#Key#Example", "Second#Key", "2", "a53ae105-f06b-4663-bdcd-a66785bdb753" };
+            string[] stringDescriptors = { "IsFeatureActive", "KonnectOrganization", "KonnectOrganizationData", "KoreSetting", "tableauconfig", "UserCommentsOrganization", 
+                "ad_emit_events#", "autoschedule", "dealassetstatus", "deliverymodule", "enabletags", "enforceassetavailability", "eventsmodule", "extendedseason", 
+                "UnallocatedRevenueProperty" };
+            string[] keys = { "First#Key#Example", "Second#Key", "2", "a53ae105-f06b-4663-bdcd-a66785bdb753", "IsFeatureActive#enforceassetavailability#3", 
+                "IsFeatureActive#enabletags#2" };
 
             foreach (var key in keys)
             {
@@ -232,7 +196,11 @@ namespace KONNECT_REDIS.Services
                     string patternField = "";
                     foreach (var pattern in keyListFields.Distinct().ToArray())
                     {
-                        if (Guid.TryParse(pattern, out _))
+                        if (stringDescriptors.Contains(pattern))
+                        {
+                            patternField = pattern;
+                        }
+                        else if (Guid.TryParse(pattern, out _))
                         {
                             patternField = "{GUID}";
                         }
@@ -246,7 +214,7 @@ namespace KONNECT_REDIS.Services
                         }
                         _ = keyListFields.Remove(keyPattern);
                     }
-                    sb.Append(patternField);
+                    sb.Append(patternField += "#");
                 }
                 string newPattern = sb.ToString();
                 keyListFields.Add(newPattern);

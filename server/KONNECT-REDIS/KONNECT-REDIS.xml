@@ -132,11 +132,5 @@
             <param name="selection">Selected keys</param>
             <returns>True or false whether delete was successful</returns>
         </member>
-        <member name="M:KONNECT_REDIS.Services.KeysService.GetUniqueFields">
-            <summary>
-            Retrieve list of unique keys
-            </summary>
-            <returns>Array of unique keys</returns>
-        </member>
     </members>
 </doc>
