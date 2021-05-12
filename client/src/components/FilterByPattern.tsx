@@ -45,11 +45,6 @@ const FilterByPattern: React.FC = () => {
     setActiveFilter(-1);
   };
 
-  // useEffect(() => {
-  //   console.log("FILTER SELECTION useEffect >>>", filterSelection);
-  //   console.log("AVAILABLE PATTERNS >>>", availablePatterns);
-  // }, [filterSelection, availablePatterns]);
-
   useEffect(() => {
     handleFetchFilters(activeFilter + 1);
     // eslint-disable-next-line
