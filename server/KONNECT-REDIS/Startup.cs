@@ -88,7 +88,7 @@ namespace KONNECT_REDIS
             //    options.SwaggerEndpoint("/swagger/KonnectAPI/swagger.json", "Konnect - Redis Cache - API");
             //    options.RoutePrefix = "";
             //});
-            //=============================================================================
+            ////=============================================================================
             // UNCOMMENT THIS BLOCK DURING LOCAL DEV FOR DOCUMENTATION (SWAGGER CONFIG)
             //=============================================================================
 
