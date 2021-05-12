@@ -1,18 +1,13 @@
-import React, { useEffect, useState } from "react";
 import Grid from "./Grid";
-
 import Pagination from "./Pagination";
-import {
-  deleteKeyBySelection,
-  getAllKeys,
-  getKeyValue,
-  postNewKeyValue,
-  searchKeys,
-} from "../network/network";
-import Search from "./Search";
-import { getPage } from "../network/network";
 import SideDrawer from "./SideDrawer";
-import { deleteKeyByQuery } from "./../network/network";
+
+// Material UI
+
+import Drawer from "@material-ui/core/Drawer";
+import Modal from "@material-ui/core/Modal";
+import Toolbar from "./Toolbar";
+import Patterns from "./Patterns";
 
 interface IRowData {
   keys: Array<IKey>;
@@ -29,117 +24,105 @@ interface IKey {
 }
 
 interface IKeyValue {
-  //Need to refactor this to reduce redundacy above
   keyName: string;
-  subset: string;
-  orgId: string;
   valueString: string;
 }
 
-const Main = () => {
-  const [rowData, setRowData] = useState<IRowData | object>({});
-  const [pageNum, setPageNum] = useState<number>(1);
-  const [selectedRows, setSelectedRows] = useState<Array<IRowData>>([]);
-  const [deleteQuery, setDeleteQuery] = useState<string>("");
-  const [keyValue, setKeyValue] = useState<IKeyValue>({
-    keyName: "",
-    subset: "",
-    orgId: "",
-    valueString: "",
-  });
+interface MainProps {
+  open: boolean;
+  rowData: IRowData | object;
+  pageNum: number;
+  openDrawer: boolean;
+  selectedRows: Array<string>;
+  keyValue: IKeyValue;
+  deleteQuery: string;
+  modalBody: any;
+  openPatterns: boolean;
+  setOpenPatterns: (open: boolean) => void;
+  setKeyValue: (keyValue: IKeyValue) => void;
+  setDeleteQuery: (query: string) => void;
+  handlePageNext: () => void;
+  handlePageBack: () => void;
+  handleSearch: (query: string) => void;
+  handleGetSelectedRows: (row: Array<object>) => void;
+  handleGetValue: (key: string) => void;
+  handleDeleteByQuery: () => void;
+  handleDeleteBySelection: () => void;
+  handleAddNewKey: () => void;
+  handleReset: () => void;
+  handleOpen: () => void;
+  handleClose: () => void;
+  toggleDrawer: () => void;
+}
 
-  const handlePageNext = async () => {
-    const data = await getPage(pageNum + 1);
-    setPageNum(pageNum + 1);
-    setRowData(data);
-  };
-
-  const handlePageBack = async () => {
-    if (pageNum !== 1) {
-      setPageNum(pageNum - 1);
-      const data = await getPage(pageNum - 1);
-      setRowData(data);
-    }
-  };
-
-  const handleSearch = async (query: string) => {
-    const data = await searchKeys(query);
-    setRowData(data);
-  };
-
-  const handleGetSelectedRows = async (row: any) => {
-    if (row.length === 1) {
-      const data = await getKeyValue(row);
-      row[0].value = data;
-    }
-    setSelectedRows(row);
-  };
-
-  const handleDeleteByQuery = async () => {
-    const data = await deleteKeyByQuery(deleteQuery);
-    await handleGetAllKeys();
-    console.log(`delete query: ${deleteQuery}, result:`, data);
-  };
-
-  const handleDeleteBySelection = async () => {
-    console.log("selected Rows for deletion", selectedRows);
-    await deleteKeyBySelection(selectedRows);
-    await handleGetAllKeys(); //this is slow, set up a spinner???
-  };
-
-  const handleAddNewKey = async () => {
-    const data = await postNewKeyValue(keyValue);
-    data &&
-      setKeyValue({
-        keyName: "",
-        subset: "",
-        orgId: "",
-        valueString: "",
-      });
-    await handleGetAllKeys();
-  };
-
-  const handleGetAllKeys = async () => {
-    const result = await getAllKeys();
-    setRowData(result);
-    console.log("ROW DATA", result);
-  };
-
-  const handleReset = async () => {
-    await handleGetAllKeys();
-    setSelectedRows([]);
-  };
-
-  useEffect(() => {
-    (async () => {
-      await handleGetAllKeys();
-    })();
-  }, []);
-
+const Main: React.FC<MainProps> = ({
+  open,
+  rowData,
+  pageNum,
+  openDrawer,
+  selectedRows,
+  keyValue,
+  deleteQuery,
+  modalBody,
+  openPatterns,
+  setOpenPatterns,
+  setKeyValue,
+  setDeleteQuery,
+  handlePageNext,
+  handlePageBack,
+  handleSearch,
+  handleGetSelectedRows,
+  handleGetValue,
+  handleDeleteByQuery,
+  handleDeleteBySelection,
+  handleAddNewKey,
+  handleReset,
+  handleOpen,
+  handleClose,
+  toggleDrawer,
+}) => {
   return (
-    <div className="main">
-      <div className="main__toolbar">
-        <Pagination
-          pageNum={pageNum}
-          handlePageNext={handlePageNext}
-          handlePageBack={handlePageBack}
-          rowData={rowData}
-        />
-        <Search handleSearch={handleSearch} handleReset={handleReset} />
+    <div className="mainContainer">
+      <Toolbar
+        handleOpen={handleOpen}
+        toggleDrawer={toggleDrawer}
+        handleSearch={handleSearch}
+        handleReset={handleReset}
+        numSelected={selectedRows.length}
+        setOpenPatterns={setOpenPatterns}
+      />
+      <div className="mainContainer__contentWrapper">
+        <div className="mainContainer__gridWrapper">
+          <Grid
+            rowData={rowData}
+            handleGetSelectedRows={handleGetSelectedRows}
+          />
+          <Pagination
+            pageNum={pageNum}
+            handlePageNext={handlePageNext}
+            handlePageBack={handlePageBack}
+            rowData={rowData}
+          />
+        </div>
+        <Drawer open={openDrawer} onClose={toggleDrawer}>
+          <SideDrawer
+            selectedRows={selectedRows}
+            handleDeleteByQuery={handleDeleteByQuery}
+            handleAddNewKey={handleAddNewKey}
+            keyValue={keyValue}
+            setKeyValue={setKeyValue}
+            deleteQuery={deleteQuery}
+            setDeleteQuery={setDeleteQuery}
+            handleDeleteBySelection={handleDeleteBySelection}
+          />
+        </Drawer>
+        <Drawer open={openPatterns} onClose={() => setOpenPatterns(false)}>
+          <Patterns />
+        </Drawer>
       </div>
-      <div className="main__redisData">
-        <Grid rowData={rowData} handleGetSelectedRows={handleGetSelectedRows} />
-        <SideDrawer
-          selectedRows={selectedRows}
-          handleDeleteByQuery={handleDeleteByQuery}
-          handleAddNewKey={handleAddNewKey}
-          keyValue={keyValue}
-          setKeyValue={setKeyValue}
-          deleteQuery={deleteQuery}
-          setDeleteQuery={setDeleteQuery}
-          handleDeleteBySelection={handleDeleteBySelection}
-        />
-      </div>
+      <Modal open={open} onClose={handleClose}>
+        {modalBody}
+      </Modal>
     </div>
   );
 };

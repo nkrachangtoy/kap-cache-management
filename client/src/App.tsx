@@ -1,13 +1,13 @@
-import React from 'react';
-import './App.css';
-import SideNav from './components/SideNav';
-import Main from './components/Main';
+import React from "react";
+import "./Styles/main.css";
+import SideNav from "./components/SideNav";
+import MainCtrl from "./controllers/MainCtrl";
 
 function App() {
   return (
-    <div className='App'>
+    <div className="App">
       <SideNav />
-      <Main />
+      <MainCtrl />
     </div>
   );
 }

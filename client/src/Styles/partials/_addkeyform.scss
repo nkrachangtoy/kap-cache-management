@@ -1,0 +1,76 @@
+.addKeyForm {
+  margin: 1rem 0;
+  &__form {
+    @include flex-direction-justify-align(column, center, flex-end);
+    margin-top: 1rem;
+  }
+  &__title {
+    @include header(1.5rem);
+  }
+  &__inputContainer {
+    display: flex;
+    margin-bottom: 1rem;
+  }
+  &__formLabel {
+    @include subheader(1rem);
+    margin-right: 1rem;
+  }
+  &__inputForm {
+    @include input;
+    padding-left: 0.5rem;
+  }
+  &__textArea {
+    width: 300px;
+    height: 120px;
+    border-radius: 2px;
+    resize: none;
+    overflow-y: scroll;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    white-space: pre-wrap;
+    line-height: 1.5em;
+    word-wrap: break-word;
+    &:focus-visible {
+      outline: none;
+    }
+  }
+  &__codeMirror {
+    border-radius: 2px;
+    border: 1px solid $bordercolor;
+    width: 300px;
+    overflow-y: scroll;
+  }
+  &__buttonsContainer {
+    display: flex;
+    margin-bottom: 1rem;
+  }
+  &__buttonWrapper {
+    position: relative;
+  }
+  &__spinner {
+    position: absolute;
+    z-index: 99;
+    top: 5px;
+    left: 60%;
+  }
+  &__checkIcon {
+    color: white;
+    position: absolute;
+    z-index: 99;
+    top: 4px;
+    left: 62%;
+  }
+  &__button {
+    @include defaultButton;
+    &:hover {
+      box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.2);
+    }
+    &--submit {
+      background-color: $primary;
+      margin-right: 1.5rem;
+    }
+    &--cancel {
+      background-color: #323232;
+    }
+  }
+}

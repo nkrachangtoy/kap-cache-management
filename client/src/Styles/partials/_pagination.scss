@@ -1,0 +1,36 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-top: 16px;
+  &__fields {
+    display: flex;
+    align-items: center;
+  }
+  &__button {
+    @include clearButton;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // width: 24px;
+    // height: 24px;
+    padding: 0;
+    color: $primary;
+    &:active {
+      color: rgb(40, 40, 204);
+    }
+  }
+  &__text {
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+    &--page-num {
+      margin: 0 4px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+  }
+  &__results {
+    margin-right: 8px;
+  }
+}

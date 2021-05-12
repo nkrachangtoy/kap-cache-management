@@ -1,0 +1,19 @@
+.App {
+  display: flex;
+}
+.mainContainer {
+  width: 100%;
+  padding: 20px;
+  // &__grid {
+  //   margin: 2%;
+  // }
+  &__contentWrapper {
+    display: flex;
+    height: calc(100% - 44px - 10px);
+  }
+  &__gridWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+}

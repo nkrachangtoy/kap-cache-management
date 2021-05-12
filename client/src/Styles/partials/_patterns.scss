@@ -1,0 +1,66 @@
+.patternsDrawer {
+  width: 60%;
+  height: 100%;
+  padding: 10px;
+  border: 1px solid grey;
+  position: fixed;
+  background-color: white;
+  box-shadow: -5px 0px 5px 1px rgba(0, 0, 0, 0.23);
+  right: 0;
+  overflow-y: scroll;
+  &__tab {
+    background-color: $primary;
+    color: white;
+  }
+  &__loader {
+    @include flex-direction-justify-align(column, center, center);
+    margin: 5rem;
+  }
+}
+
+.viewPatterns {
+  @include flex-direction-justify-align(column, center, center);
+  height: 100%;
+  &__button {
+    @include defaultButton;
+    background-color: $primary;
+  }
+}
+
+.filterPatterns {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  &__buttons {
+    @include defaultButton;
+    background-color: $primary;
+    color: white;
+    margin: 0 5px;
+  }
+  &__buttonDiv {
+    @include flex-direction-justify-align(column, center, center);
+  }
+  &__selectedListItem {
+    background-color: lightgrey !important;
+    border-radius: 30px !important;
+    margin: 10px 0 !important;
+  }
+  &__selectedListItem::after {
+    //background-color: green !important;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    font: normal normal normal 14px/1 inherit;
+    font-size: inherit;
+    text-rendering: auto;
+    content: "x";
+    text-decoration: none;
+  }
+  &__selected {
+    font-weight: bold;
+  }
+  &__selectNext {
+    font-weight: lighter;
+    color: grey;
+  }
+}

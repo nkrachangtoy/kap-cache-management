@@ -1,16 +1,13 @@
-import React from "react";
-import AddKeyForm from "./AddKeyForm";
+import React, { useState } from "react";
 import DeleteByQueryForm from "./DeleteByQueryForm";
 
 interface IKeyValue {
   keyName: string;
-  subset: string;
-  orgId: string;
   valueString: string;
 }
 
 interface DrawerProps {
-  selectedRows: any;
+  selectedRows: Array<string>;
   handleDeleteByQuery: () => void;
   handleAddNewKey: () => void;
   keyValue: IKeyValue;
@@ -30,6 +27,8 @@ const SideDrawer: React.FC<DrawerProps> = ({
   setDeleteQuery,
   handleDeleteBySelection,
 }) => {
+  const [confirmDelete, showConfirmDelete] = useState<boolean>(false);
+
   // ===== IF A SINGLE ROW IS SELECTED ===== //
   //         display the key's value
   if (selectedRows?.length === 1) {
@@ -39,34 +38,56 @@ const SideDrawer: React.FC<DrawerProps> = ({
         <hr />
         <p>
           <strong>Key Name: </strong>
-          {selectedRows[0]?.keyName}
-        </p>
-
-        {selectedRows[0]?.subset && (
-          <p>
-            <strong>Subset: </strong>
-            {selectedRows[0]?.subset}
-          </p>
-        )}
-        <p>
-          <strong>Org Id: </strong>
-          {selectedRows[0]?.orgId}
+          {selectedRows[0]}
         </p>
         <div>
           <strong>Value:</strong>
           <div className="sideDrawer_valueCodeBlock">
             <pre>
-              <code>
-                {selectedRows[0].value.data
-                  ? selectedRows[0].value.data
-                  : selectedRows[0].value}
-              </code>
+              <code>{keyValue.valueString}</code>
             </pre>
           </div>
         </div>
-        {selectedRows[0] && (
-          <button onClick={handleDeleteBySelection}>Delete</button>
+        {!confirmDelete && (
+          <div className="sideDrawer__buttonBlock">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                showConfirmDelete(!confirmDelete);
+              }}
+              className="sideDrawer__button-delete"
+            >
+              Delete
+            </button>
+          </div>
         )}
+        {confirmDelete && (
+          <div>
+            <p className="sideDrawer__warning">
+              This action cannot be undone. Please confirm this delete.
+            </p>
+            <div className="sideDrawer__buttonBlock">
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  showConfirmDelete(!confirmDelete);
+                }}
+                className="sideDrawer__button-cancel"
+              >
+                Cancel
+              </button>
+              <button
+                className="sideDrawer__button-delete"
+                onClick={handleDeleteBySelection}
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        )}
+        {/* {selectedRows[0] && (
+          <button onClick={handleDeleteBySelection}>Delete</button>
+        )} */}
       </div>
     );
   } else if (selectedRows?.length > 1) {
@@ -78,17 +99,50 @@ const SideDrawer: React.FC<DrawerProps> = ({
           <h3>Bulk Select:</h3> {selectedRows.length} items selected
         </div>
         <hr />
-        <div>
-          {selectedRows.map((node: any, i: number) => (
-            <p key={i}>
-              {`${node.keyName}` +
-                `${node.subset && `#${node.subset}`}` +
-                `#${node.orgId}`}
-            </p>
+        <div className="sideDrawer__listItems">
+          {selectedRows.map((key: any, i: number) => (
+            <p key={i}>{key}</p>
           ))}
         </div>
         <br />
-        <button onClick={handleDeleteBySelection}>Delete all</button>
+        {!confirmDelete && (
+          <div className="sideDrawer__buttonBlock">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                showConfirmDelete(!confirmDelete);
+              }}
+              className="sideDrawer__button-delete"
+            >
+              Delete all
+            </button>
+          </div>
+        )}
+
+        {confirmDelete && (
+          <div>
+            <p className="sideDrawer__warning">
+              This action cannot be undone. Please confirm this batch delete.
+            </p>
+            <div className="sideDrawer__buttonBlock">
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  showConfirmDelete(!confirmDelete);
+                }}
+                className="sideDrawer__button-cancel"
+              >
+                Cancel
+              </button>
+              <button
+                className="sideDrawer__button-delete"
+                onClick={handleDeleteBySelection}
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     );
   } else {
@@ -102,11 +156,6 @@ const SideDrawer: React.FC<DrawerProps> = ({
           handleDeleteByQuery={handleDeleteByQuery}
           deleteQuery={deleteQuery}
           setDeleteQuery={setDeleteQuery}
-        />
-        <AddKeyForm
-          handleAddNewKey={handleAddNewKey}
-          keyValue={keyValue}
-          setKeyValue={setKeyValue}
         />
       </div>
     );

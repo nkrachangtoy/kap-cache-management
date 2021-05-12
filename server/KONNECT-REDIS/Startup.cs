@@ -36,8 +36,8 @@ namespace KONNECT_REDIS
             // Configure Redis Connection
             var options = new ConfigurationOptions
             {
-                EndPoints = { "redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com:12388" },
-                Password = "KoreKonnect123!",
+                EndPoints = { $"{Configuration["REDIS_ENDPOINT"]}:12388" },
+                Password = Configuration["REDIS_PASSWORD"],
                 AllowAdmin = true,
                 AbortOnConnectFail = false,
             };
@@ -49,17 +49,23 @@ namespace KONNECT_REDIS
 
             services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-            // Configure Swagger
-            services.AddSwaggerGen(options => {
-                options.SwaggerDoc("KonnectAPI",
-                    new Microsoft.OpenApi.Models.OpenApiInfo()
-                    {
-                        Title = "Konnect - Redis Cache - API",
-                        Version = "1",
-                        Description = "API Documentation by Konnect Dev Team"
-                    });
-                options.IncludeXmlComments("KONNECT-REDIS.xml");
-            });
+            //=============================================================================
+            // UNCOMMENT THIS BLOCK DURING LOCAL DEV FOR DOCUMENTATION (SWAGGER CONFIG)
+            //=============================================================================
+            //services.AddSwaggerGen(options =>
+            //{
+            //    options.SwaggerDoc("KonnectAPI",
+            //        new Microsoft.OpenApi.Models.OpenApiInfo()
+            //        {
+            //            Title = "Konnect - Redis Cache - API",
+            //            Version = "1",
+            //            Description = "API Documentation by Konnect Dev Team"
+            //        });
+            //    options.IncludeXmlComments("KONNECT-REDIS.xml");
+            //});
+            //=============================================================================
+            // UNCOMMENT THIS BLOCK DURING LOCAL DEV FOR DOCUMENTATION (SWAGGER CONFIG)
+            //=============================================================================
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,12 +78,19 @@ namespace KONNECT_REDIS
 
             app.UseHttpsRedirection();
 
-            app.UseSwagger();
+            //=============================================================================
+            // UNCOMMENT THIS BLOCK DURING LOCAL DEV FOR DOCUMENTATION (SWAGGER CONFIG)
+            //=============================================================================
+            //app.UseSwagger();
 
-            app.UseSwaggerUI(options => {
-                options.SwaggerEndpoint("/swagger/KonnectAPI/swagger.json", "Konnect - Redis Cache - API");
-                options.RoutePrefix = "";
-            });
+            //app.UseSwaggerUI(options =>
+            //{
+            //    options.SwaggerEndpoint("/swagger/KonnectAPI/swagger.json", "Konnect - Redis Cache - API");
+            //    options.RoutePrefix = "";
+            //});
+            //=============================================================================
+            // UNCOMMENT THIS BLOCK DURING LOCAL DEV FOR DOCUMENTATION (SWAGGER CONFIG)
+            //=============================================================================
 
             app.UseRouting();
 

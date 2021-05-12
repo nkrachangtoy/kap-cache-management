@@ -2,6 +2,7 @@
 using KONNECT_REDIS.Models.Dtos;
 using KONNECT_REDIS.Services.IServices;
 using KONNECT_REDIS.utils;
+using Microsoft.Extensions.Configuration;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
@@ -19,13 +20,15 @@ namespace KONNECT_REDIS.Services
         private readonly IDatabase _db;
         private readonly IServer _server;
         private readonly IEnumerable<RedisKey> _keys;
+        public IConfiguration Configuration { get; }
         private readonly Regex _regex;
 
-        public KeysService(IConnectionMultiplexer multiplexer)
+        public KeysService(IConnectionMultiplexer multiplexer, IConfiguration configuration)
         {
             _multiplexer = multiplexer;
+            Configuration = configuration;
             _db = _multiplexer.GetDatabase();
-            _server = _multiplexer.GetServer("redis-12388.c261.us-east-1-4.ec2.cloud.redislabs.com", 12388);
+            _server = _multiplexer.GetServer(Configuration["REDIS_ENDPOINT"], 12388);
             _keys = _server.Keys(0, pattern: "*", pageSize: 100000);
             _regex = new Regex(@"^[0-9]+$");
         }
@@ -89,7 +92,7 @@ namespace KONNECT_REDIS.Services
         /// <returns>Number of deleted keys and pattern they followed, or throws an error</returns>
         public long BatchDeleteKeysByQuery(string pattern)
         {
-            var keys = _keys.ToArray();
+            var keys = _server.Keys(0, pattern: pattern, pageSize: 100000).ToArray();
             return _db.KeyDelete(keys);
         }
 
@@ -127,7 +130,6 @@ namespace KONNECT_REDIS.Services
             return _db.StringSet(key.KeyName, key.Value.Data);
         }
 
-
         // =======================================================
         // Delete By Select
         // =======================================================
@@ -141,6 +143,7 @@ namespace KONNECT_REDIS.Services
         public bool CreateCollectionKeysToDelete(List<KeyDto> keys)
         {
             var keyNames = new List<string>();
+        
 
 
             foreach (var key in keys)
@@ -148,12 +151,10 @@ namespace KONNECT_REDIS.Services
                 keyNames.Add(key.KeyName);
             }
 
-
             var keyString = string.Join(",", keyNames);
 
             return _db.StringSet("keys2delete", keyString);
         }
-
         /// <summary>
         /// Delete a multiple keys by select
         /// </summary>
@@ -175,6 +176,57 @@ namespace KONNECT_REDIS.Services
             _ = _db.KeyDelete("keys2delete");
 
             return result;
+        }
+
+        // ==============================
+        // Pattern Dropdowns
+        // ==============================
+        /// <summary>
+        /// Retrieve list of unique keys
+        /// </summary>
+        /// <returns>Array of unique keys</returns>
+        public ICollection<string> GetUnique1stFields()
+        {
+            List<string> keyList1stField = new List<string>();
+                 
+            foreach (var key in _keys)
+            {
+                var key1stField = key.ToString().Split("#")[0];
+
+                keyList1stField.Add(key1stField);
+            }
+
+            List<string> keyList1stFieldDistinct = keyList1stField.Distinct().OrderBy(k => k).ToList();
+
+            return keyList1stFieldDistinct;
+        }
+        /// <summary>
+        /// Retrieve list of unique keys (next field)
+        /// </summary>
+        /// <returns>Array of unique keys</returns>
+        public ICollection<string> GetUniqueNextFields(string field, int index)
+        {
+            List<string> keyListNextField = new List<string>();
+
+            var keys = _server.Keys(0, pattern: $"{field}*", pageSize: 100000);
+
+            foreach (var key in keys)
+            {
+                var count = key.ToString().Split("#").ToArray().Length;
+
+                if (index <= (count - 1))
+                {
+                    var keyNextField = key.ToString().Split("#")[index];
+
+                    keyListNextField.Add(keyNextField);
+                }
+                else
+                {
+                    keyListNextField.Add(null);
+                }
+            }
+
+            return keyListNextField.Distinct().OrderBy(k => k).ToList();
         }
 
         public ICollection<string> GetUniqueFields()

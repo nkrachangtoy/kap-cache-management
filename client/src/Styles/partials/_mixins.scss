@@ -1,0 +1,51 @@
+@mixin defaultButton {
+  width: 7rem;
+  color: $secondary;
+  border: none;
+  border-radius: 2px;
+  padding: 5px 0;
+  opacity: 0.85;
+  @include subheader(0.85rem);
+  &:hover,
+  &:active {
+    opacity: 1;
+  }
+}
+
+@mixin clearButton {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin header($font-size) {
+  font-size: $font-size;
+  font-weight: 600;
+}
+
+@mixin subheader($font-size) {
+  font-size: $font-size;
+  font-weight: 400;
+}
+
+@mixin input {
+  border: 1.5px solid $bordercolor;
+  border-radius: 2px;
+  width: 300px;
+  padding: 4px;
+  outline: none;
+}
+
+@mixin flex-direction-justify-align(
+  $flex-direction,
+  $justify-content,
+  $align-items
+) {
+  display: flex;
+  flex-direction: $flex-direction;
+  justify-content: $justify-content;
+  align-items: $align-items;
+}
