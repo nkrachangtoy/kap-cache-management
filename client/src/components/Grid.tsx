@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
+import BtnCellRenderer from "./BtnCellRenderer";
 
 interface IColumnDef {
   headerName?: string;
@@ -12,8 +13,9 @@ interface IColumnDef {
   checkboxSelection?: boolean;
   lockPosition?: boolean;
   flex: number;
-  cellRendererParams?: object;
+  cellRendererParams?: any;
   cellRenderer?: any;
+  cellRendererFramework?: any;
 }
 
 interface IRowData {
@@ -33,11 +35,13 @@ interface GridProps {
   rowData: any;
   handleGetSelectedRows: (row: Array<IRowData>) => void;
   handleGetValue: (key: string) => void;
-  btnCellRenderer: any;
+  btnCellRenderer: () => void;
   keyValue: IKeyValue;
+  open: boolean;
+  onClose: () => void;
 }
 
-const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows, handleGetValue, btnCellRenderer }) => {
+const Grid: React.FC<GridProps> = ({ rowData, keyValue, handleGetSelectedRows, handleGetValue, btnCellRenderer }) => {
   const [gridApi, setGridApi] = useState<null | any>(null);
   // const [gridColumnApi, setGridColumnApi] = useState(null);
   const [numFields, setNumFields] = useState<number>(1);
@@ -100,15 +104,6 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows, handleGetVa
    * @return sets ColumnDefs state to Array<IColumnDef>
    */
 
-  const myCellRenderer = params =>
-    `<button
-        onClick="
-          alert("Button is clicked!")
-        "
-      >
-        InfoBtn
-      </button>`;
-
   const makeColumns = () => {
     let i: number = 0;
     let column: IColumnDef;
@@ -122,10 +117,10 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows, handleGetVa
       },
       {
         field: 'value',
-        cellRenderer: myCellRenderer,
+        cellRendererFramework: btnCellRenderer,
+        cellRendererParams: {value: keyValue.valueString},
         flex: 1,
-        cellRendererParams: {text: 'hello'},
-        }
+      }
     ];
 
     if (numFields > 1) {

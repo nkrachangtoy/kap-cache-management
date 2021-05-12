@@ -101,6 +101,8 @@ const Main: React.FC<MainProps> = ({
             handleGetSelectedRows={handleGetSelectedRows}
             handleGetValue={handleGetValue}
             btnCellRenderer={btnCellRenderer}
+            open={open}
+            onClose={handleClose}
             keyValue={keyValue}
           />
           <Pagination
