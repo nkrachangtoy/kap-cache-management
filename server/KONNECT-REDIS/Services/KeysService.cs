@@ -229,6 +229,10 @@ namespace KONNECT_REDIS.Services
             return keyListNextField.Distinct().OrderBy(k => k).ToList();
         }
 
+        /// <summary>
+        /// Gets list of unique available patterns 
+        /// </summary>
+        /// <returns>Unique pattern types</returns>
         public ICollection<string> GetUniqueFields()
         {
             List<string> keyListFields = new List<string>();
