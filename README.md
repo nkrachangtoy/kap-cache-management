@@ -99,9 +99,16 @@ To get a local copy up and running follow these steps.
 * [StackExchange.Redis V2.2.4]("https://stackexchange.github.io/StackExchange.Redis/Basics.html")
 * [Swashbuckle.AspNetCore V6.1.3]("https://github.com/domaindrivendev/Swashbuckle.AspNetCore")
 ### Installation (Client Side)
-SAB TODO
+1. Within the client folder of the repo, run `npm install` to install packages 
+2. To start the app locally, run `npm start`
 ##### Pacakges used (Client Side)
-SAB TODO
+* [AgGrid](https://www.ag-grid.com/)
+* [Material-UI Core](https://material-ui.com/)
+* [Material-UI Icons](https://material-ui.com/components/material-icons/)
+* [Axios](https://www.npmjs.com/package/axios)
+* [CodeMirror](https://codemirror.net/)
+* [Toastr](https://codeseven.github.io/toastr/demo.html)
+* React with Typescript
 <!-- CONTACT -->
 ## Contributors
 [Nusorn Krachangtoy]("https://github.com/nkrachangtoy")
