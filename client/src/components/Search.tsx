@@ -21,7 +21,6 @@ const Search: React.FC<SearchProps> = ({ handleSearch, handleReset }) => {
         onSubmit={(e) => {
           e.preventDefault();
           handleSearch(query);
-          setQuery("");
         }}
       >
         <button className="search__button" type="submit">

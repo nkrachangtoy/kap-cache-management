@@ -641,8 +641,10 @@ pre {
   text-decoration: none;
 }
 
-.filterPatterns__selected {
+.filterPatterns__selectedText {
+  width: 100%;
   font-weight: bold;
+  word-wrap: break-word !important;
 }
 
 .filterPatterns__selectNext {

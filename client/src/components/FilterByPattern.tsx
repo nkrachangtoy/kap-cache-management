@@ -10,7 +10,6 @@ const FilterByPattern: React.FC = () => {
   const [availablePatterns, setAvailablePatterns] = useState<any>(null);
 
   const handleFetchFilters = async (fieldNum: number) => {
-    console.log("fieldNum accepted.......??? >>>", fieldNum);
     //conditional: if field has been selected before, delete all fields in filterSelection following
     // required so that it doesn't get sent as a query to Redis
     if (filterSelection[`field${fieldNum}`] !== null) {
@@ -76,7 +75,7 @@ const FilterByPattern: React.FC = () => {
                     key={i}
                     onClick={() => handleFetchFilters(i)}
                   >
-                    <span className="filterPatterns__selected">
+                    <span className="filterPatterns__selectedText">
                       {filterSelection?.[`field${i}`]}
                     </span>
                   </ListItem>
