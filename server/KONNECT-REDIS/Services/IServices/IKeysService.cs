@@ -1,6 +1,7 @@
 ﻿using KONNECT_REDIS.Models;
 using KONNECT_REDIS.Models.Dtos;
 using KONNECT_REDIS.utils;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,10 @@ namespace KONNECT_REDIS.Services.IServices
         // ==============================
         ICollection<string> GetUnique1stFields();
         ICollection<string> GetUniqueNextFields(string field, int index);
+        
+        // ==============================
+        // Get Patterns
+        // ==============================
+        ICollection<string> GetUniqueFields();
     }
 }
-    
