@@ -7,17 +7,21 @@ using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace KONNECT_REDIS.Services
 {
     public class KeysService : IKeysService
     {
+        private const string guid = "{GUID}";
         private readonly IConnectionMultiplexer _multiplexer;
         private readonly IDatabase _db;
         private readonly IServer _server;
         private readonly IEnumerable<RedisKey> _keys;
         public IConfiguration Configuration { get; }
+        private readonly Regex _regex;
 
         public KeysService(IConnectionMultiplexer multiplexer, IConfiguration configuration)
         {
@@ -26,6 +30,7 @@ namespace KONNECT_REDIS.Services
             _db = _multiplexer.GetDatabase();
             _server = _multiplexer.GetServer(Configuration["REDIS_ENDPOINT"], 12388);
             _keys = _server.Keys(0, pattern: "*", pageSize: 100000);
+            _regex = new Regex(@"^[0-9]+$");
         }
 
         /// <summary>
@@ -139,6 +144,8 @@ namespace KONNECT_REDIS.Services
         {
             var keyNames = new List<string>();
         
+
+
             foreach (var key in keys)
             {
                 keyNames.Add(key.KeyName);
@@ -155,18 +162,18 @@ namespace KONNECT_REDIS.Services
         /// <returns>True or false whether delete was successful</returns>
         public bool DeleteKeysBySelect(string selection)
         {
-           var keyListString =  _db.StringGet(selection);
+            var keyListString = _db.StringGet(selection);
 
-           var keyListArr = keyListString.ToString().Split(",");
+            var keyListArr = keyListString.ToString().Split(",");
 
             var result = false;
 
-            foreach(var value in keyListArr)
+            foreach (var value in keyListArr)
             {
-               result = _db.KeyDelete(value);
+                result = _db.KeyDelete(value);
             }
 
-            _db.KeyDelete("keys2delete");
+            _ = _db.KeyDelete("keys2delete");
 
             return result;
         }
@@ -220,6 +227,52 @@ namespace KONNECT_REDIS.Services
             }
 
             return keyListNextField.Distinct().OrderBy(k => k).ToList();
+        }
+
+        public ICollection<string> GetUniqueFields()
+        {
+            List<string> keyListFields = new List<string>();
+            string[] stringDescriptors = { "IsFeatureActive", "KonnectOrganization", "KonnectOrganizationData", "KoreSetting", "tableauconfig", "UserCommentsOrganization", 
+                "ad_emit_events#", "autoschedule", "dealassetstatus", "deliverymodule", "enabletags", "enforceassetavailability", "eventsmodule", "extendedseason", 
+                "UnallocatedRevenueProperty" };
+
+            foreach (var key in _keys)
+            {
+                StringBuilder sb = new StringBuilder();
+                var keyField = key.ToString().Split("#");
+                foreach (string keyPattern in keyField.Distinct())
+                {
+                    keyListFields.Add(keyPattern);
+                    string patternField = "";
+                    foreach (var pattern in keyListFields.Distinct().ToArray())
+                    {
+                        if (stringDescriptors.Contains(pattern))
+                        {
+                            patternField = pattern;
+                        }
+                        else if (Guid.TryParse(pattern, out _))
+                        {
+                            patternField = "{GUID}";
+                        }
+                        else if (_regex.IsMatch(pattern))
+                        {
+                            patternField = "{Int_ID}";
+                        }
+                        else
+                        {
+                            patternField = "{String_ID}";
+                        }
+                        _ = keyListFields.Remove(keyPattern);
+                    }
+                    sb.Append(patternField += "#");
+                }
+                string newPattern = sb.ToString();
+                if (!keyListFields.Contains(newPattern))
+                {
+                    keyListFields.Add(newPattern);
+                }
+            }
+            return keyListFields;
         }
     }
 }
