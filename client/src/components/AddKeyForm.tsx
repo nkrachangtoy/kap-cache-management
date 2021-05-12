@@ -55,7 +55,6 @@ const AddKeyForm: React.FC<AddKeyFormProps> = ({
         className="addKeyForm__form"
         onSubmit={(e) => {
           e.preventDefault();
-          console.log("New KeyValue Pair >>", newKey);
         }}
       >
         <div className="addKeyForm__inputContainer">
