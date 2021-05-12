@@ -97,29 +97,32 @@ const FilterByPattern: React.FC = () => {
             </div>
           )}
           {showPatterns && (
-            <List>
-              {availablePatterns?.[`field${activeFilter}`]?.map(
-                (pattern: string, i: number) =>
-                  pattern ? (
-                    <ListItem
-                      key={i}
-                      button
-                      onClick={() => {
-                        handleFilterSelect(pattern);
-                      }}
-                    >
-                      {pattern}
-                    </ListItem>
-                  ) : (
-                    <div className="filterPatterns__buttonDiv">
-                      <p>No other patterns found.</p>
-                      <button className="filterPatterns__buttons">
-                        See Value
-                      </button>
-                    </div>
-                  )
-              )}
-            </List>
+            <div style={{ maxHeight: "600px", overflow: "auto" }}>
+              <List>
+                {availablePatterns?.[`field${activeFilter}`]
+                  ?.slice(0, 50)
+                  .map((pattern: string, i: number) =>
+                    pattern ? (
+                      <ListItem
+                        key={i}
+                        button
+                        onClick={() => {
+                          handleFilterSelect(pattern);
+                        }}
+                      >
+                        {pattern}
+                      </ListItem>
+                    ) : (
+                      <div className="filterPatterns__buttonDiv">
+                        <p>No other patterns found.</p>
+                        {/* <button className="filterPatterns__buttons">
+                          See Value
+                        </button> */}
+                      </div>
+                    )
+                  )}
+              </List>
+            </div>
           )}
         </Grid>
       </Grid>
