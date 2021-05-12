@@ -28,7 +28,6 @@ interface GridProps {
 
 const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
   const [gridApi, setGridApi] = useState<null | any>(null);
-  // const [gridColumnApi, setGridColumnApi] = useState(null);
   const [numFields, setNumFields] = useState<number>(1);
   const [destructuredKeys, setDestructuredKeys] = useState<null | any>(null);
   const [columnDefs, setColumnDefs] = useState<Array<IColumnDef>>([
@@ -53,10 +52,7 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
    */
 
   const handleSelected = () => {
-    //const selectedNodes = gridApi.getSelectedNodes();
-    //const selectedData = selectedNodes.map((node: any) => node.data);
     const selectedData = gridApi.getSelectedRows();
-    console.log("selectedRows >>", selectedData);
     handleGetSelectedRows(selectedData);
   };
 
@@ -70,7 +66,6 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
     let n: number = 1;
     rowData?.keys?.map((key: any) => {
       const split = key?.keyName?.split("#");
-      //console.log("split>>", split);
       if (split?.length > numFields) {
         n = split?.length;
       }
@@ -110,7 +105,6 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
         i++;
       } while (i < numFields);
 
-      console.log("column definitions>>", columns);
       setColumnDefs(columns);
     }
   };
@@ -133,11 +127,9 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
         i++;
       } while (i < splitArr?.length);
 
-      //console.log("Split Object >> ", splitObj);
       splitKeys.push(splitObj);
       return splitObj;
     });
-    console.log("Split Keys Array >> ", splitKeys);
     setDestructuredKeys(splitKeys);
   };
 
@@ -147,7 +139,6 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
   }, [rowData]);
 
   useEffect(() => {
-    console.log("num of fields: ", numFields);
     makeColumns();
     destructureKeys(rowData);
     //eslint-disable-next-line
@@ -158,11 +149,9 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
       <AgGridReact
         columnDefs={columnDefs}
         rowData={destructuredKeys ? destructuredKeys : rowData.keys}
-        //rowData={rowData.keys}
         rowSelection="multiple"
         onGridReady={(params) => {
           setGridApi(params.api);
-          console.log("PARAMS", params.api);
         }}
         onRowSelected={handleSelected}
       />
