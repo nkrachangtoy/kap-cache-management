@@ -233,7 +233,7 @@ namespace KONNECT_REDIS.Services
         {
             List<string> keyListFields = new List<string>();
             string[] stringDescriptors = { "IsFeatureActive", "KonnectOrganization", "KonnectOrganizationData", "KoreSetting", "tableauconfig", "UserCommentsOrganization", 
-                "ad_emit_events#", "autoschedule", "dealassetstatus", "deliverymodule", "enabletags", "enforceassetavailability", "eventsmodule", "extendedseason", 
+                "ad_emit_events", "autoschedule", "dealassetstatus", "deliverymodule", "enabletags", "enforceassetavailability", "eventsmodule", "extendedseason", 
                 "UnallocatedRevenueProperty" };
 
             foreach (var key in _keys)
