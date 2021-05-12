@@ -90,7 +90,7 @@ const MainCtrl = () => {
   };
 
   const handleDeleteByQuery = async () => {
-    const data = await deleteKeyByQuery(deleteQuery);
+    await deleteKeyByQuery(deleteQuery);
     await handleGetAllKeys();
     setOpenDrawer(false);
   };

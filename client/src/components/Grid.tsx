@@ -105,7 +105,6 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
         i++;
       } while (i < numFields);
 
-      console.log("column definitions>>", columns);
       setColumnDefs(columns);
     }
   };
@@ -131,7 +130,6 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
       splitKeys.push(splitObj);
       return splitObj;
     });
-    console.log("Split Keys Array >> ", splitKeys);
     setDestructuredKeys(splitKeys);
   };
 
@@ -141,7 +139,6 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
   }, [rowData]);
 
   useEffect(() => {
-    console.log("num of fields: ", numFields);
     makeColumns();
     destructureKeys(rowData);
     //eslint-disable-next-line
@@ -155,7 +152,6 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
         rowSelection="multiple"
         onGridReady={(params) => {
           setGridApi(params.api);
-          console.log("PARAMS", params.api);
         }}
         onRowSelected={handleSelected}
       />

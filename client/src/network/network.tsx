@@ -120,8 +120,8 @@ export const fetchFilters = async (fieldNum: number, filterSelections: any) => {
 
 export const getPatterns = async () => {
   try {
-    const response = await axios.get(`${BASE_URL}/filter`);
-    return response.data;
+    const response = await axios.get(`${BASE_URL}/availablePatterns`);
+    return response.data.patterns;
   } catch (e) {
     toastr["error"](`Error: ${e}`);
   }
