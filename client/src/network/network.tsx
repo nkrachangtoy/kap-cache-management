@@ -58,13 +58,9 @@ export const deleteKeyByQuery = async (query: string) => {
     response.data.success &&
       toastr["success"](`Deleted ${response.data.success} results >>>
     ${response.data.message}`);
-    // alert(
-    //   `Deleted ${response.data.success} results >>>
-    // ${response.data.message}`
-    // );
     return response.data;
   } catch (e) {
-    alert(`Error: ${e}`);
+    toastr["error"](`Error: ${e}`);
   }
 };
 
@@ -83,10 +79,9 @@ export const deleteKeyBySelection = async (selection: any) => {
 
     //DELETE req to delete selection from redis
     const delResponse = await axios.delete(`${BASE_URL}/deleteSelections`);
-    delResponse.data.success && alert(delResponse.data.message);
-    console.log("Delete by Selection Response:", delResponse.data);
+    delResponse.data.success && toastr["success"](delResponse.data.message);
   } catch (e) {
-    alert(`Error: ${e}`);
+    toastr["error"](`Error: ${e}`);
   }
 };
 
