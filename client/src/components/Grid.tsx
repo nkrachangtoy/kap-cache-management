@@ -39,9 +39,10 @@ interface GridProps {
   keyValue: IKeyValue;
   open: boolean;
   onClose: () => void;
+  handleOpenKeyValueModal: () => void;
 }
 
-const Grid: React.FC<GridProps> = ({ rowData, keyValue, handleGetSelectedRows, handleGetValue, btnCellRenderer }) => {
+const Grid: React.FC<GridProps> = ({ rowData, keyValue, handleGetSelectedRows, handleGetValue, btnCellRenderer, handleOpenKeyValueModal }) => {
   const [gridApi, setGridApi] = useState<null | any>(null);
   // const [gridColumnApi, setGridColumnApi] = useState(null);
   const [numFields, setNumFields] = useState<number>(1);
@@ -118,7 +119,7 @@ const Grid: React.FC<GridProps> = ({ rowData, keyValue, handleGetSelectedRows, h
       {
         field: 'value',
         cellRendererFramework: btnCellRenderer,
-        cellRendererParams: {value: keyValue.valueString},
+        cellRendererParams: { value: handleGetValue },
         flex: 1,
       }
     ];

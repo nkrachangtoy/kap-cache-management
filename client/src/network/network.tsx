@@ -137,9 +137,9 @@ export const getPatterns = async () => {
   try {
     // REPLACE WITH URL AT LATER TIME
     //const response = await axios.get(`${BASE_URL}/Query?${REPLACE}`);
-    const response = await axios.get(`${BASE_URL}/filter`);
+    const response = await axios.get(`${BASE_URL}/availablePatterns`);
     console.log(`SAMPLE patterns available>>>`, response.data);
-    return response.data;
+    return response.data.patterns;
   } catch (e) {
     console.log(`Error: ${e}`);
   }

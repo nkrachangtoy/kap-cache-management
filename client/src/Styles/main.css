@@ -648,4 +648,15 @@ pre {
   font-weight: lighter;
   color: grey;
 }
+
+.keyValue__button {
+  color: #0484d3;
+  position: relative;
+  cursor: pointer;
+}
+
+.keyValue__popover {
+  position: absolute;
+  font-size: 18px;
+}
 /*# sourceMappingURL=main.css.map */

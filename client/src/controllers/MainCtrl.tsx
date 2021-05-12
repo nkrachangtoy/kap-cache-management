@@ -37,6 +37,7 @@ const MainCtrl = () => {
   const [selectedRows, setSelectedRows] = useState<Array<string>>([]);
   const [deleteQuery, setDeleteQuery] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
+  const [openKeyValueModal, setOpenKeyValueModal] = useState<boolean>(false);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openPatterns, setOpenPatterns] = useState(false);
   const [keyValue, setKeyValue] = useState<IKeyValue>({
@@ -136,6 +137,14 @@ const MainCtrl = () => {
     setOpen(false);
   };
 
+  const handleOpenKeyValueModal = () => {
+    setOpenKeyValueModal(true);
+  }
+
+  const handleCloseKeyValueModal = () => {
+    setOpenKeyValueModal(false);
+  }
+
   const toggleDrawer = () => {
     setOpenDrawer(!openDrawer);
   };
@@ -184,6 +193,9 @@ const MainCtrl = () => {
       handleOpen={handleOpen}
       handleClose={handleClose}
       toggleDrawer={toggleDrawer}
+      openKeyValueModal={openKeyValueModal}
+      handleCloseKeyValueModal={handleCloseKeyValueModal}
+      handleOpenKeyValueModal={handleOpenKeyValueModal}
     />
   );
 };

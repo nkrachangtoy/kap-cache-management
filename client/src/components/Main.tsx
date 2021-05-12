@@ -2,13 +2,11 @@ import Grid from "./Grid";
 import Pagination from "./Pagination";
 import SideDrawer from "./SideDrawer";
 
-
 // Components
 import Drawer from "@material-ui/core/Drawer";
 import Modal from "@material-ui/core/Modal";
 import Toolbar from "./Toolbar";
 import Patterns from "./Patterns";
-
 
 interface IRowData {
   keys: Array<IKey>;
@@ -31,6 +29,7 @@ interface IKeyValue {
 
 interface MainProps {
   open: boolean;
+  openKeyValueModal: boolean;
   rowData: IRowData | object;
   pageNum: number;
   openDrawer: boolean;
@@ -55,10 +54,13 @@ interface MainProps {
   handleOpen: () => void;
   handleClose: () => void;
   toggleDrawer: () => void;
+  handleCloseKeyValueModal: () => void;
+  handleOpenKeyValueModal: () => void;
 }
 
 const Main: React.FC<MainProps> = ({
   open,
+  openKeyValueModal,
   rowData,
   pageNum,
   openDrawer,
@@ -83,6 +85,8 @@ const Main: React.FC<MainProps> = ({
   handleOpen,
   handleClose,
   toggleDrawer,
+  handleCloseKeyValueModal,
+  handleOpenKeyValueModal
 }) => {
   return (
     <div className="mainContainer">
@@ -98,6 +102,7 @@ const Main: React.FC<MainProps> = ({
         <div className="mainContainer__gridWrapper">
           <Grid
             rowData={rowData}
+            handleOpenKeyValueModal={handleOpenKeyValueModal}
             handleGetSelectedRows={handleGetSelectedRows}
             handleGetValue={handleGetValue}
             btnCellRenderer={btnCellRenderer}

@@ -1,0 +1,11 @@
+.keyValue {
+  &__button {
+    color: $primary;
+    position: relative;
+    cursor: pointer;
+  }
+  &__popover {
+    position: absolute;
+    font-size: 18px;
+  }
+}
