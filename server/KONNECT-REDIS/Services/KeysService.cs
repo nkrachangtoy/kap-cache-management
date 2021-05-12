@@ -268,7 +268,19 @@ namespace KONNECT_REDIS.Services
                         }
                         _ = keyListFields.Remove(keyPattern);
                     }
-                    sb.Append(patternField += "#");
+
+                    foreach (string field in keyListFields)
+                    {
+                        if (string.IsNullOrEmpty(field))
+                        {
+                            sb.Append(patternField);
+                        }
+                        else
+                        {
+                            sb.Append(patternField += "#");
+                        }
+                    }    
+                               
                 }
                 string newPattern = sb.ToString();
                 if (!keyListFields.Contains(newPattern))
