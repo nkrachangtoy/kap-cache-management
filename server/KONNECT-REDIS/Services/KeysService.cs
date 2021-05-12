@@ -229,11 +229,15 @@ namespace KONNECT_REDIS.Services
             return keyListNextField.Distinct().OrderBy(k => k).ToList();
         }
 
+        /// <summary>
+        /// Gets list of unique available patterns 
+        /// </summary>
+        /// <returns>Unique pattern types</returns>
         public ICollection<string> GetUniqueFields()
         {
             List<string> keyListFields = new List<string>();
             string[] stringDescriptors = { "IsFeatureActive", "KonnectOrganization", "KonnectOrganizationData", "KoreSetting", "tableauconfig", "UserCommentsOrganization", 
-                "ad_emit_events#", "autoschedule", "dealassetstatus", "deliverymodule", "enabletags", "enforceassetavailability", "eventsmodule", "extendedseason", 
+                "ad_emit_events", "autoschedule", "dealassetstatus", "deliverymodule", "enabletags", "enforceassetavailability", "eventsmodule", "extendedseason", 
                 "UnallocatedRevenueProperty" };
 
             foreach (var key in _keys)

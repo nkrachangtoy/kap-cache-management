@@ -291,6 +291,40 @@ namespace KONNECT_REDIS.Controllers
         }
 
         /// <summary>
+        /// Retrieve a list of unique keys by field
+        /// </summary>
+        /// <returns>Array of unique keys</returns>
+        [HttpGet("filter")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult FilterKeys([FromQuery] string field, int index = 1)
+        {
+            try
+            {
+                if (field == null || field.Equals(""))
+                {
+                    var res1 = _keysService.GetUnique1stFields();
+                    if (res1 == null)
+                    {
+                        return NotFound();
+                    }
+                    return Ok(res1);
+                }
+                var res2 = _keysService.GetUniqueNextFields(field, index);
+                if (res2 == null)
+                {
+                    return NotFound();
+                }
+                return Ok(res2);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
+
+        /// <summary>
         /// Get available pattern types
         /// </summary>
         /// <returns> All unique pattern types of form String_Id, Int_Id, GUID, or {string contained in string descriptor} </returns>
