@@ -98,6 +98,16 @@ const FilterByPattern: React.FC = () => {
           )}
           {showPatterns && (
             <div style={{ maxHeight: "600px", overflow: "auto" }}>
+              {availablePatterns?.[`field${activeFilter}`]?.slice(0, 50)
+                .length === 50 && (
+                <p className="filterPatterns__selectNext">
+                  Displaying 50 out of{" "}
+                  {availablePatterns?.[
+                    `field${activeFilter}`
+                  ]?.length.toLocaleString()}{" "}
+                  patterns, please use the search feature to view all.
+                </p>
+              )}
               <List>
                 {availablePatterns?.[`field${activeFilter}`]
                   ?.slice(0, 50)
