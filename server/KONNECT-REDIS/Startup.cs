@@ -52,17 +52,17 @@ namespace KONNECT_REDIS
             //=============================================================================
             // UNCOMMENT THIS BLOCK DURING LOCAL DEV FOR DOCUMENTATION (SWAGGER CONFIG)
             //=============================================================================
-            services.AddSwaggerGen(options =>
-            {
-                options.SwaggerDoc("KonnectAPI",
-                    new Microsoft.OpenApi.Models.OpenApiInfo()
-                    {
-                        Title = "Konnect - Redis Cache - API",
-                        Version = "1",
-                        Description = "API Documentation by Konnect Dev Team"
-                    });
-                options.IncludeXmlComments("KONNECT-REDIS.xml");
-            });
+            //services.AddSwaggerGen(options =>
+            //{
+            //    options.SwaggerDoc("KonnectAPI",
+            //        new Microsoft.OpenApi.Models.OpenApiInfo()
+            //        {
+            //            Title = "Konnect - Redis Cache - API",
+            //            Version = "1",
+            //            Description = "API Documentation by Konnect Dev Team"
+            //        });
+            //    options.IncludeXmlComments("KONNECT-REDIS.xml");
+            //});
             //=============================================================================
             // UNCOMMENT THIS BLOCK DURING LOCAL DEV FOR DOCUMENTATION (SWAGGER CONFIG)
             //=============================================================================
@@ -81,14 +81,14 @@ namespace KONNECT_REDIS
             //=============================================================================
             // UNCOMMENT THIS BLOCK DURING LOCAL DEV FOR DOCUMENTATION (SWAGGER CONFIG)
             //=============================================================================
-            app.UseSwagger();
+            //app.UseSwagger();
 
-            app.UseSwaggerUI(options =>
-            {
-                options.SwaggerEndpoint("/swagger/KonnectAPI/swagger.json", "Konnect - Redis Cache - API");
-                options.RoutePrefix = "";
-            });
-            //=============================================================================
+            //app.UseSwaggerUI(options =>
+            //{
+            //    options.SwaggerEndpoint("/swagger/KonnectAPI/swagger.json", "Konnect - Redis Cache - API");
+            //    options.RoutePrefix = "";
+            //});
+            ////=============================================================================
             // UNCOMMENT THIS BLOCK DURING LOCAL DEV FOR DOCUMENTATION (SWAGGER CONFIG)
             //=============================================================================
 
