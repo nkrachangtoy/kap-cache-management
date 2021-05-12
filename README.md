@@ -1,17 +1,16 @@
 # KORE Software / KAP Cache Management
-
 <!-- ABOUT THE PROJECT -->
-
-## About The Project
-
+### About The Project
 <img src="https://koresoftware.com/wp-content/uploads/2019/08/KONNECT_700.png"/>
+
 The Konnect product leverages an internal facing administration portal we have built to aid KORE employees to manage the products client base. The KONNECT Admin Portal (KAP) currently provides the internal members the ability to create, update and read the products client list as well as customize the configurations for the individual client by turning on/off different setting toggles. We want to expand the functionality of the KAP to also help us manage the product's caches.
 Currently KONNECT has implemented a Redis cache on AWS that we use extensively across the application. At the moment, the dev team has no way to visualize and/or interact with the keys on the cache outside of custom console applications that we write on an as needed basis. We, the dev team, have been talking about building a portal that would allow us to interact withthe keys in a more efficient way than building/manipulating console applications
+
 ### Essential Feautures
 1. An application for the internal team to interact with the Redis cache that has the following functionalities:
     *  Ability to read from a well-organized list / grid
     *  Paginated results
-        *  Number of existing keys ranges between 1,000 < x < 1,000,000
+    *  Number of existing keys ranges between 1,000 < x < 1,000,000
     *  Search functionality with the ability to search the entire list of keys by pattern
 2. The dev team should be able to perform the following CRUD operations
     * Create new key value pair
