@@ -73,9 +73,9 @@ const Patterns: React.FC = () => {
           <p style={{ color: "red" }}>
             This process may take a few minutes to complete.
           </p>
-          <Button className="viewPatterns__button" onClick={handleGetPatterns}>
+          <button className="viewPatterns__button" onClick={handleGetPatterns}>
             Proceed
-          </Button>
+          </button>
         </div>
         {loading ? (
           <div className="patternsDrawer__loader">

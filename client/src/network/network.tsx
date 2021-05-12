@@ -1,4 +1,5 @@
 import axios from "axios";
+import toastr from "toastr";
 //const BASE_URL = "https://localhost:44371/api/keys";
 const BASE_URL = "https://konnect-redis.azurewebsites.net/api/keys";
 
@@ -55,13 +56,11 @@ export const deleteKeyByQuery = async (query: string) => {
       `${BASE_URL}/removeSubset?pattern=${query}`
     );
     response.data.success &&
-      alert(
-        `Deleted ${response.data.success} results >>>
-      ${response.data.message}`
-      );
+      toastr["success"](`Deleted ${response.data.success} results >>>
+    ${response.data.message}`);
     return response.data;
   } catch (e) {
-    alert(`Error: ${e}`);
+    toastr["error"](`Error: ${e}`);
   }
 };
 
@@ -80,10 +79,9 @@ export const deleteKeyBySelection = async (selection: any) => {
 
     //DELETE req to delete selection from redis
     const delResponse = await axios.delete(`${BASE_URL}/deleteSelections`);
-    delResponse.data.success && alert(delResponse.data.message);
-    console.log("Delete by Selection Response:", delResponse.data);
+    delResponse.data.success && toastr["success"](delResponse.data.message);
   } catch (e) {
-    alert(`Error: ${e}`);
+    toastr["error"](`Error: ${e}`);
   }
 };
 
@@ -98,9 +96,6 @@ export const postNewKeyValue = async (keyValue: IKeyValue) => {
     console.log("NEWKEY", postObj);
     const response = await axios.post(`${BASE_URL}`, postObj);
     console.log("Post response >>", response);
-    // response.status === 200 &&
-    //   alert(`Successfully added new key: ${JSON.stringify(response.data)}`);
-    // response.status === 200;
     return response.data;
   } catch (e) {
     console.log(`Error: ${e}`);

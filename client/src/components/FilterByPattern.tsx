@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { fetchFilters } from "../network/network";
-import {
-  List,
-  ListItem,
-  Grid,
-  Button,
-  CircularProgress,
-} from "@material-ui/core";
+import { List, ListItem, Grid, CircularProgress } from "@material-ui/core";
 
 const FilterByPattern: React.FC = () => {
   const [filterSelection, setFilterSelection] = useState<any>({});
@@ -16,7 +10,6 @@ const FilterByPattern: React.FC = () => {
   const [availablePatterns, setAvailablePatterns] = useState<any>(null);
 
   const handleFetchFilters = async (fieldNum: number) => {
-    console.log("fieldNum accepted.......??? >>>", fieldNum);
     //conditional: if field has been selected before, delete all fields in filterSelection following
     // required so that it doesn't get sent as a query to Redis
     if (filterSelection[`field${fieldNum}`] !== null) {
@@ -44,8 +37,6 @@ const FilterByPattern: React.FC = () => {
       ...filterSelection,
       [`field${activeFilter}`]: pattern,
     });
-
-    //setShowPatterns(false);
   };
 
   const handleReset = async () => {
@@ -54,13 +45,14 @@ const FilterByPattern: React.FC = () => {
     setActiveFilter(-1);
   };
 
-  useEffect(() => {
-    console.log("FILTER SELECTION useEffect >>>", filterSelection);
-    console.log("AVAILABLE PATTERNS >>>", availablePatterns);
-  }, [filterSelection, availablePatterns]);
+  // useEffect(() => {
+  //   console.log("FILTER SELECTION useEffect >>>", filterSelection);
+  //   console.log("AVAILABLE PATTERNS >>>", availablePatterns);
+  // }, [filterSelection, availablePatterns]);
 
   useEffect(() => {
     handleFetchFilters(activeFilter + 1);
+    // eslint-disable-next-line
   }, [filterSelection]);
 
   return (
@@ -77,20 +69,15 @@ const FilterByPattern: React.FC = () => {
             {filterSelection && (
               <>
                 {Object.keys(filterSelection).map((field, i) => (
-                  //filterSelection?.[`field${i}`] !== null &&
                   <ListItem
                     button
                     className="filterPatterns__selectedListItem"
                     key={i}
                     onClick={() => handleFetchFilters(i)}
                   >
-                    <span className="filterPatterns__selected">
+                    <span className="filterPatterns__selectedText">
                       {filterSelection?.[`field${i}`]}
                     </span>
-
-                    {/* <span className="filterPatterns__selectNext">
-                        select a filter &gt; &gt;
-                      </span> */}
                   </ListItem>
                 ))}
               </>

@@ -108,9 +108,7 @@ const Main: React.FC<MainProps> = ({
           <SideDrawer
             selectedRows={selectedRows}
             handleDeleteByQuery={handleDeleteByQuery}
-            handleAddNewKey={handleAddNewKey}
             keyValue={keyValue}
-            setKeyValue={setKeyValue}
             deleteQuery={deleteQuery}
             setDeleteQuery={setDeleteQuery}
             handleDeleteBySelection={handleDeleteBySelection}

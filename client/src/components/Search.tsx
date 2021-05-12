@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import SearchIcon from '@material-ui/icons/Search';
-import CancelIcon from '@material-ui/icons/Cancel';
+import SearchIcon from "@material-ui/icons/Search";
+import CancelIcon from "@material-ui/icons/Cancel";
 
 interface SearchProps {
   handleSearch: (query: string) => void;
@@ -12,7 +12,8 @@ const Search: React.FC<SearchProps> = ({ handleSearch, handleReset }) => {
 
   const handleClearInput = () => {
     setQuery("");
-  }
+    handleReset();
+  };
   return (
     <>
       <form
@@ -20,7 +21,6 @@ const Search: React.FC<SearchProps> = ({ handleSearch, handleReset }) => {
         onSubmit={(e) => {
           e.preventDefault();
           handleSearch(query);
-          setQuery("");
         }}
       >
         <button className="search__button" type="submit">
@@ -35,7 +35,6 @@ const Search: React.FC<SearchProps> = ({ handleSearch, handleReset }) => {
         />
         <CancelIcon className="search__icon" onClick={handleClearInput} />
       </form>
-        {/* <button  onClick={handleReset}>Reset</button> */}
     </>
   );
 };

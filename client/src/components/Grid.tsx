@@ -143,6 +143,7 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
 
   useEffect(() => {
     findNumColumns(rowData);
+    // eslint-disable-next-line
   }, [rowData]);
 
   useEffect(() => {
@@ -154,8 +155,6 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
 
   return (
     <div className="ag-theme-balham grid">
-      {/* <button onClick={() => gridApi.selectAll()}>Select All</button>
-      <button onClick={() => gridApi.deselectAll()}>Deselect All</button> */}
       <AgGridReact
         columnDefs={columnDefs}
         rowData={destructuredKeys ? destructuredKeys : rowData.keys}
@@ -165,10 +164,6 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
           setGridApi(params.api);
           console.log("PARAMS", params.api);
         }}
-        // onRowClicked={(event) => {
-        //   console.log("a row has been clicked>>", event.data);
-        //   handleGetSelectedRows(event.data);
-        // }}
         onRowSelected={handleSelected}
       />
     </div>

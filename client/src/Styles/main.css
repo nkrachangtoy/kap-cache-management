@@ -67,7 +67,6 @@ pre {
 
 .sideDrawer__button {
   color: white;
-  margin: 0 5px;
 }
 
 .sideDrawer__button-delete {
@@ -80,6 +79,7 @@ pre {
   font-size: 0.85rem;
   font-weight: 400;
   background-color: #0484d3;
+  margin: 0 5px;
 }
 
 .sideDrawer__button-delete:hover, .sideDrawer__button-delete:active {
@@ -96,6 +96,7 @@ pre {
   font-size: 0.85rem;
   font-weight: 400;
   background-color: #df4759;
+  margin: 0 5px;
 }
 
 .sideDrawer__button-cancel:hover, .sideDrawer__button-cancel:active {
@@ -640,8 +641,10 @@ pre {
   text-decoration: none;
 }
 
-.filterPatterns__selected {
+.filterPatterns__selectedText {
+  width: 100%;
   font-weight: bold;
+  word-wrap: break-word !important;
 }
 
 .filterPatterns__selectNext {

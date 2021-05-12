@@ -56,8 +56,10 @@
     content: "x";
     text-decoration: none;
   }
-  &__selected {
+  &__selectedText {
+    width: 100%;
     font-weight: bold;
+    word-wrap: break-word !important;
   }
   &__selectNext {
     font-weight: lighter;

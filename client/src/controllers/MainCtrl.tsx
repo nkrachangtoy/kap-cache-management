@@ -74,7 +74,7 @@ const MainCtrl = () => {
       const joinedKey = Object.values(key).join("#");
       keys.push(joinedKey);
     });
-    console.log("concantenated keys array>>", keys);
+    //console.log("concantenated keys array>>", keys);
     setSelectedRows(keys);
 
     if (row?.length === 1) {
@@ -96,12 +96,14 @@ const MainCtrl = () => {
     const data = await deleteKeyByQuery(deleteQuery);
     await handleGetAllKeys();
     console.log(`delete query: ${deleteQuery}, result:`, data);
+    setOpenDrawer(false);
   };
 
   const handleDeleteBySelection = async () => {
     console.log("selected Rows for deletion", selectedRows);
     await deleteKeyBySelection(selectedRows);
     await handleGetAllKeys();
+    setSelectedRows([]);
     setOpenDrawer(false);
   };
 
