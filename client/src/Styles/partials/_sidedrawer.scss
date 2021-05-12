@@ -10,7 +10,6 @@
   overflow-y: scroll;
   &__button {
     color: white;
-
     &-delete {
       @include defaultButton;
       background-color: $primary;

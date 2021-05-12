@@ -70,7 +70,6 @@ const FilterByPattern: React.FC = () => {
             {filterSelection && (
               <>
                 {Object.keys(filterSelection).map((field, i) => (
-                  //filterSelection?.[`field${i}`] !== null &&
                   <ListItem
                     button
                     className="filterPatterns__selectedListItem"
@@ -80,10 +79,6 @@ const FilterByPattern: React.FC = () => {
                     <span className="filterPatterns__selected">
                       {filterSelection?.[`field${i}`]}
                     </span>
-
-                    {/* <span className="filterPatterns__selectNext">
-                        select a filter &gt; &gt;
-                      </span> */}
                   </ListItem>
                 ))}
               </>

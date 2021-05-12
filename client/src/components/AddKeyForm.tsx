@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import CircularProgress from '@material-ui/core/CircularProgress';
-import CheckIcon from '@material-ui/icons/Check';
-import Snackbar from '@material-ui/core/Snackbar';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import CheckIcon from "@material-ui/icons/Check";
+import Snackbar from "@material-ui/core/Snackbar";
 // CodeMirror //
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/mode/javascript/javascript';
-import 'codemirror/theme/ttcn.css';
-import { Controlled as ControlledEditor } from 'react-codemirror2';
-
-
+import "codemirror/lib/codemirror.css";
+import "codemirror/mode/javascript/javascript";
+import "codemirror/theme/ttcn.css";
+import { Controlled as ControlledEditor } from "react-codemirror2";
 
 interface IKeyValue {
   keyName: string;
@@ -31,7 +29,6 @@ const AddKeyForm: React.FC<AddKeyFormProps> = ({
   const [loading, setLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
   const timer = useRef<number>();
-
 
   const handleButtonClick = () => {
     handleAddNewKey();
@@ -80,28 +77,64 @@ const AddKeyForm: React.FC<AddKeyFormProps> = ({
           </label>
           <ControlledEditor
             value={newKey.valueString}
-            onBeforeChange={(editor,data,value) => setNewKey({...newKey, valueString: value})}
-            onChange={(editor,data,value) => setNewKey({...newKey, valueString: value})}
+            onBeforeChange={(editor, data, value) =>
+              setNewKey({ ...newKey, valueString: value })
+            }
+            onChange={(editor, data, value) =>
+              setNewKey({ ...newKey, valueString: value })
+            }
             className="addKeyForm__codeMirror"
             options={{
               lineWrapping: true,
               lint: true,
-              mode: 'javascript',
+              mode: "javascript",
               lineNumbers: true,
-              theme: 'ttcn',
+              theme: "ttcn",
             }}
           />
         </div>
         <div className="addKeyForm__buttonsContainer">
           <div className="addKeyForm__buttonWrapper">
-            <button type="submit" className="addKeyForm__button addKeyForm__button--submit" onClick={handleButtonClick} disabled={loading}>Submit</button>
-            { success ? <CheckIcon style={{fontSize: "16px"}} className="addKeyForm__checkIcon"/> : <></>}
-            { loading && <CircularProgress size={14} style={{color: "white"}} className="addKeyForm__spinner"/>}
-          </div>  
-          <button type="submit" className="addKeyForm__button addKeyForm__button--cancel" onClick={handleClose}>Cancel</button>
+            <button
+              type="submit"
+              className="addKeyForm__button addKeyForm__button--submit"
+              onClick={handleButtonClick}
+              disabled={loading}
+            >
+              Submit
+            </button>
+            {success ? (
+              <CheckIcon
+                style={{ fontSize: "16px" }}
+                className="addKeyForm__checkIcon"
+              />
+            ) : (
+              <></>
+            )}
+            {loading && (
+              <CircularProgress
+                size={14}
+                style={{ color: "white" }}
+                className="addKeyForm__spinner"
+              />
+            )}
+          </div>
+          <button
+            type="submit"
+            className="addKeyForm__button addKeyForm__button--cancel"
+            onClick={handleClose}
+          >
+            Cancel
+          </button>
         </div>
       </form>
-      <Snackbar open={success} autoHideDuration={1500} onClose={handleClose} message="Successfully added new key!" anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}/>
+      <Snackbar
+        open={success}
+        autoHideDuration={1500}
+        onClose={handleClose}
+        message="Successfully added new key!"
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+      />
     </div>
   );
 };

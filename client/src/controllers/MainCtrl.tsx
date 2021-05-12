@@ -96,6 +96,7 @@ const MainCtrl = () => {
     const data = await deleteKeyByQuery(deleteQuery);
     await handleGetAllKeys();
     console.log(`delete query: ${deleteQuery}, result:`, data);
+    setOpenDrawer(false);
   };
 
   const handleDeleteBySelection = async () => {

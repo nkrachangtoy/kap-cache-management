@@ -9,9 +9,7 @@ interface IKeyValue {
 interface DrawerProps {
   selectedRows: Array<string>;
   handleDeleteByQuery: () => void;
-  handleAddNewKey: () => void;
   keyValue: IKeyValue;
-  setKeyValue: (keyValue: IKeyValue) => void;
   deleteQuery: string;
   setDeleteQuery: (query: string) => void;
   handleDeleteBySelection: () => void;
@@ -20,17 +18,16 @@ interface DrawerProps {
 const SideDrawer: React.FC<DrawerProps> = ({
   selectedRows,
   handleDeleteByQuery,
-  handleAddNewKey,
   keyValue,
-  setKeyValue,
   deleteQuery,
   setDeleteQuery,
   handleDeleteBySelection,
 }) => {
   const [confirmDelete, showConfirmDelete] = useState<boolean>(false);
 
-  // ===== IF A SINGLE ROW IS SELECTED ===== //
-  //         display the key's value
+  //======================================================================
+  //        IF A SINGLE ROW IS SELECTED : display the key's value
+  //======================================================================
   if (selectedRows?.length === 1) {
     return (
       <div className="sideDrawer">
@@ -88,8 +85,10 @@ const SideDrawer: React.FC<DrawerProps> = ({
       </div>
     );
   } else if (selectedRows?.length > 1) {
-    // ===== IF MULTIPLE ROWS ARE SELECTED  ===== //
-    //        display & allow bulk delete
+    //======================================================================
+    //      IF MULTIPLE ROWS ARE SELECTED : display & allow bulk delete
+    //======================================================================
+
     return (
       <div className="sideDrawer">
         <div className="sideDrawer__heading">
@@ -144,8 +143,10 @@ const SideDrawer: React.FC<DrawerProps> = ({
       </div>
     );
   } else {
-    // ===== IF NO ROWS ARE SELECTED  ===== //
-    // allow delete by query & post new key
+    //======================================================================
+    //    IF NO ROWS ARE SELECTED : allow delete by query & post new key
+    //======================================================================
+
     return (
       <div className="sideDrawer">
         <DeleteByQueryForm
