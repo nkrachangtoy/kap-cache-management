@@ -32,7 +32,6 @@ const BtnCellRenderer: React.FC = (params) => {
             <Tooltip title={`${keyValue}`} placement="top">
                 <a onMouseEnter={handleBtnClicked} className="keyValue__button"><InfoIcon /></a>
             </Tooltip>
-            {/* <span className="keyValue__popover">{keyValue}</span> */}
         </div>
         );
 }

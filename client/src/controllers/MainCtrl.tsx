@@ -70,13 +70,11 @@ const MainCtrl = () => {
   };
 
   const handleGetSelectedRows = async (row: Array<object>) => {
-    //Need to concantenate the fields before sending API call
     let keys: Array<string> = [];
     row?.forEach((key: object) => {
       const joinedKey = Object.values(key).join("#");
       keys.push(joinedKey);
     });
-    console.log("concantenated keys array>>", keys);
     setSelectedRows(keys);
 
     if (row?.length === 1) {
@@ -84,7 +82,6 @@ const MainCtrl = () => {
     }
   };
 
-  //this can be called elsewhere later on
   const handleGetValue = async (key: string) => {
     const data = await getKeyValue(key);
     const keyValuePair = {
@@ -95,15 +92,15 @@ const MainCtrl = () => {
   };
 
   const handleDeleteByQuery = async () => {
-    const data = await deleteKeyByQuery(deleteQuery);
+    await deleteKeyByQuery(deleteQuery);
     await handleGetAllKeys();
-    console.log(`delete query: ${deleteQuery}, result:`, data);
+    setOpenDrawer(false);
   };
 
   const handleDeleteBySelection = async () => {
-    console.log("selected Rows for deletion", selectedRows);
     await deleteKeyBySelection(selectedRows);
     await handleGetAllKeys();
+    setSelectedRows([]);
     setOpenDrawer(false);
   };
 
@@ -120,13 +117,12 @@ const MainCtrl = () => {
   const handleGetAllKeys = async () => {
     const result = await getAllKeys();
     setRowData(result);
-    console.log("ROW DATA", result);
   };
 
   const handleReset = async () => {
     await handleGetAllKeys();
     setPageNum(1);
-    setSelectedRows([]); // this doesnt update the grid
+    setSelectedRows([]);
   };
 
   const handleOpen = () => {

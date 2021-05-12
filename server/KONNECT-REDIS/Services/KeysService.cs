@@ -229,21 +229,33 @@ namespace KONNECT_REDIS.Services
             return keyListNextField.Distinct().OrderBy(k => k).ToList();
         }
 
+        /// <summary>
+        /// Gets list of unique available patterns 
+        /// </summary>
+        /// <returns>Unique pattern types</returns>
         public ICollection<string> GetUniqueFields()
         {
+            // Declare the list object and an array of hardcoded string descriptors
             List<string> keyListFields = new List<string>();
             string[] stringDescriptors = { "IsFeatureActive", "KonnectOrganization", "KonnectOrganizationData", "KoreSetting", "tableauconfig", "UserCommentsOrganization", 
-                "ad_emit_events#", "autoschedule", "dealassetstatus", "deliverymodule", "enabletags", "enforceassetavailability", "eventsmodule", "extendedseason", 
+                "ad_emit_events", "autoschedule", "dealassetstatus", "deliverymodule", "enabletags", "enforceassetavailability", "eventsmodule", "extendedseason", 
                 "UnallocatedRevenueProperty" };
 
+            // Outer loop gets each individual key, splits them into delimited fields, and starts a string builder to build on in subsequent loops. After the nested
+            // loops it removes the trailing delimiter, converts the stringbuilder to a string and adds it to the list as long as their are no duplicates
             foreach (var key in _keys)
             {
-                StringBuilder sb = new StringBuilder();
-                var keyField = key.ToString().Split("#");
+                StringBuilder sb = new StringBuilder(); 
+                var keyField = key.ToString().Split("#"); 
+
+                // The next loop adds the delimited fields to the list object and declares an empty string to store pattern types. After the sub loop it appends the
+                // pattern types together by delimiter
                 foreach (string keyPattern in keyField.Distinct())
                 {
                     keyListFields.Add(keyPattern);
                     string patternField = "";
+
+                    // The next loop parses the delimited fields in the list, classifies them by pattern type, and removes the delimited fields from the list
                     foreach (var pattern in keyListFields.Distinct().ToArray())
                     {
                         if (stringDescriptors.Contains(pattern))
@@ -266,7 +278,10 @@ namespace KONNECT_REDIS.Services
                     }
                     sb.Append(patternField += "#");
                 }
+                sb.Remove(sb.Length - 1, 1);
                 string newPattern = sb.ToString();
+
+                // Ensures that all pattern types are unique
                 if (!keyListFields.Contains(newPattern))
                 {
                     keyListFields.Add(newPattern);

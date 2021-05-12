@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import FilterByPattern from "./FilterByPattern";
-import Button from "@material-ui/core/Button";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -73,9 +72,9 @@ const Patterns: React.FC = () => {
           <p style={{ color: "red" }}>
             This process may take a few minutes to complete.
           </p>
-          <Button className="viewPatterns__button" onClick={handleGetPatterns}>
+          <button className="viewPatterns__button" onClick={handleGetPatterns}>
             Proceed
-          </Button>
+          </button>
         </div>
         {loading ? (
           <div className="patternsDrawer__loader">

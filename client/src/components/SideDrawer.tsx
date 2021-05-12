@@ -9,9 +9,7 @@ interface IKeyValue {
 interface DrawerProps {
   selectedRows: Array<string>;
   handleDeleteByQuery: () => void;
-  handleAddNewKey: () => void;
   keyValue: IKeyValue;
-  setKeyValue: (keyValue: IKeyValue) => void;
   deleteQuery: string;
   setDeleteQuery: (query: string) => void;
   handleDeleteBySelection: () => void;
@@ -27,8 +25,9 @@ const SideDrawer: React.FC<DrawerProps> = ({
 }) => {
   const [confirmDelete, showConfirmDelete] = useState<boolean>(false);
 
-  // ===== IF A SINGLE ROW IS SELECTED ===== //
-  //         display the key's value
+  //======================================================================
+  //        IF A SINGLE ROW IS SELECTED : display the key's value
+  //======================================================================
   if (selectedRows?.length === 1) {
     return (
       <div className="sideDrawer">
@@ -62,7 +61,7 @@ const SideDrawer: React.FC<DrawerProps> = ({
         {confirmDelete && (
           <div>
             <p className="sideDrawer__warning">
-              This action cannot be undone. Please confirm this delete.
+              This action cannot be undone. <br /> Please confirm this delete.
             </p>
             <div className="sideDrawer__buttonBlock">
               <button
@@ -83,14 +82,13 @@ const SideDrawer: React.FC<DrawerProps> = ({
             </div>
           </div>
         )}
-        {/* {selectedRows[0] && (
-          <button onClick={handleDeleteBySelection}>Delete</button>
-        )} */}
       </div>
     );
   } else if (selectedRows?.length > 1) {
-    // ===== IF MULTIPLE ROWS ARE SELECTED  ===== //
-    //        display & allow bulk delete
+    //======================================================================
+    //      IF MULTIPLE ROWS ARE SELECTED : display & allow bulk delete
+    //======================================================================
+
     return (
       <div className="sideDrawer">
         <div className="sideDrawer__heading">
@@ -120,7 +118,8 @@ const SideDrawer: React.FC<DrawerProps> = ({
         {confirmDelete && (
           <div>
             <p className="sideDrawer__warning">
-              This action cannot be undone. Please confirm this batch delete.
+              This action cannot be undone. <br /> Please confirm this batch
+              delete.
             </p>
             <div className="sideDrawer__buttonBlock">
               <button
@@ -144,12 +143,12 @@ const SideDrawer: React.FC<DrawerProps> = ({
       </div>
     );
   } else {
-    // ===== IF NO ROWS ARE SELECTED  ===== //
-    // allow delete by query & post new key
+    //======================================================================
+    //    IF NO ROWS ARE SELECTED : allow delete by query & post new key
+    //======================================================================
+
     return (
       <div className="sideDrawer">
-        <h3>Konnect Redis Cache</h3>
-        <hr />
         <DeleteByQueryForm
           handleDeleteByQuery={handleDeleteByQuery}
           deleteQuery={deleteQuery}

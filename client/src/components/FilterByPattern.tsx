@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { fetchFilters } from "../network/network";
-import {
-  List,
-  ListItem,
-  Grid,
-  Button,
-  CircularProgress,
-} from "@material-ui/core";
+import { List, ListItem, Grid, CircularProgress } from "@material-ui/core";
 
 const FilterByPattern: React.FC = () => {
   const [filterSelection, setFilterSelection] = useState<any>({});
@@ -16,7 +10,6 @@ const FilterByPattern: React.FC = () => {
   const [availablePatterns, setAvailablePatterns] = useState<any>(null);
 
   const handleFetchFilters = async (fieldNum: number) => {
-    console.log("fieldNum accepted.......??? >>>", fieldNum);
     //conditional: if field has been selected before, delete all fields in filterSelection following
     // required so that it doesn't get sent as a query to Redis
     if (filterSelection[`field${fieldNum}`] !== null) {
@@ -44,8 +37,6 @@ const FilterByPattern: React.FC = () => {
       ...filterSelection,
       [`field${activeFilter}`]: pattern,
     });
-
-    //setShowPatterns(false);
   };
 
   const handleReset = async () => {
@@ -55,12 +46,8 @@ const FilterByPattern: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log("FILTER SELECTION useEffect >>>", filterSelection);
-    console.log("AVAILABLE PATTERNS >>>", availablePatterns);
-  }, [filterSelection, availablePatterns]);
-
-  useEffect(() => {
     handleFetchFilters(activeFilter + 1);
+    // eslint-disable-next-line
   }, [filterSelection]);
 
   return (
@@ -77,20 +64,15 @@ const FilterByPattern: React.FC = () => {
             {filterSelection && (
               <>
                 {Object.keys(filterSelection).map((field, i) => (
-                  //filterSelection?.[`field${i}`] !== null &&
                   <ListItem
                     button
                     className="filterPatterns__selectedListItem"
                     key={i}
                     onClick={() => handleFetchFilters(i)}
                   >
-                    <span className="filterPatterns__selected">
+                    <span className="filterPatterns__selectedText">
                       {filterSelection?.[`field${i}`]}
                     </span>
-
-                    {/* <span className="filterPatterns__selectNext">
-                        select a filter &gt; &gt;
-                      </span> */}
                   </ListItem>
                 ))}
               </>
@@ -115,29 +97,42 @@ const FilterByPattern: React.FC = () => {
             </div>
           )}
           {showPatterns && (
-            <List>
-              {availablePatterns?.[`field${activeFilter}`]?.map(
-                (pattern: string, i: number) =>
-                  pattern ? (
-                    <ListItem
-                      key={i}
-                      button
-                      onClick={() => {
-                        handleFilterSelect(pattern);
-                      }}
-                    >
-                      {pattern}
-                    </ListItem>
-                  ) : (
-                    <div className="filterPatterns__buttonDiv">
-                      <p>No other patterns found.</p>
-                      <button className="filterPatterns__buttons">
-                        See Value
-                      </button>
-                    </div>
-                  )
+            <div style={{ maxHeight: "600px", overflow: "auto" }}>
+              {availablePatterns?.[`field${activeFilter}`]?.slice(0, 50)
+                .length === 50 && (
+                <p className="filterPatterns__selectNext">
+                  Displaying 50 out of{" "}
+                  {availablePatterns?.[
+                    `field${activeFilter}`
+                  ]?.length.toLocaleString()}{" "}
+                  patterns, please use the search feature to view all.
+                </p>
               )}
-            </List>
+              <List>
+                {availablePatterns?.[`field${activeFilter}`]
+                  ?.slice(0, 50)
+                  .map((pattern: string, i: number) =>
+                    pattern ? (
+                      <ListItem
+                        key={i}
+                        button
+                        onClick={() => {
+                          handleFilterSelect(pattern);
+                        }}
+                      >
+                        {pattern}
+                      </ListItem>
+                    ) : (
+                      <div className="filterPatterns__buttonDiv">
+                        <p>No other patterns found.</p>
+                        {/* <button className="filterPatterns__buttons">
+                          See Value
+                        </button> */}
+                      </div>
+                    )
+                  )}
+              </List>
+            </div>
           )}
         </Grid>
       </Grid>
