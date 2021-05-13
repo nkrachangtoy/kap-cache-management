@@ -5,9 +5,10 @@
   align-items: center;
   height: 100vh;
   width: 70px;
-  background-color: #0484d3;
+  background-color: $primary;
   &__icon {
     margin: 20% 0 20% 0;
     color: white;
+    width: 48px;
   }
 }

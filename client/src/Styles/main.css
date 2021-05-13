@@ -78,7 +78,7 @@ pre {
   opacity: 0.85;
   font-size: 0.85rem;
   font-weight: 400;
-  background-color: #0484d3;
+  background-color: #007ec3;
   margin: 0 5px;
 }
 
@@ -195,12 +195,13 @@ pre {
           align-items: center;
   height: 100vh;
   width: 70px;
-  background-color: #0484d3;
+  background-color: #007ec3;
 }
 
 .sidenav__icon {
   margin: 20% 0 20% 0;
   color: white;
+  width: 48px;
 }
 
 .grid {
@@ -244,7 +245,7 @@ pre {
   justify-content: center;
   align-items: center;
   padding: 0;
-  color: #0484d3;
+  color: #007ec3;
 }
 
 .pagination__button:active {
@@ -451,7 +452,7 @@ pre {
 }
 
 .addKeyForm__button--submit {
-  background-color: #0484d3;
+  background-color: #007ec3;
   margin-right: 1.5rem;
 }
 
@@ -499,7 +500,7 @@ pre {
       -ms-flex-pack: center;
           justify-content: center;
   color: white;
-  background-color: #0484d3;
+  background-color: #007ec3;
   border-radius: 5px;
   width: 32px;
   height: 32px;
@@ -521,7 +522,7 @@ pre {
 }
 
 .patternsDrawer__tab {
-  background-color: #0484d3;
+  background-color: #007ec3;
   color: white;
 }
 
@@ -568,7 +569,7 @@ pre {
   opacity: 0.85;
   font-size: 0.85rem;
   font-weight: 400;
-  background-color: #0484d3;
+  background-color: #007ec3;
 }
 
 .viewPatterns__button:hover, .viewPatterns__button:active {
@@ -595,7 +596,7 @@ pre {
   opacity: 0.85;
   font-size: 0.85rem;
   font-weight: 400;
-  background-color: #0484d3;
+  background-color: #007ec3;
   color: white;
   margin: 0 5px;
 }
@@ -653,7 +654,7 @@ pre {
 }
 
 .keyValue__button {
-  color: #0484d3;
+  color: #007ec3;
   position: relative;
   cursor: pointer;
 }
