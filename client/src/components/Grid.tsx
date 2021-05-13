@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
-import BtnCellRenderer from "./BtnCellRenderer";
+
 
 interface IColumnDef {
   headerName?: string;
@@ -55,7 +55,7 @@ const Grid: React.FC<GridProps> = ({ rowData, keyValue, handleGetSelectedRows, h
     },
     {
       field: 'value',
-      cellRenderer: 'btnCellRenderer',
+      cellRenderer: btnCellRenderer,
       flex: 1,
     },
     {
