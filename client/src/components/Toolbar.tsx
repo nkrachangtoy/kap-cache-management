@@ -23,7 +23,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
 }) => {
   return (
     <div className="toolbar">
-      <span className="toolbar__header">Results</span>
+      <span className="toolbar__header">KONNECT</span>
       <div className="toolbar__actions">
         <Tooltip title="Patterns" placement="top">
           <button

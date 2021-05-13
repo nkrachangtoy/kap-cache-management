@@ -21,7 +21,7 @@ const Pagination: React.FC<PaginationProps> = ({
     <div className="pagination">
       <div className="pagination__results">
         <span className="pagination__text">
-          {firstNum} - {lastNum} 
+        Results  {firstNum} - {lastNum} 
         </span>
         {" "}of{" "}
         <span className="pagination__text">
