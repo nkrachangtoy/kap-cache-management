@@ -299,6 +299,7 @@ pre {
   padding: 9px 18px 9px 36px;
   border-radius: 5px;
   border: 1px solid black;
+  min-width: 180px;
 }
 
 .search__icon {
