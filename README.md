@@ -31,18 +31,18 @@ Currently KONNECT has implemented a Redis cache on AWS that we use extensively a
 
 ### Built With
 
-- [.NET Core 3.1]("https://dotnet.microsoft.com/")
-- [Microsoft Azure]("https://azure.microsoft.com/en-ca/")
-- [React with TypeScript]("https://reactjs.org/")
-- [Redis]("https://redis.io/")
-- [RedisLabs]("https://redislabs.com/")
-- [AWS S3]("https://aws.amazon.com/s3/")
-- [Material UI]("https://material-ui.com/")
-- [AG Grid]("https://www.ag-grid.com/")
+- [.NET Core 3.1](https://dotnet.microsoft.com/)
+- [Microsoft Azure](https://azure.microsoft.com/en-ca/)
+- [React with TypeScript](https://reactjs.org/)
+- [Redis](https://redis.io/)
+- [RedisLabs](https://redislabs.com/)
+- [AWS S3](https://aws.amazon.com/s3/)
+- [Material UI](https://material-ui.com/)
+- [AG Grid](https://www.ag-grid.com/)
 
 ## API Documentation
 
-View API Documentation [here]("https://documenter.getpostman.com/view/13703734/TzRSh8AV")
+View API Documentation [here](https://documenter.getpostman.com/view/13703734/TzRSh8AV)
 
 <!-- GETTING STARTED -->
 
@@ -257,9 +257,9 @@ Redis-cli GET "Key1"
 
 ##### Pacakges used (Server Side)
 
-- [Microsoft.AspNetCore.Mvc.NewtonsoftJson V3.0.0]("https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/")
-- [StackExchange.Redis V2.2.4]("https://stackexchange.github.io/StackExchange.Redis/Basics.html")
-- [Swashbuckle.AspNetCore V6.1.3]("https://github.com/domaindrivendev/Swashbuckle.AspNetCore")
+- [Microsoft.AspNetCore.Mvc.NewtonsoftJson V3.0.0](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/)
+- [StackExchange.Redis V2.2.4](https://stackexchange.github.io/StackExchange.Redis/Basics.html)
+- [Swashbuckle.AspNetCore V6.1.3](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)
 
 ### Installation (Client Side)
 
@@ -279,7 +279,10 @@ Redis-cli GET "Key1"
 
 ## Contributors
 
-[Nusorn Krachangtoy]("https://github.com/nkrachangtoy")
-[Sabrina Kuah]("https://github.com/scurrie90")
-[Simon Currie]("https://github.com/sabkuah")
-[Russell Telen]("https://github.com/russtelen")
+[Nusorn Krachangtoy](https://github.com/nkrachangtoy)
+
+[Sabrina Kuah](https://github.com/scurrie90)
+
+[Simon Currie](https://github.com/sabkuah)
+
+[Russell Telen](https://github.com/russtelen)
