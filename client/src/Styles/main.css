@@ -310,8 +310,8 @@ pre {
 
 .modal {
   position: absolute;
-  top: 30%;
-  left: 40%;
+  top: 20%;
+  left: 35%;
   width: 600px;
   background-color: white;
   border-radius: 5px;
@@ -650,5 +650,16 @@ pre {
 .filterPatterns__selectNext {
   font-weight: lighter;
   color: grey;
+}
+
+.keyValue__button {
+  color: #0484d3;
+  position: relative;
+  cursor: pointer;
+}
+
+.keyValue__popover {
+  position: absolute;
+  font-size: 18px;
 }
 /*# sourceMappingURL=main.css.map */

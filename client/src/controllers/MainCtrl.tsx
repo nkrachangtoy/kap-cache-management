@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Main from "../components/Main";
 import AddKeyForm from "../components/AddKeyForm";
+import BtnCellRenderer from "../components/BtnCellRenderer";
 import {
   deleteKeyBySelection,
   getAllKeys,
@@ -36,6 +37,7 @@ const MainCtrl = () => {
   const [selectedRows, setSelectedRows] = useState<Array<string>>([]);
   const [deleteQuery, setDeleteQuery] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
+  const [openKeyValueModal, setOpenKeyValueModal] = useState<boolean>(false);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openPatterns, setOpenPatterns] = useState(false);
   const [keyValue, setKeyValue] = useState<IKeyValue>({
@@ -131,6 +133,14 @@ const MainCtrl = () => {
     setOpen(false);
   };
 
+  const handleOpenKeyValueModal = () => {
+    setOpenKeyValueModal(true);
+  }
+
+  const handleCloseKeyValueModal = () => {
+    setOpenKeyValueModal(false);
+  }
+
   const toggleDrawer = () => {
     setOpenDrawer(!openDrawer);
   };
@@ -162,6 +172,7 @@ const MainCtrl = () => {
       deleteQuery={deleteQuery}
       keyValue={keyValue}
       modalBody={modalBody}
+      btnCellRenderer={BtnCellRenderer}
       openPatterns={openPatterns}
       setOpenPatterns={setOpenPatterns}
       setKeyValue={setKeyValue}
@@ -178,6 +189,9 @@ const MainCtrl = () => {
       handleOpen={handleOpen}
       handleClose={handleClose}
       toggleDrawer={toggleDrawer}
+      openKeyValueModal={openKeyValueModal}
+      handleCloseKeyValueModal={handleCloseKeyValueModal}
+      handleOpenKeyValueModal={handleOpenKeyValueModal}
     />
   );
 };

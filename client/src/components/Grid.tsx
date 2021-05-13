@@ -2,16 +2,20 @@ import React, { useState, useEffect } from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
+import BtnCellRenderer from "./BtnCellRenderer";
 
 interface IColumnDef {
-  headerName: string;
+  headerName?: string;
   field?: string;
   sortable?: boolean;
   filter?: boolean;
   headerCheckboxSelection?: boolean;
   checkboxSelection?: boolean;
-  flex: number;
   lockPosition?: boolean;
+  flex: number;
+  cellRendererParams?: any;
+  cellRenderer?: any;
+  cellRendererFramework?: any;
 }
 
 interface IRowData {
@@ -21,12 +25,24 @@ interface IRowData {
   totalPages: number;
 }
 
+interface IKeyValue {
+  keyName: string;
+  valueString: string;
+}
+
+
 interface GridProps {
   rowData: any;
   handleGetSelectedRows: (row: Array<IRowData>) => void;
+  handleGetValue: (key: string) => void;
+  btnCellRenderer: () => void;
+  keyValue: IKeyValue;
+  open: boolean;
+  onClose: () => void;
+  handleOpenKeyValueModal: () => void;
 }
 
-const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
+const Grid: React.FC<GridProps> = ({ rowData, keyValue, handleGetSelectedRows, handleGetValue, btnCellRenderer, handleOpenKeyValueModal }) => {
   const [gridApi, setGridApi] = useState<null | any>(null);
   const [numFields, setNumFields] = useState<number>(1);
   const [destructuredKeys, setDestructuredKeys] = useState<null | any>(null);
@@ -38,11 +54,16 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
       flex: 1,
     },
     {
+      field: 'value',
+      cellRenderer: 'btnCellRenderer',
+      flex: 1,
+    },
+    {
       headerName: "Key Name",
       field: "field0",
       sortable: true,
       filter: true,
-      flex: 2,
+      flex: 1,
     },
   ]);
 
@@ -90,6 +111,12 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
         lockPosition: true,
         flex: 1,
       },
+      {
+        field: 'value',
+        cellRendererFramework: btnCellRenderer,
+        cellRendererParams: { value: handleGetValue },
+        flex: 1,
+      }
     ];
 
     if (numFields > 1) {
@@ -102,6 +129,8 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
           flex: 2,
         };
         columns.push(column);
+        setColumnDefs(columns);
+        console.log("column definitions>>", columns);
         i++;
       } while (i < numFields);
 
@@ -115,7 +144,7 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
    * @return Array of key objects
    */
 
-  const destructureKeys = (rowData: any) => {
+  const destructureKeys =  (rowData: any) => {
     let splitKeys: Array<object> = [];
     rowData?.keys?.map((key: any) => {
       const splitArr = key?.keyName?.split("#");
@@ -154,6 +183,7 @@ const Grid: React.FC<GridProps> = ({ rowData, handleGetSelectedRows }) => {
           setGridApi(params.api);
         }}
         onRowSelected={handleSelected}
+        suppressRowClickSelection={true}
       />
     </div>
   );
