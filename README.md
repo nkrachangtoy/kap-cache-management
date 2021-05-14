@@ -275,6 +275,17 @@ Redis-cli GET "Key1"
 - [CodeMirror](https://codemirror.net/)
 - [Toastr](https://codeseven.github.io/toastr/demo.html)
 - React with Typescript
+
+<!-- USER NOTES -->
+
+## User Notes
+
+1. The Delete function has two modes:
+   - If nothing is selected and the delete button is pressed, a query drawer will open and bulk delete can be done by Redis Query
+   - If there are selections, the selections will be deleted and the query drawer will not open
+2. Searching must be done by Redis query 
+   - for example "IsFeature" will produce no results, but "IsFeature*" will result in all keys that start with "IsFeature".
+
 <!-- CONTACT -->
 
 ## Contributors
